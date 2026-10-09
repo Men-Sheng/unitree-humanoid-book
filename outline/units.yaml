@@ -1,0 +1,750 @@
+# outline/units.yaml — 《人形机器人：从一颗关节往下挖》Phase 2 大纲（现行版）
+#
+# 定位（作者 2026-10-08 指定）：
+#   1. 只主讲**人形机器人**（H1 / H1-2 / G1 / R1 / H2 / Dex 手 / Z1 臂）。
+#      四足只在两处出现：作为"为什么双足更难"的对照，以及作为关节器件的史料来源。
+#   2. 读者 = **有一定相关从业经验、但没接触过机器人的工程师和科技爱好者**。
+#      默认读者看得懂微分方程、会写 C、知道 PID 和 MOSFET。不再做零门槛科普。
+#   3. 深度标准（作者原话）：FOC 的位置/速度/扭矩"本质是被一个垂直于转子的磁场控制。
+#      磁场由电流控制。改变外面电流导通的时间，可以合成为任意方向任意大小的磁场"。
+#      ——每一章都要挖到这一层：不是"它用了 FOC"，而是"为什么只有这一条路"。
+#
+# 每章的强制结构（depth ladder，四步，缺一不算写完）：
+#   stack    这一层在技术栈的哪一格，上下游是什么，时间尺度多少
+#   mechanism 它靠什么机制工作（部件、信号、闭环）
+#   base     往下挖到的第一性原理：一个公式 + 一步代数，读者能自己复算
+#   boundary 它在哪里失效、代价是什么、厂商没说什么
+#
+# 自定义字段：
+#   zoom:            whole | part | base | cross | deep | epilogue | appendix —— 叙述尺度
+#   dig:             四步深度阶梯（stack / mechanism / base / boundary）
+#   formula:         本章要推给读者看的式子（可空，但第 1 部不允许空）
+#   anchor_number:   本章的数量级锚点（数字 + 单位 + 来源标记）
+#   code:            none | pseudo | real
+#   gate_critical:   写完后必须过盲评反驳
+#   needs_measure:   有只有亲手量才能填的数 → 挂 verification/
+#
+# 数字来源标记：[厂]=官方公布 [拆]=第三方拆解 [算]=本书推算（脚本可复算）
+#              [行]=教科书/行业通识，非宇树事实 [未]=查不到，进附录 E 诚实表
+# 铁律：[行] 不能写成 [厂]；宇树没公布的东西本书一律不替它编。
+
+units:
+
+  # ═════════════ 第 0 部 定位：这台机器由六个时间域组成 ═════════════
+
+  - unit: "00"
+    part: "第 0 部 定位"
+    title: 一台人形机器人的六个时间域
+    zoom: whole
+    gate_critical: true
+    code: none
+    needs_measure: false
+    purpose: 给全书一张地图——从 20 kHz 的电流环到 5 Hz 的大模型，同一台机器同时在六个数量级上运行，"实时性"是它的第一组织原则
+    dig:
+      stack: 感知 10–60 Hz → 状态估计 50–200 Hz → 决策 1–10 Hz → 全身控制 100–1000 Hz → 关节伺服 10–40 kHz → 功率与机械
+      mechanism: 三条总线（板内 SPI/UART、实时主环 RS-485/CAN-FD/EtherCAT、算力侧以太网+DDS）把六个域缝在一起
+      base: 一个系统的可控带宽由它最慢的那条反馈回路决定；所以"大脑快不快"几乎不重要，"关节那条环多久转一次"才重要
+      boundary: 这张分层图是本书的分析工具，不是宇树的官方架构图；宇树从未公布自己的分层与频率分配 [未]
+    formula: "带宽 ∝ 1/回路延迟；τ_倒立摆 = √(l/g)"
+    anchor_number: G1 髋高 ≈0.66 m ⇒ τ ≈ 0.26 s；10 ms 延迟占 4%，100 ms 占 38% [算]
+    analogy: 一家公司的六层组织，只有车间主任（电流环）需要毫秒级响应，CEO（VLA）5 Hz 足够
+    risks: [一上来给六层表，读者不知道为什么要分六层；必须先用一个"抖"的现象钉住]
+    target_words: 5200
+
+  - unit: "01"
+    part: "第 0 部 定位"
+    title: 这本书怎么读：一把深度尺
+    zoom: whole
+    gate_critical: false
+    code: none
+    purpose: 告诉工程师读者本书的验收标准是"往下挖三层"，并给出三类读者的动线与可跳过章节
+    dig:
+      stack: 全书结构 = 向下挖（第 1 部）+ 向上建（第 2–4 部）+ 撑不住的地方（第 5 部）
+      mechanism: 每章末尾固定四行：一个可检验的说法 / 证据等级 / 可核对清单 / 下一章钩子
+      base: 判断一段技术说明有没有讲清楚，只看一条——它给的数你能不能自己复算出来
+      boundary: 本书不教你写驱动固件，也不给可编译代码；伪流程只在第 4 部出现
+    anchor_number: 全书 46 章；最短路径 8 章（00 → 04 → 05 → 07 → 08 → 10 → 12 → 14）
+    risks: [把"少代码"误读成"浅"；要在本章就把深度尺立起来]
+    target_words: 2600
+
+  - unit: "02"
+    part: "第 0 部 定位"
+    title: 宇树的人形产品线，以及为什么这本书不讲机器狗
+    zoom: whole
+    gate_critical: true
+    code: none
+    purpose: 把 H1 / H1-2 / G1 / R1 / H2 摆成一条器件档位阶梯，说明人形是同一套执行器语法下更难的实例，不是另一个物种
+    dig:
+      stack: 整机层——DoF 分配、质量、身高、扭矩档位、算力档位、售价
+      mechanism: 腿 12 + 腰 1–3 + 臂 10–14 + 头 2；关节全部是"电机+减速器+编码器+驱动板"四合一
+      base: 平方-立方律：线度 ×1.379（G1→H2）⇒ 扭矩需求 ×3.6，官方器件档位实际 ×3.0–4.0 ✓
+      boundary: 四足在本书只承担两件事——关节器件的史料（GO-M8010-6 从 Go1 时代开始卖），和"四个支点不需要力矩、两个支点全程需要"的能量对照
+    formula: "τ_需求 ∝ L⁴；m ∝ L³"
+    anchor_number: G1 1.32 m/35 kg/膝 90–120 N·m/¥8.5 万；H2 1.82 m/70 kg/腿 360 N·m/$29,900 [厂]
+    analogy: 同一款发动机装在皮卡和赛车上——难的不是发动机，是车只有两个轮子
+    risks: [读者以为本书是产品手册；必须立刻转入第 1 部的器件解剖]
+    target_words: 5800
+
+  - unit: "03"
+    part: "第 0 部 定位"
+    title: 一台 G1 的钱花在哪：23 个关节、35 kg、8.5 万元
+    zoom: part
+    gate_critical: true
+    code: none
+    purpose: 用一张 BOM 结构说明"执行器占整机成本 40–60%"，把读者的注意力压到关节上
+    dig:
+      stack: 整机 → 子系统成本占比 → 关节模组
+      mechanism: 关节 = 无框永磁电机 + 两级行星 + 双编码器 + FOC 驱动板 + 交叉滚子轴承 + 走线中心孔
+      base: 单件成本 × 数量 = 整机成本下界；23 个关节 ⇒ 关节每降 100 元，整机降 2300 元，这是"便宜"的来源
+      boundary: 所有 BOM 数字都是第三方拆解与券商估算（中邮证券 ≈¥41,574、SemiAnalysis $9,976），宇树从未公布成本；本书只引用数量级并标注二手 [拆][推]
+    anchor_number: 关节占 BOM 40–60% [行]；G1 感知阵列 <$600、算力模块 ≈$750 [拆]
+    risks: [成本数字被读者当成官方口径；每个数后面必须跟来源与"二手"标记]
+    target_words: 4200
+
+  # ═════════════ 第 1 部 挖到铜线为止：一颗关节（全书技术核心） ═════════════
+
+  - unit: "04"
+    part: "第 1 部 一颗关节"
+    title: 机器人只有一个抓手：电流
+    zoom: base
+    gate_critical: true
+    code: none
+    needs_measure: false
+    purpose: 立起第 1 部的公理——所有位置、速度、力，最终都只能通过绕组里的电流施加；τ = k_t·i 是全书使用频率最高的一条式子
+    dig:
+      stack: 执行器伺服层的最内环输入
+      mechanism: 驱动器把"目标扭矩"翻译成"目标 q 轴电流"，剩下的都是坐标变换和功率电子
+      base: τ = k_t i；GO-M8010-6 官方 k_t = 0.63895 N·m/A（输出端口径），×40 A = 25.6 N·m ≈ 官方峰值 23.7 N·m ⇒ 手册给的是输出端常数 [算]
+      boundary: k_t 不是常数——磁钢温升退磁、铁芯饱和都会让它掉；且 23.7 N·m 与 30 rad/s 不可同时达到（电压包络限制，第 08 章算）
+    formula: "τ = k_t·i ；k_t(rotor) = k_t(output)/N_gear"
+    anchor_number: 0.63895 N·m/A、40 A、23.7 N·m、1:6.33、530 g、$369 [厂]
+    analogy: 电流是唯一的货币——你没法用"位置"付账，只能用钱买位置
+    risks: [读者以为力控需要力传感器；本章就要把"电流即力矩"钉死，为第 14 章准直驱埋伏笔]
+    target_words: 4600
+
+  - unit: "05"
+    part: "第 1 部 一颗关节"
+    title: 磁场只认垂直分量：FOC 里那个 F 到底指什么
+    zoom: base
+    gate_critical: true
+    code: none
+    purpose: 从洛伦兹力推到 τ = m × B，说明"垂直于转子的磁场"不是比喻而是叉乘的几何，"定向"定向的是这个垂直关系
+    dig:
+      stack: 电机物理层（在任何控制器之前）
+      mechanism: 载流导线在磁场中受力 dF = I dℓ × B；线圈的磁矩 m = N I A n̂；τ = m × B，|τ| = mB sinθ
+      base: θ = 90° 时扭矩最大、θ = 0° 或 180° 时扭矩为零——所以控制扭矩 ⟺ 控制"定子磁场与转子磁钢之间的夹角"，而不是控制磁场大小
+      boundary: 这是面贴式永磁（SPM）的理想式；内嵌式（IPM）多一项磁阻扭矩 (3/2)p(L_d−L_q)i_d i_q，宇树用的是哪一类官方未公布 [未]
+    formula: "τ = (3/2)·p·λ_m·i_q ；k_t = (3/2)·p·λ_m（幅值不变变换约定下）"
+    anchor_number: 扭矩在 sinθ=1 时最大；偏离 90° 每 10° 掉 1.5% [算]
+    analogy: 推门——垂直于门板推最省力，沿着门的方向推再大力气门也不转
+    risks: [把"磁场定向"讲成"对准转子"（错，是定子场与转子场正交）；这一章必须把方向说反的风险写清]
+    target_words: 5000
+
+  - unit: "06"
+    part: "第 1 部 一颗关节"
+    title: 电刷是被淘汰的答案：换向、火花，以及把电流搬回定子
+    zoom: base
+    gate_critical: false
+    code: none
+    purpose: 讲清"为什么机器人不用直流电机"——电刷是机械式 FOC，它把 θ 保持在 90° 的方式是磨损自己
+    dig:
+      stack: 器件史（也是为什么今天的关节是 PMSM）
+      mechanism: 换向器按转子角度切换绕组电流方向；转速越高换向越差、火花越大、碳粉越多
+      boundary: 无刷不是免费的——它需要知道转子角度，于是有了第 14 章的编码器；直流电机反而可以不要传感器
+    anchor_number: 宇树官方措辞"低惯量高速内转子永磁同步电机" [厂]
+    analogy: 电刷是一个每转一圈就要撞一次的机械开关；FOC 是把这个开关搬进软件，代价是它得先知道现在几点
+    risks: [滑成电机史科普；每一段都要回到"所以关节里那颗电机为什么长这样"]
+    target_words: 3800
+
+  - unit: "07"
+    part: "第 1 部 一颗关节"
+    title: 旋转磁场是合成出来的：三相、120°、以及为什么没有三次谐波
+    zoom: base
+    gate_critical: true
+    code: none
+    purpose: 兑现"任意方向任意大小的磁场"这句话的前半段——三个空间上差 120° 的绕组，通上时间上差 120° 的正弦电流，合矢量的模恒定、方向匀速转
+    dig:
+      stack: 电机 → 控制器接口层
+      mechanism: 每相绕组产生一个沿自身轴线的一维脉振磁场；三个一维矢量的和是二维平面里的一个旋转矢量
+      base: i_a = I cosθ, i_b = I cos(θ−120°), i_c = I cos(θ+120°) ⇒ 合成幅值 = 3/2·I·(各相基波幅值)，方向 = θ；三相平衡时零序分量为零，星形中点不引出也能独立控制两个自由度
+      boundary: 为什么是三相不是两相——两相也能合成任意矢量，三相的好处是磁动势空间谐波落在 6k±1 次（5、7、11、13），没有 3 次；这是行业通识不是宇树事实 [行]
+    formula: "Clarke 变换的几何版：(i_α,i_β) = Σ i_k·(cosφ_k, sinφ_k)，φ_k = 0°,120°,240°"
+    anchor_number: 三相合成矢量幅值 = 相电流峰值（幅值不变约定）[算]
+    analogy: 三个人在互成 120° 的方向上推一个球，只要力气按正弦轮流变化且相位差 120°，合力就是一只手在匀速画圆
+    risks: [读者会问"那我的电流怎么按 120° 变"——必须当场交给下一章的 PWM，不能留悬]
+    target_words: 5400
+
+  - unit: "08"
+    part: "第 1 部 一颗关节"
+    title: 改变导通时间：PWM 如何在六边形里合成任意磁场
+    zoom: base
+    gate_critical: true
+    code: pseudo
+    needs_measure: false
+    purpose: 兑现"任意方向任意大小"的后半段——桥臂只有 8 个离散电压矢量，靠伏秒平衡在一个开关周期内平均出六边形内的任意一点
+    dig:
+      stack: 控制器 → 栅极驱动 → 功率桥
+      mechanism: 6 个 MOSFET = 3 个半桥 = 8 种开关组合（6 个有效矢量 + 2 个零矢量）；用相邻两个有效矢量加零矢量按时间配比逼近目标矢量
+      base: V_avg = (1/T)∫V dt；SVPWM 的线性区是六边形的内切圆，半径 V_bus/√3；SPWM 只能到 V_bus/2 ⇒ 同样的母线电压，SVPWM 多 15.5% 的可用电压 [算]
+      boundary: 六边形之外不可达 ⇒ 高速时电压耗尽（这就是 23.7 N·m 与 30 rad/s 不能同时达到）；换相死区让低电压端出现畸变（第 13 章）
+    formula: "d = (V_target/V_bus)·T ；V_相峰 ≤ V_bus/√3（SVPWM 线性区）"
+    anchor_number: 24 V 母线 ⇒ SVPWM 相电压线性上限 13.86 V；30 rad/s 时反电势峰值 19.17 V ⇒ 两个角点互斥 [算]
+    analogy: 你只能开八档的油门，但一秒内按比例搭配这八档，平均下来是任意一脚油门
+    risks: [把 SVPWM 讲成"一种更高级的 PWM"而不说它是几何约束的产物；必须画六边形]
+    target_words: 6200
+
+  - unit: "09"
+    part: "第 1 部 一颗关节"
+    title: 转子不介意你是斩波的：两级低通与"平均"为什么合法
+    zoom: base
+    gate_critical: true
+    code: none
+    purpose: 回答读者一定会冒出来的质疑——20 kHz 的通断方波，凭什么电机不抖、不发热、不失步
+    dig:
+      stack: 功率级与机械级之间的物理滤波
+      mechanism: 绕组电感让电流不能突变（电时间常数 ms 级）；转子惯量让角度不能突变（机时间常数 100 ms 级）
+      base: 电流纹波 Δi ≈ V·D(1−D)/(L·f_pwm) ⇒ 提高开关频率 f 与增大 L 都能压纹波；纹波不产生平均扭矩，只产生铜损与噪声
+      boundary: 频率不是越高越好——开关损耗 ∝ f，第 13 章的母线电容与结温会来收账；机器人关节选 20 kHz  partly 是为了把纹波推出人耳范围
+    formula: "τ_e = L/R ；Δi = V·D(1−D)/(L·f_sw)"
+    anchor_number: 20 kHz 开关 / 电流环 1–2 kHz / 速度环 ~100 Hz / 位置环 ~10 Hz 的量级阶梯 [行]
+    analogy: 用消防水枪的脉冲喷水去推水车，水车只觉得是稳定的一股力
+    risks: 给出 L、R 的具体值——宇树未公布，只能用公式与量级，标注「行」
+    target_words: 4400
+
+  - unit: "10"
+    part: "第 1 部 一颗关节"
+    title: Clarke 与 Park：把交流电机在数学上变成直流电机
+    zoom: base
+    gate_critical: true
+    code: pseudo
+    purpose: 全书最硬的一章之一——磁场定向的本质是一次坐标旋转，转完之后扭矩控制退化成"给一个直流电流"
+    dig:
+      stack: 电流环内部的两步变换（Clarke 定坐标 → Park 随转子转）
+      mechanism: 采样两相电流 → Clarke 得 i_α i_β → 用编码器角 θ 做 Park 得 i_d i_q → 两个 PI → 逆 Park → 逆 Clarke/SVPWM
+      base: 在随转子旋转的坐标系里看，永磁体磁场恒定停在 d 轴上，于是"要产生扭矩就得让定子场垂直于它"变成"i_q 给定扭矩、i_d 给定磁通"——两个直流量的两个 PI 环路
+      boundary: 一切依赖 θ：编码器装偏一个角度，i_q 就有一部分漏进 i_d，扭矩掉、电流涨、电机发热；这是装配工艺问题不是算法问题
+    formula: "i_d = i_α cosθ + i_β sinθ ；i_q = −i_α sinθ + i_β cosθ"
+    anchor_number: 角度误差 5° ⇒ 同等电流下扭矩掉 0.4%，但磁化电流占 8.7%（会顶到母线）[算]
+    analogy: 你没法追着一只旋转的蜻蜓量它的速度；坐到蜻蜓身上，它就是静止的——Park 变换就是那把跟着转的椅子
+    risks: [公式写反（d/q 与 sin/cos 的符号约定各家不同）；必须显式声明本书用幅值不变变换，并给出自检脚本]
+    target_words: 6400
+
+  - unit: "11"
+    part: "第 1 部 一颗关节"
+    title: i_q 管扭矩，i_d 管磁场：最大扭矩每安培与弱磁
+    zoom: base
+    gate_critical: true
+    code: none
+    purpose: 把 q/d 轴的物理分工讲透，并解释为什么机器人关节通常选 i_d = 0，以及在什么情况下故意让 i_d < 0
+    dig:
+      stack: 电流环给定生成策略
+      mechanism: SPM 下 τ = (3/2)p λ_m i_q，i_d 不贡献扭矩只增/减气隙磁通；IPM 多一项磁阻扭矩
+      base: i_d = 0 的理由是力矩电流比最大、控制最简；i_d < 0（弱磁）的理由是高速时反电势顶到母线，必须用去磁电流把电压腾出来——代价是同样电流出更少扭矩
+      boundary: 人形机器人几乎不需要弱磁（关节不追求高转速，膝 30 rad/s 量级），但轮式/髋部高转速关节会碰到；宇树未公布是否实现弱磁 [未]
+    anchor_number: 准直驱关节的"低减速比 ⇒ 高转速需求"矛盾：IM6014 54.2 rad/s @60 V [厂]
+    risks: [把弱磁讲成"提速魔法"；必须说清它是用扭矩换电压裕度]
+    target_words: 4800
+
+  - unit: "12"
+    part: "第 1 部 一颗关节"
+    title: 三个环其实是一个环：电流 → 速度 → 位置的带宽递减律
+    zoom: base
+    gate_critical: true
+    code: pseudo
+    purpose: 回答用户点名的那句话——位置、速度、扭矩为什么"本质上是同一个东西"：它们只是同一个 q 轴电流给定外面套了几层壳
+    dig:
+      stack: 关节 MCU 内的控制回路结构，对接上层 6 kHz 指令
+      mechanism: 位置环出速度给定 → 速度环出扭矩给定 → 扭矩给定 ÷ k_t = i_q 给定 → 电流环出电压 → SVPWM；每一环的误差都是下一环的输入
+      base: 级联稳定的条件是内环带宽 ≥ 外环 5–10 倍，否则外环把内环的动态当成扰动；所以"电流环最快"不是惯例而是稳定性要求
+      boundary: 宇树官方给的是**通信/指令刷新率 6000 Hz**（GO-M8010-6）与"IM6014 轮询 10 kHz"，PWM 载波频率从未公布；本书不得把两者混为一谈 [厂][未]
+    formula: "τ_cmd = τ_ff + k_p(q_ref − q) + k_d(dq_ref − dq)（宇树 lowcmd 每关节的五元组 q, dq, kp, kd, τ）"
+    anchor_number: 电流环 ~kHz / 速度环 ~百 Hz / 位置环 ~几十 Hz / 全身 1 kHz / 策略 50 Hz / VLA 5–7 Hz [行][厂]
+    analogy: 方向盘（位置）→ 油门（速度）→ 喷油嘴（电流）；你以为你在打方向，其实你的手一直搭在油门上
+    risks: [读者会以为"三个环"是三块芯片；要说清它们在同一次中断里按顺序跑完]
+    target_words: 6000
+
+  - unit: "13"
+    part: "第 1 部 一颗关节"
+    title: 死区、采样时刻与母线电容：驱动板炸管的四种方式
+    zoom: base
+    gate_critical: true
+    code: none
+    purpose: 从"原理都对"走到"板子会炸"——把功率电子的四类失效讲成可预防的检查表，这是工程师读者最有获得感的一章
+    dig:
+      stack: 半桥物理层
+      mechanism: 上下管必须互锁 ⇒ 死区；死区期间电流走体二极管 ⇒ 输出电压被"吃掉"一段时间；电流采样必须落在下管导通且电流连续的那扇窗口里
+      base: 死区电压误差 ΔV = (t_dead/T_pwm)·V_bus ⇒ 100 ns @20 kHz / 24 V = 0.048 V；低速时反电势只有零点几伏，这 48 mV 就是主要畸变源（有的文献取 2 倍，取决于死区是否上下管同时存在，本书取单倍并在正文声明）[算]
+      boundary: 四类炸管——采样与 PWM 不同步（电流环噪声）、死区不补偿（过零畸变）、母线电容不足（再生能量顶穿耐压）、散热不足（降额退磁）；宇树关节板的具体设计未公开 [未]
+    formula: "ΔV_dead = (t_dead/T)·V_bus ；E_cap = ½C(V_max²−V_min²)"
+    anchor_number: 100 ns 死区 = 20 kHz 周期的 0.2% ⇒ 24 V 母线下 48 mV [算]
+    analogy: 死区是防止自己短路的那道保险，代价是每秒钟都在偷偷少给你一点力
+    risks: [写具体器件型号与参数（R_ds(on)、电容容值）——无一手来源，只能给公式与量级]
+    target_words: 5600
+
+  - unit: "14"
+    part: "第 1 部 一颗关节"
+    title: 编码器、齿隙与准直驱：为什么 G1 用 20.58:1 行星而不是谐波
+    zoom: base
+    gate_critical: true
+    code: none
+    needs_measure: true
+    purpose: 把"减速比"从参数表里的一行讲成人形机器人的路线选择——高减速比换扭矩但毁掉力感知，低减速比保力感知但逼你造更大的电机
+    dig:
+      stack: 电机端 → 减速器 → 输出端 → 负载；双编码器（转子端 + 输出端）
+      mechanism: 15 bit 绝对值编码器 = 32768 格 = 0.011°；经 20.58:1 折算到输出端 0.00053°；而谐波减速器的背隙是 6 弧分 = 0.1°
+      base: 齿隙是位置精度的地板，比编码器分辨率低约 190 倍 ⇒ 再精细的编码器也救不了减速器的空程 [算]
+      boundary: 准直驱的代价是同样的电机只能给更小的输出扭矩，于是必须多相、多槽、高堆叠系数、高母线电压；收益是电机端电流就能当作输出扭矩用（第 04 章的 k_t × 减速比），所以宇树 G1 不需要每个关节装六维力传感器——而智元精灵 G2 装了全关节力矩传感器（≤0.02 N·m、≥5 kHz），两条路线的分歧在这里 [拆][厂]
+    formula: "θ_输出分辨率 = θ_编码器/N ；τ_输出 ≈ k_t·i·N·η"
+    anchor_number: 15 bit / 20.58:1（G1 拆解）/ 谐波背隙 6 弧分（Z1 官方）/ 齿隙 = 折算后分辨率的 187 倍 [厂][拆][算]
+    analogy: 齿轮箱是一段"允许撒谎的对话"——你转手柄 0.1°，输出端可能一动没动
+    risks: [把"准直驱"写成"没有减速器"；G1 有 20.58:1，只是比谐波的 60–160 低]
+    target_words: 6200
+
+  - unit: "15"
+    part: "第 1 部 一颗关节"
+    title: 三代关节的账本：23.7 → 34.4 → 360 N·m
+    zoom: part
+    gate_critical: true
+    code: none
+    purpose: 把第 1 部收口——用 GO-M8010-6 / IM6014 / M107 三颗官方器件，把前面所有式子代一遍真实数字
+    dig:
+      stack: 器件选型层
+      mechanism: GO-M8010-6（530 g、1:6.33、23.7 N·m、RS-485 4 Mbps、6 kHz、$369）→ IM6014（535 g、3:38、34.4 N·m、24–75 V、双绝对编码器、4/6 Mbps、10 kHz 轮询）→ M107（H1/H1-2，膝 360、髋 220、踝 59 N·m）
+      base: 扭矩密度对照：官方 H1"峰值扭矩密度 189 N·m/kg"⇒ 360 ÷ 189 ≈ 1.9 kg/关节单元，与 G1 拆解主承载关节 1.1 kg 同数量级 ✓ [算]
+      boundary: 全系只公布峰值扭矩，没有一个型号公布额定（持续）扭矩——这是本书能给出的最有价值的"空白"之一 [未]
+    formula: "τ·ω = 名义功率上界；GO-M8010-6 23.7×30 = 711 W ÷ 0.53 kg = 1.3 kW/kg"
+    anchor_number: 23.7 / 34.4 / 360 N·m；0.63895 N·m/A；530 g / 535 g [厂]
+    risks: [把 711 W 当成额定功率；必须写"两个角点不可同时达到"]
+    target_words: 5200
+
+  # ═════════════ 第 2 部 向上建：从关节到姿态 ═════════════
+
+  - unit: "16"
+    part: "第 2 部 从关节到姿态"
+    title: 双足为什么比四足难：四个支点可以零力矩，两个不行
+    zoom: part
+    gate_critical: true
+    code: none
+    purpose: 用能量账而不是"感觉"回答双足难在哪——站立时四足可以让关节零力矩，双足必须全程闭环扛重力
+    dig:
+      stack: 整机 → 控制策略
+      mechanism: 支撑多边形、重心投影、摆动相单腿支撑时间
+      base: 平均电功率密度：AS2 8.1 W/kg vs H2 4.6 W/kg、G1 6.2 W/kg，但人形这 4.6–6.2 全部花在"没有休息窗口"的腿腰关节上 [算]
+      boundary: 这组功率密度是从官方 Wh 与官方续航推的，宇树从未公布整机功耗 [推]
+    formula: "P/m = (Wh ÷ h)  m ；步频 f ≈ 1/τ = √(g/l)"
+    anchor_number: Go2 官方工作最大功率 3000 W ÷ 12 关节 = 250 W/关节 [厂]；H2 972 Wh / 3 h / 70 kg = 4.6 W/kg [推]
+    risks: [讲成"人形更难"的口号；必须给数]
+    target_words: 4800
+
+  - unit: "17"
+    part: "第 2 部 从关节到姿态"
+    title: 倒立摆、ZMP 与捕获点：站稳的判据到底是什么
+    zoom: part
+    gate_critical: true
+    code: pseudo
+    purpose: 给出"稳"的可计算定义，而不是"看起来稳"
+    dig:
+      stack: 全身控制层（100–1000 Hz）
+      mechanism: ZMP = 地面反力作用点；ZMP 落在支撑多边形内 ⇒ 不翻；捕获点 = 停下来时脚该落的位置
+      base: τ = √(l/g) 是倒立摆的时间常数：G1 髋高 0.66 m ⇒ 0.26 s，人必须在这 0.26 s 内至少完成一次"接住自己"
+      boundary: ZMP 假设刚体与平坦地面，软地、斜坡、被推、手里端着东西都会破坏它；RL 路线干脆不用 ZMP
+    formula: "τ = √(l/g) ；ZMP = (Στ − h×F) / F_z"
+    anchor_number: 0.26 s / 步频 ~2 Hz / 单腿支撑 ~200 ms [算]
+    risks: [把 ZMP 讲成"平衡的全部答案"]
+    target_words: 5400
+
+  - unit: "18"
+    part: "第 2 部 从关节到姿态"
+    title: 刚度是软件写的：阻抗控制与那颗可编程的弹簧
+    zoom: part
+    gate_critical: true
+    code: pseudo
+    purpose: 讲清宇树 lowcmd 为什么每关节同时给 kp、kd、τ——关节不是位置伺服，是一个可写的弹簧-阻尼-力矩源
+    dig:
+      stack: 关节层与控制层之间
+      mechanism: τ = τ_ff + kp(q_ref−q) + kd(dq_ref−dq)，全部在关节 MCU 内 6 kHz 执行
+      base: 刚度上限由电流上限决定：kp_max ≈ τ_max/Δq_allowed；想硬就得留够电流余量，想软就得接受跟踪误差
+      boundary: kp/kd 太大 + 环境刚度大 ⇒ 自激振荡（第 22 章），这是"参数调不出来"的物理原因，不是玄学
+    formula: "ω_n = √(k_p/J) ；稳定要求 ω_n < 电流环带宽/5"
+    anchor_number: 若允许位置误差 0.05 rad、膝峰值 120 N·m ⇒ kp ≤ 2400 N·m/rad（还没算 kd）[算]
+    risks: [读者会问"那到底谁算 kp"——要说清上层给的是轨迹，kp/kd 是人在配]
+    target_words: 5000
+
+  - unit: "19"
+    part: "第 2 部 从关节到姿态"
+    title: 全身控制与 MPC：一次 1 kHz 里要解完的那堆方程
+    zoom: part
+    gate_critical: false
+    code: pseudo
+    purpose: 29 个自由度、一个接触约束、若干优先级任务，怎么在 1 ms 里变成 29 个扭矩给定
+    dig:
+      stack: 100–1000 Hz 控制层
+      mechanism: 动力学方程 + 接触约束 → QP/NLP → 关节扭矩 → 分发到各关节
+      base: 自由度越多，一次求解的矩阵按 n³ 涨；G1 23 DoF vs H2 31 DoF ⇒ 求解量 ×2.4 [算]
+      boundary: 工业上大量人形其实跑的是 RL 策略而不是在线 WBC；宇树公开的训练栈是 RL（unitree_rl_gym / rl_lab），官方未说明整机控制律 [未]
+    target_words: 5200
+
+  - unit: "20"
+    part: "第 2 部 从关节到姿态"
+    title: 一次抬腿的焦耳账
+    zoom: part
+    gate_critical: true
+    code: none
+    purpose: 把能耗从"续航多少小时"还原成物理：搬运自身做的功 + 电机铜损 + 减速器摩擦 + 待机闭环开销
+    dig:
+      stack: 能源 → 执行器
+      mechanism: 13S/9000 mAh ≈ 0.43 kWh（G1）、H1 0.864 kWh/67.2 V、H2 0.972 kWh/75.6 V
+      base: CoT = E/(m·g·d) 无量纲；人步行文献 0.37，宇树自家四足马拉松实测 0.25；人形官方未给 [厂][查]
+      boundary: 官方只给续航小时数，不给 km 与 Wh/km ⇒ 无法算人形的 CoT，这是本书的诚实空白 [未]
+    formula: "CoT = E/(m·g·d) ；P = CoT·m·g·v"
+    anchor_number: 人 65 Wh/km（代谢）；G1 0.43 kWh ÷ 2 h = 216 W [推]
+    risks: [CoT 的单位曾经写错过（它是无量纲的）；脚本必须守住这条]
+    target_words: 4600
+
+  - unit: "21"
+    part: "第 2 部 从关节到姿态"
+    title: 强化学习运控：宇树公开的这条工序
+    zoom: cross
+    gate_critical: true
+    code: pseudo
+    purpose: 讲清"为什么现在的人形会用神经网络走路"，以及官方公开的 Train→Play→Sim2Sim→Sim2Real 工序里每一步在防什么
+    dig:
+      stack: 策略层 → 关节层（50 Hz 策略、500 Hz–6 kHz 执行）
+      mechanism: PPO + 域随机化 + 师生蒸馏（特权教师 → 板载学生）
+      base: 域随机化是在"参数空间"里做积分，让策略对质量/摩擦/延迟的导数不敏感——本质是把 sim2real gap 当成训练时的扰动集
+      boundary: 版本陷阱：unitree_rl_gym 用 Isaac Gym Preview4（2025-07 已 EOL），unitree_rl_lab 用 Isaac Sim 5.1 + Lab 2.3；两代不通用 [厂]
+    anchor_number: 策略输出 50 Hz、lowcmd 500 Hz、关节 6 kHz [厂][算]
+    risks: [把 RL 写成"黑魔法"；每一步都要给出它在防哪个失效]
+    target_words: 5600
+
+  - unit: "22"
+    part: "第 2 部 从关节到姿态"
+    title: sim2real 的沟：仿真里能跑，真机上为什么会抖
+    zoom: deep
+    gate_critical: true
+    code: none
+    purpose: 把"抖"讲成可诊断的物理现象——结构模态、摩擦模型、延迟、接触求解器差异
+    dig:
+      stack: 仿真 ↔ 真机
+      mechanism: 未建模模态频率低于控制带宽 ⇒ 自激；MuJoCo 与 Isaac 的接触求解器给出不同的足端力波形
+      base: 若关节/连杆一阶模态 f_m 落进控制带宽 f_c 之内（f_m < 2–3·f_c），高增益就会激励它；准直驱的低减速比之所以有利，是因为它让传动链更刚、f_m 更高 [行]
+      boundary: 宇树未公布任何结构模态频率 [未]；本章只给判据不给数
+    target_words: 4800
+
+  # ═════════════ 第 3 部 感知、算力与总线 ═════════════
+
+  - unit: "23"
+    part: "第 3 部 感知与算力"
+    title: 眼睛：相机、深度、激光雷达，以及时间同步比分辨率重要
+    zoom: part
+    gate_critical: true
+    code: none
+    purpose: 说明感知链的第一约束不是像素，而是"这一帧和那一路 IMU 是不是同一时刻"
+    dig:
+      stack: 传感器 → SoC
+      mechanism: G1 深度相机 + 3D LiDAR；自研 L1（21,600 点/s、¥999）/ L2（64,000 点/s + 内置 1 kHz IMU）
+      base: 50 Hz 采样 + 10 ms 抖动 ⇒ 姿态角速度 100 °/s 时角度误差 1°；同步误差直接变成定位误差 [算]
+      boundary: G1/H1 的 3D LiDAR 型号官方未点名（拆解口径 Livox Mid-360）[拆][未]
+    anchor_number: L1 ¥999 / L2 ¥1799；Mid-360 ¥3,999；D435i $334 [厂]
+    target_words: 5000
+
+  - unit: "24"
+    part: "第 3 部 感知与算力"
+    title: 前庭与状态估计：IMU、双 IMU，以及「我在哪」是怎么算出来的
+    zoom: part
+    gate_critical: false
+    code: none
+    purpose: 解释人形为什么需要躯干 + 末端两个 IMU，以及零偏与振动敏感度如何决定它能站多久
+    dig:
+      stack: 状态估计层（50–200 Hz）
+      mechanism: unitree_hg 的 doubleIMUState；DDS 暴露 quaternion/gyro/accel/rpy/temperature
+      base: 陀螺零偏 b 在 t 秒内积分出 b·t 的角度误差；1 °/s 的零偏 ⇒ 100 s 后姿态差 100°，所以姿态必须靠视觉/足端接触修正
+      boundary: IMU 型号与采样率官方从未公布 [未]
+    anchor_number: 1 °/s 零偏 ⇒ 60 s = 60° [算]
+    target_words: 4200
+
+  - unit: "25"
+    part: "第 3 部 感知与算力"
+    title: 手：Dex3-1 的 33 个触觉点与空心杯电机
+    zoom: part
+    gate_critical: true
+    code: none
+    purpose: 把"手"作为第 1 部那套执行器语法的极端案例——空间被压到 45 g、1:214 的微型关节
+    dig:
+      stack: 末端执行器
+      mechanism: F-1515-108/214（45 g、34.8×23.1×23.3 mm、0.76/1.498 N·m 理想值）；Dex3-1 9 阵列/33 压力传感器，量程 10–2500 g；Dex5-1 空心杯 + 94 触觉点
+      base: 手指的扭矩需求由"捏住一瓶水不滑"决定：摩擦系数 μ、正压力 N、瓶身半径 r ⇒ τ = μNr，与手腕扭矩差两个数量级
+      boundary: 「理想值"是官方给的换算值，不是实测；Dex5-1 的 94 点与 IP 等级需再核 [未]
+    anchor_number: 45 g / 1:214 / 33 点 / 94 点 [厂]
+    target_words: 4600
+
+  - unit: "26"
+    part: "第 3 部 感知与算力"
+    title: 大脑的功耗预算：130 W 的 Thor 与 6B 的模型
+    zoom: part
+    gate_critical: true
+    code: none
+    purpose: 用算术说明"端侧大模型"卡在哪里——不是算力，是内存带宽与散热
+    dig:
+      stack: 决策层（1–10 Hz）
+      mechanism: G1-EDU PC2 = Jetson Orin NX 16GB；H2 可选 Thor T5000（2070 TFLOPS FP4 / 128 GB / 40–130 W）
+      base: 6B 模型 FP16 ≈ 12 GB 权重；每生成一个 token 要把权重读一遍 ⇒ 单步内存流量 ≈ 12 GB，带宽 100 GB/s 时 ≈ 120 ms —— 这就是"5 Hz 大脑"的来源 [算]
+      boundary: 以上是一阶估算，忽略 KV、激活、多路图像与并行；宇树未公布模型在机内的实际推理频率 [未]
+    formula: "t_step ≈ 权重字节数 ÷ 内存带宽"
+    anchor_number: 12 GB ÷ 100 GB/s = 120 ms ⇒ 8 Hz [算]
+    target_words: 5200
+
+  - unit: "27"
+    part: "第 3 部 感知与算力"
+    title: 三条总线：RS-485 4 Mbps、CAN-FD 5 Mbps、EtherCAT 1 kHz
+    zoom: cross
+    gate_critical: true
+    code: none
+    purpose: 把"关节总线"讲成带宽算术题——一帧能装多少关节、多少赫兹、还剩多少余量
+    dig:
+      stack: 关节 ↔ 小脑
+      mechanism: 宇树官方明确"目前生产的所有电机均用 RS-485"，GO-M8010-6 一总线最多 15 台、6 kHz；IM6014 4/6 Mbps、轮询 10 kHz
+      base: 每关节指令+状态 ≈30 B 单向 ⇒ 15 台 × 6000 次/s × 60 B × 8 = 86.4 Mbps，是官方 4 Mbps 的 21.6 倍 ⇒ 官方 6 kHz 只能是「总线满负荷下的指令刷新率」，不是「每关节 6 kHz 全量交换」 [算]
+      # 注：本条数字由 foc_check.py bus_budget() 回填，勿手改
+      boundary: 这条反推恰好说明 6 kHz 的含义需要谨慎解释；拆解口径与官方口径在"关节用 485 还是 CAN"上互相冲突，本书两条都列 [厂][拆]
+    formula: "带宽 = 节点数 × 帧长 × 速率 × 双向"
+    anchor_number: 4 Mbps / 15 台 / 6000 Hz；EtherCAT 1 kHz ↔ CAN-FD 5 Mbps（智元 X1）[厂]
+    target_words: 5400
+
+  - unit: "28"
+    part: "第 3 部 感知与算力"
+    title: 中间件：DDS 话题、rt/lowcmd，以及行业的"去 ROS 化"
+    zoom: cross
+    gate_critical: false
+    code: real
+    purpose: 给工程师读者一张能上手的通信地图：宇树核心是 DDS 主题而非 ROS 节点，行业三家各走一条路
+    dig:
+      stack: 算力侧软件层
+      mechanism: unitree_sdk2 = CycloneDDS + 请求响应；话题 rt/lowstate、rt/lowcmd、rt/secondary_imu、rt/arm_sdk；unitree_go 与 unitree_hg 两套 IDL
+      base: 确定性实时要求把"发现、序列化、拷贝"从关键路径上挪走，所以工业侧倾向自定义总线 + 自研中间件（AimRT、GalbotSDK）
+      boundary: cyclonedds 必须自编 0.10.2 并设 RMW_IMPLEMENTATION；版本不匹配是二开第一大坑 [厂]
+    anchor_number: lowcmd/lowstate 500 Hz（官方文档口径）[厂]
+    target_words: 5000
+
+  # ═════════════ 第 4 部 大脑：VLA、数据与世界模型 ═════════════
+
+  - unit: "29"
+    part: "第 4 部 大脑"
+    title: 从轨迹到策略：模仿学习、ACT、扩散与流匹配
+    zoom: deep
+    gate_critical: true
+    code: pseudo
+    purpose: 让工程师读者建立"策略函数"这个对象：输入观测、输出动作块，以及为什么它必须建模多峰分布
+    dig:
+      stack: 任务/策略层（1–10 Hz）
+      mechanism: 行为克隆 → 分布匹配（自回归 token / 扩散 / 流匹配）→ 动作分块
+      base: 多峰示范用 MSE 回归会收敛到两峰的均值（即"既不左也不右"），所以必须换成分布建模 [行]
+      boundary: 模仿学习不会比示范更好；失败样本不在数据里就不会修
+    anchor_number: ALOHA 单任务约 50 条演示 [查]
+    target_words: 5200
+
+  - unit: "30"
+    part: "第 4 部 大脑"
+    title: VLA 的架构共识：主干 + 动作专家 + 动作分块 + 异步双系统
+    zoom: deep
+    gate_critical: true
+    code: none
+    purpose: 把全行业收敛到的那张图讲清楚，并解释"为什么低频语义 + 高频动作"是必需的而不是巧合
+    dig:
+      stack: 大脑 ↔ 小脑
+      mechanism: VLM 主干（InternVL2.5-2B / InternLM2-1.8B / Qwen2-7B）+ 独立动作专家（flow matching / anchor diffusion / 自回归 token）+ action chunking + 异步双系统
+      base: 第 26 章的带宽算术给出结论：主干 5–9 Hz，动作头 50–200 Hz（Figure S1 80M @200 Hz；π*0.6 50 Hz 分块）
+      boundary: 各家具体版本号与权重发布状态多为二手报道，本书只写可核到的 [未]
+    anchor_number: GR00T N1.7-3B：action horizon 40、状态/动作维 132、端侧 16 GB+ [查]
+    target_words: 5400
+
+  - unit: "31"
+    part: "第 4 部 大脑"
+    title: 延迟墙：5 Hz 的模型怎么驱动 200 Hz 的手
+    zoom: deep
+    gate_critical: true
+    code: none
+    purpose: 把"快慢两层怎么接"讲成一个控制问题——动作分块 + 插补 + 关节层阻抗，而不是"再快一点"
+    dig:
+      stack: 决策 → 控制
+      mechanism: 一次推理输出未来 40 步动作块，边执行边推理（异步）；关节层用 kp/kd 在两块之间做局部纠错
+      base: 分块长度 = 延迟容忍度；块越长越平滑但对扰动越迟钝——这是显式的 trade-off，不是工程细节
+      boundary: 接触密集任务（插拔、拉链）要求毫秒级反应，分块救不了；这是全行业公认的瓶颈 [查]
+    anchor_number: 63 ms/块（H100 单卡 5 去噪步）；200 ms 出 54 步力矩轨迹（GE-Act）[查]
+    target_words: 4600
+
+  - unit: "32"
+    part: "第 4 部 大脑"
+    title: 宇树的 UnifoLM：世界模型-动作与 6B 全身基座
+    zoom: deep
+    gate_critical: true
+    code: none
+    purpose: 讲一家公司怎么把"大脑"落到开源生态上，以及许可条款对读者的实际影响
+    dig:
+      stack: 模型/生态层
+      mechanism: UnifoLM-WMA-0（2025-09，CC BY-NC-SA）、UnifoLM-VLA-0、UnifoLM-WLA-1.0（6B、约 2500 小时真机、单模型 64 任务、Apache-2.0、2026-09-28 放 Base 权重）；HF 约 200 个 LeRobot 数据集
+      base: 许可即产品策略：NC 与 Apache 的差别决定读者能不能拿它做商用验证
+      boundary: 参数量、数据小时数、任务数均为厂商自陈口径，第三方复现结果有限 [厂][推]
+    anchor_number: 6B / 2500 h / 64 任务 / Apache-2.0 [厂]
+    target_words: 4800
+
+  - unit: "33"
+    part: "第 4 部 大脑"
+    title: 数据经济学：一条演示值多少钱
+    zoom: cross
+    gate_critical: true
+    code: none
+    purpose: 用单位成本算术解释行业为什么分成三派（真机车队 / 仿真合成 / 人类视频），以及"没有田间数据"这个空白值多少
+    dig:
+      stack: 数据基础设施层
+      mechanism: 遥操作 ¥500–1000/小时且 8 小时人工仅得约 1 小时可用；手持末端数百元/小时；人类视频约 ¥100/小时；仿真用算力换
+      base: 同样 100 万条轨迹，三条路线的边际成本曲线不同——真机线性、仿真前重后轻、视频几乎免费但迁移贵
+      boundary: 所有成本都是 2026-09 二手口径；各家 GPU 规模与单条成本未公开 [推][未]
+    anchor_number: AgiBot World 1,001,552 条 / 2976 h / 217 任务；SynGrasp-1B = 160×4090 跑 10 天 [查]
+    target_words: 5000
+
+  - unit: "34"
+    part: "第 4 部 大脑"
+    title: 世界模型现在只解决两件事：数据和评测
+    zoom: deep
+    gate_critical: true
+    code: none
+    purpose: 破除"世界模型 = 通用大脑"的叙事，给出它当前的真实位置
+    dig:
+      stack: 训练/评测层
+      mechanism: 合成数据（Cosmos 3）、可交互环境（Genie 3）、评测器+策略（1XWM、Genie Envisioner、UnifoLM-WMA-0）
+      base: 1X 的 14B 视频扩散策略 5 s rollout 要多 GPU 11 s + IDM 1 s ⇒ 本质开环；没有任何一家把世界模型放进 1 kHz 环 [查]
+      boundary: 多为论文/新闻稿级证据，版本与权重可获取性存疑 [未]
+    target_words: 4400
+
+  # ═════════════ 第 5 部 撑不住的地方：瓶颈 ═════════════
+
+  - unit: "35"
+    part: "第 5 部 撑不住的地方"
+    title: 电池：13 串、9000 mAh、两小时
+    zoom: part
+    gate_critical: true
+    code: none
+    purpose: 把续航讲成电压平台 × 容量 × 峰值塌陷三件事，而不是一个数字
+    dig:
+      stack: 能源层
+      mechanism: G1 13S/9000 mAh（≈0.43 kWh）/54 V 5 A 充约 2 h；H1 0.864 kWh/67.2 V；H2 0.972 kWh/75.6 V；R1 续航约 1 h
+      base: 峰值功率与平均功耗差 5–10 倍 ⇒ 电池电压塌陷 → MCU 复位 → 整机死机是经典事故，这是 BMS 与母线电容的活
+      boundary: 电芯型号、化学体系、能量密度全系未公布 [未]
+    anchor_number: 0.43 / 0.864 / 0.972 kWh [厂][推]
+    target_words: 4400
+
+  - unit: "36"
+    part: "第 5 部 撑不住的地方"
+    title: 热：密封壳里电机与驱动互相加热
+    zoom: base
+    gate_critical: true
+    code: none
+    purpose: 把第 13 章的损耗账接到寿命上——为什么"额定扭矩"这个数厂商不敢给
+    dig:
+      stack: 功率级 + 磁路 + 结构
+      mechanism: 铜损 I²R（+0.393%/°C 电阻温漂）、开关损耗 ∝ f、铁损、密封壳内互相加热
+      base: 扭矩常数随温度掉：磁钢剩磁约 −0.1%/°C（NdFeB）⇒ 升温 80 °C 时同样电流出的扭矩少约 8%，而控制器不知道 [行]
+      boundary: 具体热阻、降额曲线、磁钢牌号全部未公布 [未]；本章只给判据与量级并明确标注
+    anchor_number: 铜电阻 +0.393%/°C；NdFeB 剩磁约 −0.1%/°C [行]
+    target_words: 4400
+
+  - unit: "37"
+    part: "第 5 部 撑不住的地方"
+    title: 抱闸、急停与断电时序：让一台 70 kg 的机器安全地停下来
+    zoom: cross
+    gate_critical: true
+    code: pseudo
+    purpose: 安全是设计出来的时序，不是一个按钮；讲清上电默认态、断电先断哪一路、抱闸失效会怎样
+    dig:
+      stack: 安全层，贯穿电气与软件
+      mechanism: 双通道急停、抱闸逻辑（断电即锁）、力/功率限制、软启动与上电自检
+      base: 抱闸是"失效安全"设计：断电才夹紧，所以关节电机必须在抱闸之前有足够时间把扭矩卸掉
+      boundary: 宇树人形产品的防护等级（IP）与认证状态官方未公布 [未]；ISO 10218 / TS 15062 是行业要求不是宇树事实
+    target_words: 4200
+
+  - unit: "38"
+    part: "第 5 部 撑不住的地方"
+    title: 泛化与长时程：演示很惊艳，连续作业很难
+    zoom: deep
+    gate_critical: true
+    code: none
+    purpose: 给出"能不能用"的判据：成功率、无遥操连续时长、失败恢复、硬件漂移
+    dig:
+      stack: 整机 → 现场
+      mechanism: 任务分布外即退化；策略无记忆；执行器磨损改变动力学
+      base: 成功率随任务时长复合衰减：单步 99% × 100 步 ⇒ 37%——这就是"演示 30 秒可以，8 小时不行"的算术 [算]
+      boundary: 各家公布的都是短任务成功率与自宣时长；宁德时代 7×24 无遥操 3→6 个月是媒体报道级 [推]
+    anchor_number: Gemini Robotics 2：拉袋 44%、拉链 40%、全身落地放物 45.7% [查]
+    target_words: 4600
+
+  - unit: "39"
+    part: "第 5 部 撑不住的地方"
+    title: 行业分工与人才缺口：谁在做什么，缺什么人
+    zoom: cross
+    gate_critical: false
+    code: none
+    purpose: 给工程师读者一张"我下一步该会什么"的地图（本书的实用出口）
+    dig:
+      stack: 产业层
+      mechanism: 大脑层被 NVIDIA 锁死（Orin → Thor）；关节层全是 MCU + FOC + 现场总线；中间件在去 ROS 化
+      base: 三家只在数据来源上分歧（真机车队 / 仿真合成 / 开源生态），其余技术栈高度同构
+      boundary: 岗位与人才判断是行业观察，不是事实陈述
+    target_words: 4200
+
+  # ═════════════ 尾声与附录 ═════════════
+
+  - unit: "40"
+    part: "尾声"
+    title: 一个工程师的十二个月：把这本书变成作品集
+    zoom: epilogue
+    gate_critical: true
+    code: pseudo
+    needs_measure: true
+    purpose: 把六层地图变成可验收的个人路线：每一层一个"能跑、能录像、能被别人复现"的产物
+    dig:
+      stack: 全书六层 → 六件作品
+      mechanism: 一颗会听话的关节 → 一条 1 kHz 实时链路 → 一个恒力按压 → 一份时延报告 → 一个数据集 → 一次微调评测
+      base: 每层的验收都是一个可测量（力矩误差 ≤5% FS、周期抖动 <50 µs、未见条件成功率 ≥70%）
+      boundary: 预算、时间、学校资源因人而异；本书给路线不给承诺
+    anchor_number: 约 ¥3 万元可落地的练手整机配置 [查]
+    target_words: 5200
+
+  - unit: "41"
+    part: "附录"
+    title: 附录 A：符号、术语与单位
+    zoom: appendix
+    gate_critical: false
+    target_words: 3200
+    risks: [符号与正文不一致 → 由脚本比对]
+
+  - unit: "42"
+    part: "附录"
+    title: 附录 B：全书可复算的数（含脚本与输入表）
+    zoom: appendix
+    gate_critical: true
+    target_words: 3600
+    risks: [脚本与正文数字漂移 → CI 比对]
+
+  - unit: "43"
+    part: "附录"
+    title: 附录 C：器件与人形参数表
+    zoom: appendix
+    gate_critical: false
+    target_words: 3000
+
+  - unit: "44"
+    part: "附录"
+    title: 附录 D：去哪继续学（含许可与失效风险标注）
+    zoom: appendix
+    gate_critical: false
+    target_words: 3000
+    risks: [链接腐烂；必须带抓取日期]
+
+  - unit: "45"
+    part: "附录"
+    title: 附录 E：参考来源、抓取日期与「查不到」清单
+    zoom: appendix
+    gate_critical: false
+    target_words: 2400
+    risks: [与 bible/sources.md 双真源 → 由脚本生成，不手写]

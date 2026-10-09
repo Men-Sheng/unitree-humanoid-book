@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<text x="30" y="30" class="s">把整机售价拆开：会动的部分贵，聪明的部分便宜</text>
+<line x1="90" y1="300" x2="920" y2="300" stroke="#666" stroke-width="1"/>
+<rect x="90" y="210" width="521.7933333333334" height="90" rx="6" fill="#1a4f8a33" stroke="#1a4f8a" stroke-width="2"/>
+<text x="96" y="200" class="m" fill="#1a4f8a" font-size="17">$8,487</text>
+<text x="96" y="322" class="tiny" fill="#1a4f8a">23 个关节模组</text>
+<text x="96" y="342" class="tiny" fill="#666">按 GO-M8010-6 零售价 369 美元 × 23（上界）</text>
+<rect x="611.7933333333334" y="210" width="36.88888888888889" height="90" rx="6" fill="#1d6b3a33" stroke="#1d6b3a" stroke-width="2"/>
+<text x="617.7933333333334" y="200" class="m" fill="#1d6b3a" font-size="17">$600</text>
+<text x="617.7933333333334" y="322" class="tiny" fill="#1d6b3a">感知（雷达+相机+IMU）</text>
+<text x="617.7933333333334" y="342" class="tiny" fill="#666">拆解口径 &lt;600 美元</text>
+<rect x="648.6822222222223" y="210" width="46.11111111111111" height="90" rx="6" fill="#1d6b3a33" stroke="#1d6b3a" stroke-width="2"/>
+<text x="654.6822222222223" y="200" class="m" fill="#1d6b3a" font-size="17">$750</text>
+<text x="654.6822222222223" y="322" class="tiny" fill="#1d6b3a">算力（Orin NX 级）</text>
+<text x="654.6822222222223" y="342" class="tiny" fill="#666">拆解口径 ≈750 美元</text>
+<rect x="694.7933333333334" y="210" width="225.20666666666665" height="90" rx="6" fill="#66633" stroke="#666" stroke-width="2"/>
+<text x="700.7933333333334" y="200" class="m" fill="#666" font-size="17">$3,663</text>
+<text x="700.7933333333334" y="322" class="tiny" fill="#666">能源 + 结构 + 线缆 + 装配</text>
+<text x="700.7933333333334" y="342" class="tiny" fill="#666">余量，本书推算</text>
+<line x1="920" y1="190" x2="920" y2="350" stroke="#a52020" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="920" y="178" class="t" fill="#a52020" text-anchor="end">整机零售 $13,500</text>
+<rect x="300" y="150" width="420" height="40" rx="6" fill="#fff" stroke="#1a4f8a" stroke-width="2"/>
+<text x="510" y="176" class="t" text-anchor="middle" font-size="18">关节 ≈ 63%　·　感知+算力 ≈ 10%</text>
+<text x="90" y="372" class="tiny">口径提示：8,487 美元是「全部用零售价」的上界；批量自产成本约为其一半（本书假设）。两种读法都给出同一个结论。</text>
+</svg>

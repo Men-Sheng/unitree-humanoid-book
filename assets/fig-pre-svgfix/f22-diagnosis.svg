@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<text x="30" y="30" class="s">抖成什么样 → 仿真里缺的是哪一样 → 唯一的正解</text>
+<text x="40" y="58" class="t" fill="#666" font-size="16">症状</text>
+<text x="430" y="58" class="t" fill="#666" font-size="16">仿真里不存在的那一样</text>
+<text x="760" y="58" class="t" fill="#666" font-size="16">唯一正解</text>
+<rect x="30" y="70" width="940" height="52" rx="6" fill="#fbfcfe" stroke="#a52020" stroke-width="2"/>
+<text x="44" y="94" class="m" font-size="16">固定频率抖，与步频无关，带载加重</text>
+<text x="430" y="94" class="m" fill="#a52020" font-size="16">结构模态（仿真里连杆是刚的）</text>
+<text x="760" y="94" class="m" font-size="16">改结构，或把带宽压到 f_m/3</text>
+<line x1="420" y1="74" x2="420" y2="118" stroke="#ddd" stroke-width="1"/>
+<line x1="750" y1="74" x2="750" y2="118" stroke="#ddd" stroke-width="1"/>
+<rect x="30" y="128" width="940" height="52" rx="6" fill="#fbfcfe" stroke="#1a4f8a" stroke-width="2"/>
+<text x="44" y="152" class="m" font-size="16">落地冲击峰值远大于仿真</text>
+<text x="430" y="152" class="m" fill="#1a4f8a" font-size="16">接触求解器差异</text>
+<text x="760" y="152" class="m" font-size="16">软足垫 / 重新随机化接触参数</text>
+<line x1="420" y1="132" x2="420" y2="176" stroke="#ddd" stroke-width="1"/>
+<line x1="750" y1="132" x2="750" y2="176" stroke="#ddd" stroke-width="1"/>
+<rect x="30" y="186" width="940" height="52" rx="6" fill="#fbfcfe" stroke="#1a4f8a" stroke-width="2"/>
+<text x="44" y="210" class="m" font-size="16">低速位置误差大，换向有顿挫</text>
+<text x="430" y="210" class="m" fill="#1a4f8a" font-size="16">齿隙 + 静摩擦</text>
+<text x="760" y="210" class="m" font-size="16">提高传动刚度或前馈补偿</text>
+<line x1="420" y1="190" x2="420" y2="234" stroke="#ddd" stroke-width="1"/>
+<line x1="750" y1="190" x2="750" y2="234" stroke="#ddd" stroke-width="1"/>
+<rect x="30" y="244" width="940" height="52" rx="6" fill="#fbfcfe" stroke="#1d6b3a" stroke-width="2"/>
+<text x="44" y="268" class="m" font-size="16">过零有台阶，且与电周期同步</text>
+<text x="430" y="268" class="m" fill="#1d6b3a" font-size="16">死区（第 13 章）</text>
+<text x="760" y="268" class="m" font-size="16">死区补偿（有限度）</text>
+<line x1="420" y1="248" x2="420" y2="292" stroke="#ddd" stroke-width="1"/>
+<line x1="750" y1="248" x2="750" y2="292" stroke="#ddd" stroke-width="1"/>
+<rect x="30" y="302" width="940" height="52" rx="6" fill="#fbfcfe" stroke="#1d6b3a" stroke-width="2"/>
+<text x="44" y="326" class="m" font-size="16">快速动作跟不上，降 kp 反而更稳</text>
+<text x="430" y="326" class="m" fill="#1d6b3a" font-size="16">延迟分布</text>
+<text x="760" y="326" class="m" font-size="16">降低控制带宽，别指望调参</text>
+<line x1="420" y1="306" x2="420" y2="350" stroke="#ddd" stroke-width="1"/>
+<line x1="750" y1="306" x2="750" y2="350" stroke="#ddd" stroke-width="1"/>
+<rect x="30" y="366" width="940" height="44" rx="6" fill="#fdf6f6" stroke="#a52020" stroke-width="2"/>
+<text x="46" y="394" class="t" fill="#a52020" font-size="17">最有价值的一列是最后一列：五行里有四行「调参数调不出来」。承认这一点，比调出来但不知道为什么更有价值。</text>
+</svg>

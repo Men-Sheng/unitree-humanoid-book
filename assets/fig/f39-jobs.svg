@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.0 0.0 1000.0 406.0" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<text x="30" y="30" class="s">六层的拥挤度与门槛：钱和人现在压在哪一层</text>
+<text x="40" y="88" class="t" font-size="18">③ 决策 / 大脑</text>
+<rect x="230" y="66" width="285" height="30" rx="6" fill="#a5202033" stroke="#a52020" stroke-width="2"/>
+<text x="525" y="88" class="m" fill="#a52020">极挤</text>
+<text x="560" y="88" class="tiny">万卡算力 + 博士密度 + 融资叙事中心</text>
+<text x="40" y="130" class="t" font-size="18">④ 全身控制</text>
+<rect x="230" y="108" width="150" height="30" rx="6" fill="#1a4f8a33" stroke="#1a4f8a" stroke-width="2"/>
+<text x="390" y="130" class="m" fill="#1a4f8a">中</text>
+<text x="560" y="130" class="tiny">RL 路线把显式控制的人吸走了</text>
+<text x="40" y="172" class="t" font-size="18">① 感知</text>
+<rect x="230" y="150" width="135" height="30" rx="6" fill="#1a4f8a33" stroke="#1a4f8a" stroke-width="2"/>
+<text x="375" y="172" class="m" fill="#1a4f8a">中</text>
+<text x="560" y="172" class="tiny">器件成熟，缺的是同步与标定工程</text>
+<text x="40" y="214" class="t" font-size="18">② 状态估计</text>
+<rect x="230" y="192" width="90" height="30" rx="6" fill="#66633" stroke="#666" stroke-width="2"/>
+<text x="330" y="214" class="m" fill="#666">低</text>
+<text x="560" y="214" class="tiny">学术成熟，工程岗位少</text>
+<text x="40" y="256" class="t" font-size="18">⑤ 关节伺服</text>
+<rect x="230" y="234" width="54" height="30" rx="6" fill="#1d6b3a33" stroke="#1d6b3a" stroke-width="2"/>
+<text x="294" y="256" class="m" fill="#1d6b3a">缺</text>
+<text x="560" y="256" class="tiny">会 FOC + 会总线 + 会实时的人极少</text>
+<text x="40" y="298" class="t" font-size="18">⑥ 功率与热</text>
+<rect x="230" y="276" width="30" height="30" rx="6" fill="#1d6b3a33" stroke="#1d6b3a" stroke-width="2"/>
+<text x="270" y="298" class="m" fill="#1d6b3a">最缺</text>
+<text x="560" y="298" class="tiny">会画功率板、会算热、会做减速器的人最少</text>
+<rect x="40" y="324" width="920" height="74" rx="6" fill="#f7f7f7" stroke="#666" stroke-width="2"/>
+<text x="56" y="350" class="m" font-size="16">为什么 ⑤⑥ 缺而 ③ 挤：① 成果不可发表（「连续跑六个月没坏」没有投稿渠道）</text>
+<text x="56" y="374" class="m" font-size="16">② 失败方式致命（当场冒烟、摔机）③ 需要四五个专业在同一个人身上复合</text>
+<text x="40" y="384" class="t" font-size="18">所以选方向的问题不是「哪家更先进」，而是「哪一层还没有人做好」。</text>
+</svg>

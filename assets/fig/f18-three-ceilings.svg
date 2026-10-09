@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<line x1="130" y1="330" x2="830" y2="330" stroke="#666" stroke-width="1"/>
+<line x1="130" y1="330" x2="130" y2="100" stroke="#666" stroke-width="1"/>
+<text x="480.0" y="360" class="s" text-anchor="middle">刚度 kp（N·m/rad，对数）</text>
+<text x="116" y="215.0" class="s" text-anchor="middle" font-size="16">可实现的刚度上限</text>
+<line x1="130.0" y1="330" x2="130.0" y2="335" stroke="#666" stroke-width="1"/>
+<text x="130.0" y="352" class="tiny" text-anchor="middle">1</text>
+<line x1="246.66666666666666" y1="330" x2="246.66666666666666" y2="335" stroke="#666" stroke-width="1"/>
+<text x="246.66666666666666" y="352" class="tiny" text-anchor="middle">10</text>
+<line x1="363.3333333333333" y1="330" x2="363.3333333333333" y2="335" stroke="#666" stroke-width="1"/>
+<text x="363.3333333333333" y="352" class="tiny" text-anchor="middle">100</text>
+<line x1="480.0" y1="330" x2="480.0" y2="335" stroke="#666" stroke-width="1"/>
+<text x="480.0" y="352" class="tiny" text-anchor="middle">1k</text>
+<line x1="596.6666666666666" y1="330" x2="596.6666666666666" y2="335" stroke="#666" stroke-width="1"/>
+<text x="596.6666666666666" y="352" class="tiny" text-anchor="middle">10k</text>
+<line x1="713.3333333333334" y1="330" x2="713.3333333333334" y2="335" stroke="#666" stroke-width="1"/>
+<text x="713.3333333333334" y="352" class="tiny" text-anchor="middle">100k</text>
+<line x1="830.0" y1="330" x2="830.0" y2="335" stroke="#666" stroke-width="1"/>
+<text x="830.0" y="352" class="tiny" text-anchor="middle">1M</text>
+<line x1="130" y1="290" x2="294.2946626197158" y2="290" stroke="#a52020" stroke-width="3"/>
+<path d="M 294.2946626197158 290 h 14" stroke="#a52020" stroke-width="3"/>
+<text x="138" y="282" class="m" fill="#a52020" font-size="17">① 协议量程</text>
+<text x="314.2946626197158" y="295" class="tiny" fill="#a52020">M8010 kp ≤ 25.599</text>
+<line x1="130" y1="244" x2="434.91121533292613" y2="244" stroke="#a52020" stroke-width="3"/>
+<path d="M 434.91121533292613 244 h 14" stroke="#a52020" stroke-width="3"/>
+<text x="138" y="236" class="m" fill="#a52020" font-size="17">①′ 协议量程</text>
+<text x="454.91121533292613" y="249" class="tiny" fill="#a52020">IM6014 kp ≤ 410.7</text>
+<line x1="130" y1="198" x2="549.8588924556968" y2="198" stroke="#1a4f8a" stroke-width="3"/>
+<path d="M 549.8588924556968 198 h 14" stroke="#1a4f8a" stroke-width="3"/>
+<text x="138" y="190" class="m" fill="#1a4f8a" font-size="17">② 执行器饱和</text>
+<text x="569.8588924556968" y="203" class="tiny" fill="#1a4f8a">τ_max ÷ 允许误差 2°</text>
+<line x1="130" y1="152" x2="701.3898273172182" y2="152" stroke="#1d6b3a" stroke-width="3"/>
+<path d="M 701.3898273172182 152 h 14" stroke="#1d6b3a" stroke-width="3"/>
+<text x="138" y="144" class="m" fill="#1d6b3a" font-size="17">③ 稳定性 ω_n</text>
+<text x="721.3898273172182" y="157" class="tiny" fill="#1d6b3a">= J·(ω_c/5)²，J=0.05</text>
+<rect x="600" y="96" width="340" height="84" rx="6" fill="#f4faf6" stroke="#1d6b3a" stroke-width="2"/>
+<text x="616" y="122" class="t" fill="#1d6b3a" font-size="18">官方数已验（附录 C.2a）：</text>
+<text x="616" y="148" class="m">ω_n = √(kp/armature) = 62.8 rad/s</text>
+<text x="616" y="170" class="m" fill="#1d6b3a">四档电机全部 = 10.00 Hz，偏差 0.0%</text>
+<text x="30" y="400" class="s">小关节先撞①，大关节先撞②；③ 在高惯量负载 + 硬位置控制时才咬人。</text>
+</svg>

@@ -1,0 +1,479 @@
+{
+  "check": "MG-5",
+  "tool": "lint_render",
+  "files": [
+    "drafts/unit-00/draft.md",
+    "drafts/unit-01/draft.md",
+    "drafts/unit-02/draft.md",
+    "drafts/unit-03/draft.md",
+    "drafts/unit-04/draft.md",
+    "drafts/unit-05/draft.md",
+    "drafts/unit-06/draft.md",
+    "drafts/unit-07/draft.md",
+    "drafts/unit-08/draft.md",
+    "drafts/unit-09/draft.md",
+    "drafts/unit-10/draft.md",
+    "drafts/unit-11/draft.md",
+    "drafts/unit-12/draft.md",
+    "drafts/unit-13/draft.md",
+    "drafts/unit-14/draft.md",
+    "drafts/unit-15/draft.md",
+    "drafts/unit-16/draft.md",
+    "drafts/unit-17/draft.md",
+    "drafts/unit-18/draft.md",
+    "drafts/unit-19/draft.md",
+    "drafts/unit-20/draft.md",
+    "drafts/unit-21/draft.md",
+    "drafts/unit-22/draft.md",
+    "drafts/unit-23/draft.md",
+    "drafts/unit-24/draft.md",
+    "drafts/unit-25/draft.md",
+    "drafts/unit-26/draft.md",
+    "drafts/unit-27/draft.md",
+    "drafts/unit-28/draft.md",
+    "drafts/unit-29/draft.md",
+    "drafts/unit-30/draft.md",
+    "drafts/unit-31/draft.md",
+    "drafts/unit-32/draft.md",
+    "drafts/unit-33/draft.md",
+    "drafts/unit-34/draft.md",
+    "drafts/unit-35/draft.md",
+    "drafts/unit-36/draft.md",
+    "drafts/unit-37/draft.md",
+    "drafts/unit-38/draft.md",
+    "drafts/unit-39/draft.md",
+    "drafts/unit-40/draft.md",
+    "drafts/unit-41/draft.md",
+    "drafts/unit-42/draft.md",
+    "drafts/unit-43/draft.md",
+    "drafts/unit-44/draft.md",
+    "drafts/unit-45/draft.md"
+  ],
+  "counts": {
+    "critical": 0,
+    "major": 0,
+    "minor": 60
+  },
+  "findings": [
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-02/draft.md:109",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-02/draft.md:117",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-02/draft.md:141",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-02/draft.md:156",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-02/draft.md:165",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-02/draft.md:170",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-02/draft.md:181",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-02/draft.md:192",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "list-no-blank-line",
+      "severity": "minor",
+      "location": "drafts/unit-02/draft.md:232",
+      "message": "List starts directly after a paragraph with no blank line; renderers disagree on whether this is a list.",
+      "quote": "- [ ] 到 unitree.com 的 h1 / g1 / r1 / H2 四个页面，逐格抄一遍峰值扭矩，检查是否有任何一格写着“额定 / 持续 / rat"
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-02/draft.md:47",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-02/draft.md:64",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-02/draft.md:78",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-02/draft.md:93",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-03/draft.md:137",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-03/draft.md:150",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-03/draft.md:160",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-03/draft.md:209",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-03/draft.md:224",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-03/draft.md:23",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-03/draft.md:239",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "list-no-blank-line",
+      "severity": "minor",
+      "location": "drafts/unit-03/draft.md:263",
+      "message": "List starts directly after a paragraph with no blank line; renderers disagree on whether this is a list.",
+      "quote": "- [ ] 自己乘一次 23 × 369，再除以 13,500，看那个 63%——然后想想为什么本书说它不是\"上界\""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-03/draft.md:32",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-03/draft.md:45",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-03/draft.md:56",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-03/draft.md:65",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-03/draft.md:76",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-03/draft.md:88",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-03/draft.md:97",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "heading-no-blank-line",
+      "severity": "minor",
+      "location": "drafts/unit-12/draft.md:186",
+      "message": "Heading with no blank line above it. CommonMark accepts it; several pandoc writers and most linters do not.",
+      "quote": "## 那 6000 Hz 到底是什么"
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-21/draft.md:113",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-21/draft.md:128",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-21/draft.md:142",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-21/draft.md:179",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-21/draft.md:19",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-21/draft.md:203",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-21/draft.md:214",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "list-no-blank-line",
+      "severity": "minor",
+      "location": "drafts/unit-21/draft.md:244",
+      "message": "List starts directly after a paragraph with no blank line; renderers disagree on whether this is a list.",
+      "quote": "- [ ] clone `unitree_rl_lab`，找到 G1 的配置，把 sim.dt、decimation、action_scale 三个数抄下来，自"
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-21/draft.md:55",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-21/draft.md:68",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-21/draft.md:75",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-21/draft.md:98",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-35/draft.md:124",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-35/draft.md:142",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-35/draft.md:152",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-35/draft.md:160",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-35/draft.md:176",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-35/draft.md:184",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "list-no-blank-line",
+      "severity": "minor",
+      "location": "drafts/unit-35/draft.md:216",
+      "message": "List starts directly after a paragraph with no blank line; renderers disagree on whether this is a list.",
+      "quote": "- [ ] 自己除三次：67.2/16、75.6/18、0.864kWh/15Ah÷16，确认都落在 4.2 与 3.6"
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-35/draft.md:25",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-35/draft.md:49",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-35/draft.md:77",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-35/draft.md:9",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-35/draft.md:92",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-43/draft.md:103",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-43/draft.md:173",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-43/draft.md:179",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-43/draft.md:197",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-43/draft.md:49",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-43/draft.md:66",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    },
+    {
+      "check": "fence-no-language",
+      "severity": "minor",
+      "location": "drafts/unit-43/draft.md:85",
+      "message": "Opening fence has no language tag.",
+      "quote": ""
+    }
+  ]
+}

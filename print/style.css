@@ -1,0 +1,162 @@
+/* style.css — 《人形机器人：从一颗关节往下挖》印刷版式
+ *
+ * 开本：大32开 145 × 210 mm（中文科普书常规开本，参照《万物简史》《数学之美》一类）
+ * 版心：上下各 17 mm，内侧 20 mm（订口，留装订），外侧 15 mm（切口）
+ *        —— 奇偶页镜像，这样书脊侧的白边比切口侧宽，是纸书的正确做法
+ * 字体：正文 思源宋体 Noto Serif SC（SIL OFL 1.1，**可商用、可嵌入**）
+ *       标题/表格/页眉 思源黑体 Noto Sans SC（同许可）
+ *       代码 思源等宽 / Consolas
+ *       ⚠ 不要用 微软雅黑 msyh.ttc / 宋体 simsun.ttc 出印刷稿：那是方正/中易授权，
+ *         商用出版需另购授权。本文件刻意把它们放在兜底位置而不是首选。
+ *
+ * 出血：本版按"图片不出血"排版（图都在版心内，四周留白）。若将来要做满版插图，
+ *       把 @page size 改成 151mm 216mm 并把 margin 各加 3mm，同时给印厂说明出血 3mm。
+ */
+
+@page {
+  size: 145mm 210mm;
+  margin: 17mm 15mm 17mm 20mm;
+  @top-left { content: string(chapter-label); font: 7.5pt "Noto Sans SC", sans-serif; color: #666; }
+  @top-right { content: string(chapter-title); font: 7.5pt "Noto Sans SC", sans-serif; color: #666; }
+  @bottom-center { content: counter(page); font: 8pt "Noto Sans SC", sans-serif; color: #333; }
+}
+@page :left { margin: 17mm 20mm 17mm 15mm; }
+@page cover { margin: 0; @top-left { content: none } @top-right { content: none } @bottom-center { content: none } }
+@page frontmatter { @top-left { content: none } @top-right { content: none } @bottom-center { content: none } }
+
+/* ── 正文 ─────────────────────────────────────────────── */
+html {
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif;
+  font-size: 9.6pt;
+  line-height: 1.72;
+  color: #111;
+  text-align: left;          /* 实测结论：本链路（Chrome + Paged.js）无法正确两端对齐中文，
+                                     强行 justify 会把字距拉成河。付印前若要齐行，交给 Typst/InDesign。 */
+  line-break: normal;          /* 实测：strict + justify 在 Chrome/Paged.js 下会把字距拉成河 */
+  hyphens: none;               /* 中文不断词 */
+  word-break: normal;
+  text-justify: inter-character;
+}
+body { margin: 0; }
+p { margin: 0 0 0.5em; orphans: 3; widows: 3; text-indent: 0; }
+a { color: inherit; text-decoration: none; }
+strong { font-weight: 700; }
+em { font-style: normal; }      /* 中文不用斜体，改用着重号或加粗 */
+
+h1, h2, h3, h4, .chapter-label, .cover-title, .cover-kicker, .cover-sub, .cover-meta { text-align: left; }
+h2 { font: 700 11.5pt/1.45 "Noto Sans SC", sans-serif; margin: 1.5em 0 0.55em; break-after: avoid; }
+h3 { font: 700 10.2pt/1.5 "Noto Sans SC", sans-serif; margin: 1.25em 0 0.4em; break-after: avoid; }
+h4 { font: 600 9.8pt/1.5 "Noto Sans SC", sans-serif; margin: 1em 0 0.3em; break-after: avoid; }
+
+ul, ol { margin: 0 0 0.7em; padding-left: 1.5em; }
+li { margin: 0.18em 0; }
+li > p { margin: 0; }
+
+/* ── 封面 ─────────────────────────────────────────────── */
+.cover { page: cover; height: 210mm; background: #12161c; color: #fff; padding: 30mm 18mm; box-sizing: border-box; }
+.cover-kicker { font: 600 9pt/1.4 "Noto Sans SC"; letter-spacing: 0.22em; text-transform: uppercase; color: #7fb3ff; }
+.cover-title { font: 700 30pt/1.22 "Noto Serif SC", serif; margin: 6mm 0 4mm; }
+.cover-sub { font: 400 11.5pt/1.6 "Noto Sans SC"; color: #c9d4e2; }
+.cover-meta { margin-top: 26mm; font: 400 8.6pt/1.7 "Noto Sans SC"; color: #8d9aab; }
+
+/* ── 版权页 / 扉页 ─────────────────────────────────────── */
+.frontmatter { page: frontmatter; break-after: page; font-size: 8.2pt; line-height: 1.85; color: #333; }
+.frontmatter h1 { font: 700 10pt "Noto Sans SC"; margin: 0 0 1.2em; }
+.frontmatter .colophon { font-family: "Noto Sans SC", sans-serif; }
+.frontmatter table { font-size: 7.8pt; }
+.cip { border: 0.4pt solid #999; padding: 4mm; margin: 4mm 0; background: #fbfbfb; }
+
+/* ── 目录 ─────────────────────────────────────────────── */
+/* break-after: page 与后面章节的 break-before: page 叠加，会在目录与第 01 章之间
+   多出一张只有页码的空白页（tools/pdf_qa.py 实测：页 17，正文 2 字）。断点只留一处。 */
+.toc-page { page: frontmatter; break-after: auto; }
+h2.toc-title { font: 700 15pt "Noto Serif SC"; margin: 0 0 1.2em; }
+ul.toc { list-style: none; padding: 0; margin: 0; font-size: 8.8pt; }
+ul.toc li a { display: flex; align-items: baseline; }
+ul.toc li a::after { content: target-counter(attr(href url), page); margin-left: auto; padding-left: 6pt; font-family: "Noto Sans SC"; }
+ul.toc li a .leader { flex: 1; border-bottom: 0.4pt dotted #999; margin: 0 4pt; transform: translateY(-2pt); }
+li.toc-1 { margin-top: 6.5pt; font: 700 9.2pt "Noto Sans SC"; }
+li.toc-1 .toc-label { width: 15mm; flex: none; color: #666; font-weight: 500; white-space: nowrap; }
+li.toc-2 { font-size: 8.5pt; padding-left: 15mm; color: #333; }
+li.toc-2 a::after { font-size: 8.2pt; color: #555; }
+
+/* ── 章起始页 ─────────────────────────────────────────── */
+section[class$="-start"] { break-before: page; margin: 14mm 0 5mm; }
+section[class$="-start"] .chapter-label {
+  font: 700 8.4pt/1.4 "Noto Sans SC"; letter-spacing: 0.2em; text-transform: uppercase; color: #7a8794;
+}
+h1.chapter { font: 700 18pt/1.3 "Noto Serif SC", serif; margin: 1.5mm 0 0; border-bottom: none; }
+h1.chapter.appendix { font-size: 15.5pt; }
+section[class$="-start"] + p { font-size: 10.4pt; line-height: 1.7; }
+
+/* ── 图 ───────────────────────────────────────────────── */
+figure.fig { break-inside: avoid; margin: 4mm 0 4.5mm; text-align: center; }
+figure.fig img { max-width: 100%; height: auto; }
+figcaption { font: 400 7.8pt/1.5 "Noto Sans SC"; color: #444; margin-top: 1.6mm; text-align: left; }
+
+/* ── 章首"口径声明"：附录 A/B/C/D/E 开头那段，读者要看的，必须印出来。
+      浏览器默认 blockquote 是 margin-left 40px + italic，会把字推进留白、也把中文变成斜体，
+      所以这里显式压平：不缩进、不斜体、只留一条细左线。
+      （2026-10-09：build_book 原先把 H1 后所有连续 > 行当"作者状态块"丢掉，量成品 PDF 才发现
+        附录的口径声明整段不见了——见 bible/do-not-touch.md 与 verification/pending-fixes-*.md）── */
+blockquote.scope-note { margin: 2.2mm 0 3.4mm; padding: 0 0 0 3mm; border-left: 0.8pt solid #9aa4ae;
+  font-style: normal; font-size: 8.6pt; line-height: 1.6; color: #333; break-inside: avoid; }
+blockquote.scope-note p { margin: 0 0 0.4em; }
+blockquote.scope-note p:last-child { margin-bottom: 0; }
+/* 兜底：万一没打上类名，也不许用浏览器默认的 40px 缩进 */
+blockquote { margin-left: 0; margin-right: 0; font-style: normal; }
+
+/* ── 标注块：NOTE / IMPORTANT / WARNING ────────────────── */
+.callout { break-inside: avoid; margin: 3mm 0 3.5mm; padding: 2.6mm 3.2mm; background: #f6f7f9; border-left: 2pt solid #2b3a4a; }
+.callout .callout-label { font: 700 7.6pt/1.4 "Noto Sans SC"; letter-spacing: 0.12em; text-transform: uppercase; color: #2b3a4a; margin-bottom: 1mm; }
+.callout p { margin: 0 0 0.35em; font-size: 8.8pt; line-height: 1.65; }
+.callout.important { background: #fff8e8; border-left-color: #a5741a; }
+.callout.important .callout-label { color: #a5741a; }
+.callout.warning { background: #fdeeee; border-left-color: #a32020; }
+.callout.warning .callout-label { color: #a32020; }
+
+/* ── 语录块：每章一条，来自可溯源的访谈 ─────────────────── */
+.callout.quote {
+  background: transparent; border-left: none; border-top: 0.4pt solid #b9c2cc; border-bottom: 0.4pt solid #b9c2cc;
+  padding: 3mm 0 2.6mm; margin: 4mm 0 5mm;
+}
+.callout.quote p { font-size: 9.4pt; line-height: 1.75; margin: 0 0 0.5em; padding-left: 6mm; text-indent: -6mm; }
+.callout.quote p:last-child { font: 400 7.6pt/1.6 "Noto Sans SC"; color: #5a6672; padding-left: 0; text-indent: 0; text-align: right; text-align-last: right; }
+
+/* ── 代码与表格 ───────────────────────────────────────── */
+/* 印前核对（tools/pdf_qa.py 量成品 PDF，不是浏览器预览）实测两轮：
+   第一轮 12 处墨越过裁口，全是内联 code 的灰底条；第二轮加了 word-break: break-all
+   反而涨到 44 处 —— Chrome 打印时把跨行断开的 inline box 背景按整条线宽绘制，
+   矩形最远冲到 x=-131 / x=548（页宽只有 411 pt）。结论：内联元素的底色在纸上是
+   有害的，而且它本来就是屏幕习惯。成品里 inline code 只留等宽字体，去掉底色与内边距；
+   长 URL 用 overflow-wrap: anywhere 断行（break-all 会把每个英文词都切碎，也不要）。 */
+code { font-family: "Noto Sans Mono CJK SC", "Source Han Mono SC", Consolas, monospace; font-size: 0.84em; background: none; padding: 0; border-radius: 0; }
+code, a { overflow-wrap: anywhere; }
+.callout.quote p { overflow-wrap: anywhere; }
+pre.code { font: 7.4pt/1.5 "Noto Sans Mono CJK SC", Consolas, monospace; background: #f6f7f8; border-left: 2pt solid #333; padding: 6pt 8pt; margin: 5pt 0 9pt; white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere; break-inside: auto; }
+pre.code code { background: none; padding: 0; font-size: inherit; }
+
+table { border-collapse: collapse; width: 100%; margin: 4pt 0 10pt; font: 400 7.6pt/1.45 "Noto Sans SC", sans-serif; break-inside: avoid; table-layout: fixed; }
+/* 长参考表（>6 行，由 build.mjs 打 class="long"）：整表不许断，会让上一页留下半页白
+   （附录 A 的符号表就造成过一个只有标题和两句说明的近乎空页）。
+   改成"表可以跨页、单行不许切开"，表头由上面的 table-header-group 自动重复。 */
+table.long { break-inside: auto; }
+table.long tr { break-inside: avoid; }
+thead { display: table-header-group; break-after: avoid; }
+th { text-align: left; font-weight: 700; border-bottom: 0.8pt solid #222; padding: 3pt 4pt; }
+td { border-bottom: 0.3pt solid #d5d9de; padding: 2.6pt 4pt; vertical-align: top; }
+/* 印前核对（print/proof.mjs）实测：21 处表格/代码块冲出页面，最宽 2416 px 对页宽 548 px。
+   原因是自动布局下长英文词与 URL 撑出 min-content 宽度。固定布局 + 任意断词才压得住。 */
+th, td { overflow-wrap: anywhere; word-break: break-word; hyphens: auto; }
+td code, th code { font-size: 0.9em; overflow-wrap: anywhere; }
+
+/* ── Mermaid 图 ───────────────────────────────────────── */
+pre.mermaid { break-inside: avoid; margin: 4mm 0; text-align: center; background: none; }
+
+/* ── 本书专用：章末固定四行 ───────────────────────────── */
+.takeaway { border: 0.5pt solid #2b3a4a; padding: 3mm; margin: 5mm 0 3mm; background: #f4f7fa; }
+.checklist { font-size: 8.4pt; }
+.checklist table { font-size: 7.4pt; }
+
+/* 作者状态块（"> 状态：初稿…"）在成书版里由 assembler 剥掉；万一漏掉，这里也不印出来 */
+.author-note { display: none; }

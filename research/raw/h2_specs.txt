@@ -1,0 +1,34 @@
+#### 0.972  (2)
+   ...Lithium Battery with Low Internal Resistance Premium Lithium Battery with Low Internal Resistance Battery Capacity 15Ah(0.972KWh) 15Ah(0.972KWh) Battery Voltage Maximum Voltage: 75.6 V Maximum Voltage: 75.6 V Basic Computing Power PC1：Intel Core i5（Platform Capabil
+   ... with Low Internal Resistance Premium Lithium Battery with Low Internal Resistance Battery Capacity 15Ah(0.972KWh) 15Ah(0.972KWh) Battery Voltage Maximum Voltage: 75.6 V Maximum Voltage: 75.6 V Basic Computing Power PC1：Intel Core i5（Platform Capabilities） PC1：Inte
+#### 972  (2)
+   ...thium Battery with Low Internal Resistance Premium Lithium Battery with Low Internal Resistance Battery Capacity 15Ah(0.972KWh) 15Ah(0.972KWh) Battery Voltage Maximum Voltage: 75.6 V Maximum Voltage: 75.6 V Basic Computing Power PC1：Intel Core i5（Platform Capabil
+   ...ith Low Internal Resistance Premium Lithium Battery with Low Internal Resistance Battery Capacity 15Ah(0.972KWh) 15Ah(0.972KWh) Battery Voltage Maximum Voltage: 75.6 V Maximum Voltage: 75.6 V Basic Computing Power PC1：Intel Core i5（Platform Capabilities） PC1：Inte
+#### 15Ah  (2)
+   ...mium Lithium Battery with Low Internal Resistance Premium Lithium Battery with Low Internal Resistance Battery Capacity 15Ah(0.972KWh) 15Ah(0.972KWh) Battery Voltage Maximum Voltage: 75.6 V Maximum Voltage: 75.6 V Basic Computing Power PC1：Intel Core i5（Platform C
+   ...ttery with Low Internal Resistance Premium Lithium Battery with Low Internal Resistance Battery Capacity 15Ah(0.972KWh) 15Ah(0.972KWh) Battery Voltage Maximum Voltage: 75.6 V Maximum Voltage: 75.6 V Basic Computing Power PC1：Intel Core i5（Platform Capabilities） PC
+#### 15 Ah  (0)
+#### 75.6  (2)
+   ...um Battery with Low Internal Resistance Battery Capacity 15Ah(0.972KWh) 15Ah(0.972KWh) Battery Voltage Maximum Voltage: 75.6 V Maximum Voltage: 75.6 V Basic Computing Power PC1：Intel Core i5（Platform Capabilities） PC1：Intel Core i5（Platform Capabilities） PC2：Intel
+   ...rnal Resistance Battery Capacity 15Ah(0.972KWh) 15Ah(0.972KWh) Battery Voltage Maximum Voltage: 75.6 V Maximum Voltage: 75.6 V Basic Computing Power PC1：Intel Core i5（Platform Capabilities） PC1：Intel Core i5（Platform Capabilities） PC2：Intel Core i7（Custom Developm
+#### 75,6  (0)
+#### 4.2  (0)
+#### kg  (6)
+   ...nical Dimensions Height, Width and Thickness（Stand） 1820 x 456 x 218mm 1820 x 456 x 218mm Weight (With Battery) About 70kg About 70kg Degree of Freedom(Total Joints) 31 31 Single Leg Degrees of Freedom 6 6 Single Arm Degrees of Freedom 7 7 Waist Degrees of Freed
+   ...sions Height, Width and Thickness（Stand） 1820 x 456 x 218mm 1820 x 456 x 218mm Weight (With Battery) About 70kg About 70kg Degree of Freedom(Total Joints) 31 31 Single Leg Degrees of Freedom 6 6 Single Arm Degrees of Freedom 7 7 Waist Degrees of Freedom 3 3 Head
+   ...m Torque of Arm Joint [1] 120N.m 120N.m Maximum Torque of Leg Joint [1] 360N.m 360N.m Arm Maximum Payload [1] Peak: ~15 kg; Rated: ~7 kg Peak: ~15 kg; Rated: ~7 kg Calf + Thigh Length 1045mm 1045mm Forearm + Upper Arm Length 690mm 690mm Materials Used in Constru
+   ...m Joint [1] 120N.m 120N.m Maximum Torque of Leg Joint [1] 360N.m 360N.m Arm Maximum Payload [1] Peak: ~15 kg; Rated: ~7 kg Peak: ~15 kg; Rated: ~7 kg Calf + Thigh Length 1045mm 1045mm Forearm + Upper Arm Length 690mm 690mm Materials Used in Construction Aircraft
+#### Battery  (7)
+   ...ntact Sales Mechanical Dimensions Height, Width and Thickness（Stand） 1820 x 456 x 218mm 1820 x 456 x 218mm Weight (With Battery) About 70kg About 70kg Degree of Freedom(Total Joints) 31 31 Single Leg Degrees of Freedom 6 6 Single Arm Degrees of Freedom 7 7 Waist Degr
+   ...ing Plastics Electrical Characteristics Cooling System Local air cooling Local air cooling Power Supply Premium Lithium Battery with Low Internal Resistance Premium Lithium Battery with Low Internal Resistance Battery Capacity 15Ah(0.972KWh) 15Ah(0.972KWh) Battery Vo
+   ...m Local air cooling Local air cooling Power Supply Premium Lithium Battery with Low Internal Resistance Premium Lithium Battery with Low Internal Resistance Battery Capacity 15Ah(0.972KWh) 15Ah(0.972KWh) Battery Voltage Maximum Voltage: 75.6 V Maximum Voltage: 75.6 V
+   ... Power Supply Premium Lithium Battery with Low Internal Resistance Premium Lithium Battery with Low Internal Resistance Battery Capacity 15Ah(0.972KWh) 15Ah(0.972KWh) Battery Voltage Maximum Voltage: 75.6 V Maximum Voltage: 75.6 V Basic Computing Power PC1：Intel Core
+#### 续航  (0)
+#### Duration  (0)
+#### Endurance  (0)
+#### DoF  (0)
+#### Degree of Freedom  (1)
+   ...ns Height, Width and Thickness（Stand） 1820 x 456 x 218mm 1820 x 456 x 218mm Weight (With Battery) About 70kg About 70kg Degree of Freedom(Total Joints) 31 31 Single Leg Degrees of Freedom 6 6 Single Arm Degrees of Freedom 7 7 Waist Degrees of Freedom 3 3 Head Degrees of Freedo
+#### height  (0)
+#### Height  (1)
+   ... Unitree H2 Parameter Model Price（Tax and Shipping cost excluded） H2 $29,900 H2 EDU Contact Sales Mechanical Dimensions Height, Width and Thickness（Stand） 1820 x 456 x 218mm 1820 x 456 x 218mm Weight (With Battery) About 70kg About 70kg Degree of Freedom(Total Joint

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<text x="30" y="34" class="s">人形机器人上的“大脑”只有几 Hz，不是因为算子跑不动，是因为权重读不进来。自回归解码每出一个 token，都要把整个</text>
+<text x="30" y="58" class="s">模型的权重重读一遍。</text>
+<rect x="60" y="108" width="210" height="214" rx="6" fill="#f2f8f3" stroke="#1d6b3a" stroke-width="2"/>
+<text x="165" y="140" class="t" fill="#1d6b3a" text-anchor="middle">算力这一侧</text>
+<text x="165" y="172" class="m" text-anchor="middle">6B × 2 GFLOP</text>
+<text x="165" y="196" class="s" text-anchor="middle">≈ 12 GFLOP / token</text>
+<line x1="84" y1="216" x2="246" y2="216" stroke="#ddd" stroke-width="2"/>
+<text x="165" y="242" class="s" text-anchor="middle">Thor 级 NPU：</text>
+<text x="165" y="266" class="m" text-anchor="middle">10¹⁵ FLOPS 量级 [厂]</text>
+<text x="165" y="296" class="s" fill="#1d6b3a" text-anchor="middle">单看算力：微秒级</text>
+<rect x="290" y="108" width="230" height="214" rx="6" fill="#fbf3f3" stroke="#a52020" stroke-width="2"/>
+<text x="405" y="140" class="t" fill="#a52020" text-anchor="middle">内存这一侧（真瓶颈）</text>
+<text x="405" y="172" class="m" text-anchor="middle">权重 6B × 2 B = 12 GB</text>
+<text x="405" y="196" class="s" text-anchor="middle">每 token 全读一遍</text>
+<line x1="314" y1="216" x2="496" y2="216" stroke="#ddd" stroke-width="2"/>
+<text x="405" y="242" class="s" text-anchor="middle">假设带宽 100 GB/s</text>
+<text x="405" y="266" class="m" text-anchor="middle">12 ÷ 100 = 120 ms</text>
+<text x="405" y="296" class="s" fill="#a52020" text-anchor="middle">⇒ ≤ 8.3 Hz [算]</text>
+<text x="560" y="132" class="t">两根柱子差了约 10⁷ 倍。</text>
+<text x="560" y="158" class="s">所以先动的不是“更快的 NPU”，而是三件事：</text>
+<text x="560" y="208" class="t" fill="#1a4f8a">量化</text>
+<text x="678" y="208" class="s">FP16 → FP8/INT4：读的字节</text>
+<text x="678" y="229" class="s">数按比例降，速度近乎线性涨；</text>
+<text x="678" y="250" class="s">代价是量化误差与校准。</text>
+<text x="560" y="291" class="t" fill="#1a4f8a">动作分块</text>
+<text x="678" y="291" class="s">一次前向输出 H 步动作，把</text>
+<text x="678" y="312" class="s">H·Δt ≥ T_infer 当成硬约束</text>
+<text x="678" y="333" class="s">（第 31 章）。</text>
+<text x="560" y="374" class="t" fill="#1a4f8a">异步双系统</text>
+<text x="678" y="374" class="s">大脑低频给目标，小脑高频给</text>
+<text x="678" y="395" class="s">扭矩。大脑慢没关系，只要它</text>
+<text x="678" y="416" class="s">给的东西能被跟住。</text>
+<line x1="40" y1="486" x2="960" y2="486" stroke="#111" stroke-width="2"/>
+<text x="40" y="512" class="s">本图的“100 GB/s”是数量级假设，不是任何厂商公布的实测带宽；宇树未公布模型在机内的实际推理频率 [未]。</text>
+<text x="40" y="536" class="s">12 GB 权重与 120 ms 这条除法在附录 B 有可复算脚本（code/tools/foc_check.py 的 llm_memory_time）。</text>
+</svg>

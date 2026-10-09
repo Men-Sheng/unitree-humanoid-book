@@ -1,0 +1,128 @@
+# project-status.yaml — v3（2026-10-08 人形重定位之后重写板子）
+# 注意：本文件原来有两处顶层键重复（phase / board），YAML 加载时后者静默覆盖前者，
+# 导致 v3 看板读不出来。现把 v2 历史内容整体挪到末尾的 legacy_v2: 之下，
+# 顶层键一律唯一。改这个文件时先跑文件末尾那条 duplicate-key 检查。
+schema_version: "3.0"
+phase: drafting
+# init → setup → knowledge-graph → outlining → drafting → polishing → manuscript-gate → complete
+# v3 实际进度：46 章全部成稿，两轮一手复验已跑，交稿包已产出；
+# 未过 manuscript-gate，所以 phase 仍停在 drafting，不冒充 polishing。
+
+positioning:
+  version: v3
+  subject: 人形机器人（H1 / H1-2 / G1 / R1 / H2 / Dex 手 / Z1 臂）
+  audience: 有相关从业经验、未做过机器人的工程师与科技爱好者
+  depth_standard: 作者 2026-10-08 指定的 FOC 层级（磁场←电流←PWM 导通时间）
+  superseded:
+    - v1 开发者手册 50 章 → outline/archive-units-developer-manual.yaml
+    - v2 四足科普 45 章 → outline/archive-units-popsci-quadruped.yaml + drafts-quadruped-popsci/
+
+board:
+  outline_v3_units: 46
+  outline_v3_target_words: 217800
+  chapters_drafted: 46         # 00-45 全部有稿：五部 + 尾声 + 附录 A–E
+  chapters_missing: 0
+  arithmetic_tools: "arithmetic_check.py + foc_check.py（selfcheck 10/10；15 条推算链 0 异常）"
+  quotes_mapped: 23           # 2026-10-08 第三轮补 13 章；真源是 bible/quotes.yaml（不是章稿）
+  quotes_empty: 23            # 46 章里仍无吻合语录的：04-13 FOC 电气、17-20 理论能耗、24/27/28/36/37 + 附录
+  figures_landed: "33 / 36"    # 手写 SVG：make_figs.py + make_figs2.py + make_figs3.py（新增深度尺/d-q/可编程弹簧/内存墙）
+  depth_gate: "tools/depth_audit.py：中位 13.83，<9.0 的章 0/44（自检 厚18.00/薄4.00 PASS）"
+  formula_gate: "tools/formula_check.py：235 条等式实算通过；38 条列出经逐条人工复核全为解析器误判（pending-fixes F-10）"
+  number_gate: "tools/number_provenance.py：可疑 6 处，均为别处已推导、此处复述的量，已手核（自检 9/9）"
+  blueprint_coverage: "research/blueprint-coverage.md：259 项，讲到约 83%；12 项缺口里 9 项已补/在补；状态估计已并入第 24 章"
+  armature_fix: "foc_check 新增 armature_side_check()：证明附录 C 原标注『折算到电机轴』错，应为关节侧（PASS）"
+  body_words: 156709        # 2026-10-08 加深后实测；大纲目标 217,800，见 pending-fixes F-11
+  pdf: "print/人形机器人：从一颗关节往下挖.pdf，500 页，145×210 mm，33 图 33 图题、24 个语录块"
+  pdf_pages: 500
+  docx: "submission/人形机器人：从一颗关节往下挖-交稿版.docx，3.9 MB，33 张内嵌图 = 33 条引用"
+  mcu_table: "附录 C.2b 关节 MCU 选型表已建（一手：doc-cdn 30/1377 官方 STM32F413RGT6 例程 + 建议带 FPU；二手：GD32F50MxxG 2026-08-05）；ST 官网 G474 页抓取超时，三格留空标未核到"
+  crosscheck: "官方 Kp 上限 410.725 与 foc_check.py 独立登记的 kp_max_out 410.725 逐位吻合（互为交叉验证）"
+  skill_gate: "manuscript_gate --deterministic-only：MG-5 0 critical / 0 major / 60 minor（原 382，tools/fix_markdown_lint.py 修）；MG-6 9 surface 0 blocking；MG-1 claim-index 在中文稿上跑不出东西，见 reviews/manuscript-gate-2026-10-08/round-1/NOTES.md"
+  knowledge_graph: v3-rebuilt  # 154 概念 / 43 章，check_kg.py 通过
+  print_ready: submission-package-built   # docx + 300dpi 图片包 + 逐图授权清单已产出并核验
+
+submission_package:
+  dir: submission/
+  docx: "人形机器人：从一颗关节往下挖-交稿版.docx"
+  docx_size: "3.0 MB"
+  docx_embedded_images: 29     # 用 zipfile 数 word/media 得到的实测值，非推断
+  docx_heading1: 47
+  docx_tables: 63
+  build_cmd: "cd submission/src-docx && pandoc *.md -o \"../人形机器人：从一颗关节往下挖-交稿版.docx\" --toc --toc-depth=2 --metadata title=\"人形机器人：从一颗关节往下挖\""
+  image_pack: "images/  59 files = 29 PNG(1299px) + 29 TIF(无压缩 RGB 300dpi) + _尺寸表.tsv；包体 68 MB"
+  license_ledger:
+    - "图片授权清单.md"
+    - "图片授权清单.csv"
+  declaration: "图片来源与版权声明.md（含「为什么官方素材 0 张」）"
+  publisher_notes: "CIP与交稿说明.md（CIP 模板 + 脚本统计的结构 + 四条已知印刷局限 + 脚本清单）"
+  official_images_used: 0
+
+body_words: 100616          # 正文汉字（不含代码块与表）
+verification_rounds: 2   # 两轮一手复验，更正记录见 do-not-touch 45–66、67–72
+
+current_unit: null
+units: {}
+# 大纲批准后按 outline/units.yaml 逐条登记 unit-NN: {status, digest_written, ...}
+
+knowledge_graph:
+  status: built-v3
+  file: bible/knowledge-graph.yaml
+  concepts: 150
+  chapters: 43
+  term_budget: 6
+
+waivers: []
+# 形如：
+# - check: live_robot_behavior.rt_lowstate_rate
+#   waived_by: human
+#   reason: "无 EDU 权限，AIR 档拿不到 lowstate"
+#   raised_on: 2026-10-07
+# 每条 waiver 必须同时出现在 verification 计划里有对应核查项，并在附录 A6 对读者公开。
+
+manuscript_gate:
+  status: not_started
+  rounds: []
+# 这是 v3 剩下的主要合规债：contract cards / digest / Critic 计分 + blind verify /
+# claim-index / manuscript gate 尚未对 v3 的 46 章跑过。
+
+retries:
+  total_loopbacks: 0
+  cap: 2
+
+runs: []
+
+open_blockers:
+  - 46 章全部成稿，但 23 章缺可溯源且主题吻合的王兴兴语录（宁缺不假；深电气/理论/总线/热安全章他从未给过技术级原话）
+  - 3 幅图待作者实拍（全身定妆照 / 腿部关节逐个特写 / GO-M8010-6 拆机照）
+  - CJK 两端对齐在本管线（Chrome + Paged.js）做不到，已锁 text-align:left
+  - 书名、3 段文风校准样本、拆机标的机型号——三项待作者签字
+  - 缺口 11（仿真器版图）与缺口 8（关节 MCU 选型表）待代理 G2 落地；两表每格都须回官方手册核对，核不到就留空
+  - skill 合规：MG-5/MG-6 已跑（0 critical / 0 major / 60 minor，9 surface 0 blocking）；
+    MG-1 claim-index 在中文稿上 0 命中，根因与证据见 reviews/manuscript-gate-2026-10-08/round-1/NOTES.md；
+    Critic 计分 + blind verify 依赖 final/ 签字，尚未做
+  - 2026 H2 规格变化快，出版前需再一轮一手复验（Livox 页已 404；L2 IMU 采样率降级为 [未]）
+
+# ─── 以下为 v2 时期的历史看板，保留备查；不参与状态判定 ───────────
+legacy_v2:
+  repositioned: "2026-10-07 科普+技术爱好者；real 代码 0 段"
+  outline: draft-unapproved-45-units
+  sources_seed: 37-entries-verified
+  glossary_seed: started
+  voice_profile: needs-calibration-samples
+  pinned_versions: incomplete
+  measures: teardown-batch-1-issued
+  arithmetic: torque+energy-chains-closed-on-real-data
+  hardware_data: landed-10-first-hand-sources
+  popsci_competitors: landed-gap-verified
+  drafts_written: "unit-00 through unit-13 = 14 章（v2 编号）"
+  drafts_passing_checks: "14/14"
+  arithmetic_chains_closed: 4
+  drafts_words: 27150
+  quotes_blocks: "12/14 章有已核到原文的语录"
+  images_policy: "95% 自产；官方素材 0 幅"
+  print_pdf: "85 页 · v2 版（已被 v3 349 页替换）"
+  gates_still_closed: pinned_versions 有 TBD / 大纲未批 / 文风样本未收
+  mvp_slice: "v2 的 25 章切片（已作废）"
+
+# 改本文件后必跑：顶层键唯一性检查
+# python -X utf8 -c "import io,collections;t=io.open('project-status.yaml',encoding='utf-8').read().split(chr(10));k=[l.split(':')[0] for l in t if l and not l[0].isspace() and not l.startswith('#') and ':' in l];print([x for x,c in collections.Counter(k).items() if c>1])"

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<line x1="50" y1="300" x2="330" y2="300" stroke="#666" stroke-width="1"/>
+<line x1="190" y1="160" x2="190" y2="440" stroke="#666" stroke-width="1"/>
+<text x="334" y="305" class="m">α</text>
+<text x="194" y="156" class="m">β</text>
+<line x1="190" y1="300" x2="310.0" y2="300.0" stroke="#666" stroke-width="2.5"/>
+<line x1="310.0" y1="300.0" x2="300.3" y2="305.2" stroke="#666" stroke-width="2.5"/>
+<line x1="310.0" y1="300.0" x2="300.3" y2="294.8" stroke="#666" stroke-width="2.5"/>
+<text x="286.0" y="292.0" class="tiny" fill="#666">d 轴（磁钢方向）</text>
+<line x1="190" y1="300" x2="190.0" y2="180.0" stroke="#a52020" stroke-width="2.5"/>
+<line x1="190.0" y1="180.0" x2="195.2" y2="189.7" stroke="#a52020" stroke-width="2.5"/>
+<line x1="190.0" y1="180.0" x2="184.8" y2="189.7" stroke="#a52020" stroke-width="2.5"/>
+<text x="160.0" y="166.0" class="tiny" fill="#a52020">q 轴（做功方向）</text>
+<line x1="237.99999999999997" y1="383.1384387633061" x2="142.00000000000003" y2="216.8615612366939" stroke="#ddd" stroke-width="1" stroke-dasharray="4,4"/>
+<line x1="238.00000000000006" y1="216.8615612366939" x2="141.99999999999994" y2="383.1384387633061" stroke="#ddd" stroke-width="1" stroke-dasharray="4,4"/>
+<line x1="190" y1="300" x2="241.82966053156235" y2="202.52258574837447" stroke="#111" stroke-width="3.5"/>
+<line x1="241.82966053156235" y1="202.52258574837447" x2="241.8" y2="213.5" stroke="#111" stroke-width="3.5"/>
+<line x1="241.82966053156235" y1="202.52258574837447" x2="232.7" y2="208.7" stroke="#111" stroke-width="3.5"/>
+<text x="249.51975815759155" y="199.34397441408234" class="m">i 矢量</text>
+<line x1="241.82966053156235" y1="202.52258574837447" x2="241.82966053156235" y2="300" stroke="#1a4f8a" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="241.82966053156235" y1="202.52258574837447" x2="190" y2="202.52258574837447" stroke="#1d6b3a" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="250.0" y="320" class="m" fill="#1a4f8a" text-anchor="middle">i_d</text>
+<text x="168" y="240.0" class="m" fill="#1d6b3a" text-anchor="middle">i_q</text>
+<text x="60" y="440" class="m" font-size="17">i_d = i_α cosθ + i_β sinθ　（沿磁钢，不产生扭矩）</text>
+<text x="60" y="466" class="m" font-size="17">i_q = −i_α sinθ + i_β cosθ　（垂直磁钢，全部做功）</text>
+<text x="60" y="496" class="t" fill="#a52020" font-size="18">τ = (3/2)·p·λ_m·i_q　⇒　要多少扭矩，就给多少 i_q</text>
+<rect x="520" y="90" width="200" height="46" rx="6" fill="#fbfbfd" stroke="#666" stroke-width="2"/>
+<text x="620.0" y="119.0" class="m" fill="#666" text-anchor="middle" font-size="16">q_ref, dq_ref, τ_ff</text>
+<line x1="620.0" y1="136" x2="620.0" y2="148" stroke="#666" stroke-width="1.6"/>
+<line x1="620.0" y1="148" x2="614.8" y2="138.3" stroke="#666" stroke-width="1.6"/>
+<line x1="620.0" y1="148" x2="625.2" y2="138.3" stroke="#666" stroke-width="1.6"/>
+<rect x="520" y="148" width="200" height="46" rx="6" fill="#fbfbfd" stroke="#1a4f8a" stroke-width="2"/>
+<text x="620.0" y="177.0" class="m" fill="#1a4f8a" text-anchor="middle" font-size="16">混合公式 → τ_cmd</text>
+<line x1="620.0" y1="194" x2="620.0" y2="206" stroke="#1a4f8a" stroke-width="1.6"/>
+<line x1="620.0" y1="206" x2="614.8" y2="196.3" stroke="#1a4f8a" stroke-width="1.6"/>
+<line x1="620.0" y1="206" x2="625.2" y2="196.3" stroke="#1a4f8a" stroke-width="1.6"/>
+<rect x="520" y="206" width="200" height="46" rx="6" fill="#fbfbfd" stroke="#1a4f8a" stroke-width="2"/>
+<text x="620.0" y="235.0" class="m" fill="#1a4f8a" text-anchor="middle" font-size="16">τ_cmd ÷ k_t = i_q_ref</text>
+<line x1="620.0" y1="252" x2="620.0" y2="264" stroke="#1a4f8a" stroke-width="1.6"/>
+<line x1="620.0" y1="264" x2="614.8" y2="254.3" stroke="#1a4f8a" stroke-width="1.6"/>
+<line x1="620.0" y1="264" x2="625.2" y2="254.3" stroke="#1a4f8a" stroke-width="1.6"/>
+<rect x="520" y="264" width="200" height="46" rx="6" fill="#fbfbfd" stroke="#a52020" stroke-width="2"/>
+<text x="620.0" y="293.0" class="m" fill="#a52020" text-anchor="middle" font-size="16">电流 PI ×2 (i_d,i_q)</text>
+<line x1="620.0" y1="310" x2="620.0" y2="322" stroke="#a52020" stroke-width="1.6"/>
+<line x1="620.0" y1="322" x2="614.8" y2="312.3" stroke="#a52020" stroke-width="1.6"/>
+<line x1="620.0" y1="322" x2="625.2" y2="312.3" stroke="#a52020" stroke-width="1.6"/>
+<rect x="520" y="322" width="200" height="46" rx="6" fill="#fbfbfd" stroke="#a52020" stroke-width="2"/>
+<text x="620.0" y="351.0" class="m" fill="#a52020" text-anchor="middle" font-size="16">逆 Park</text>
+<line x1="620.0" y1="368" x2="620.0" y2="380" stroke="#a52020" stroke-width="1.6"/>
+<line x1="620.0" y1="380" x2="614.8" y2="370.3" stroke="#a52020" stroke-width="1.6"/>
+<line x1="620.0" y1="380" x2="625.2" y2="370.3" stroke="#a52020" stroke-width="1.6"/>
+<rect x="520" y="380" width="200" height="46" rx="6" fill="#fbfbfd" stroke="#a52020" stroke-width="2"/>
+<text x="620.0" y="409.0" class="m" fill="#a52020" text-anchor="middle" font-size="16">逆 Clarke / SVPWM 配时</text>
+<line x1="620.0" y1="426" x2="620.0" y2="438" stroke="#a52020" stroke-width="1.6"/>
+<line x1="620.0" y1="438" x2="614.8" y2="428.3" stroke="#a52020" stroke-width="1.6"/>
+<line x1="620.0" y1="438" x2="625.2" y2="428.3" stroke="#a52020" stroke-width="1.6"/>
+<rect x="520" y="438" width="200" height="46" rx="6" fill="#fbfbfd" stroke="#1d6b3a" stroke-width="2"/>
+<text x="620.0" y="467.0" class="m" fill="#1d6b3a" text-anchor="middle" font-size="16">6 × MOSFET 半桥</text>
+<line x1="620.0" y1="484" x2="620.0" y2="496" stroke="#1d6b3a" stroke-width="1.6"/>
+<line x1="620.0" y1="496" x2="614.8" y2="486.3" stroke="#1d6b3a" stroke-width="1.6"/>
+<line x1="620.0" y1="496" x2="625.2" y2="486.3" stroke="#1d6b3a" stroke-width="1.6"/>
+<rect x="520" y="496" width="200" height="46" rx="6" fill="#fbfbfd" stroke="#1d6b3a" stroke-width="2"/>
+<text x="620.0" y="525.0" class="m" fill="#1d6b3a" text-anchor="middle" font-size="16">三相绕组 → 磁场 → 扭矩</text>
+<rect x="850" y="264" width="130" height="104" rx="6" fill="#f7f7f7" stroke="#666" stroke-width="2"/>
+<text x="915" y="298" class="m" fill="#666" text-anchor="middle">Park</text>
+<text x="915" y="322" class="m" fill="#666" text-anchor="middle">Clarke</text>
+<line x1="850" y1="334" x2="720" y2="334" stroke="#666" stroke-width="1.6"/>
+<line x1="720" y1="334" x2="729.7" y2="328.8" stroke="#666" stroke-width="1.6"/>
+<line x1="720" y1="334" x2="729.7" y2="339.2" stroke="#666" stroke-width="1.6"/>
+<rect x="850" y="438" width="130" height="46" rx="6" fill="#f7f7f7" stroke="#666" stroke-width="2"/>
+<text x="915" y="466" class="m" fill="#666" text-anchor="middle">编码器 θ</text>
+<path d="M 915 438 V 108 H 728" fill="none" stroke="#a52020" stroke-width="1.6" stroke-dasharray="5,4"/>
+<text x="922" y="416" class="tiny" fill="#a52020">θ 送进每一次正/逆变换</text>
+<text x="520" y="500" class="s" fill="#a52020">θ 错 5° ⇒ 扭矩只掉 0.38%，但 8.7% 的电流变成无用的磁化电流（第 10 章）。</text>
+</svg>

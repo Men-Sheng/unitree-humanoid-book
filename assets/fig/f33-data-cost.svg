@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.0 0.0 1002.8 400.0" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<text x="30" y="30" class="s">三条数据路线的成本曲线形状不同：这才是路线之争的真正内容</text>
+<line x1="130" y1="300" x2="830" y2="300" stroke="#666" stroke-width="1"></line>
+<line x1="130" y1="300" x2="130" y2="90" stroke="#666" stroke-width="1"></line>
+<text x="480.0" y="326" class="s" text-anchor="middle">累计可用数据量（小时）</text>
+<text x="84" y="195.0" class="s" text-anchor="middle" font-size="15">累计成本</text>
+<path d="M 130 300 L 830 90" fill="none" stroke="#a52020" stroke-width="3" stroke-linecap="round"></path>
+<text x="822" y="80" class="m" fill="#a52020" text-anchor="end">真机遥操：线性，每次都付（¥4,000–8,000 / 可用小时）</text>
+<path d="M 130 148.8 Q 305.0 161.4 830 169.8" fill="none" stroke="#1d6b3a" stroke-width="3" stroke-linecap="round"></path>
+<text x="140" y="132.0" class="m" fill="#1d6b3a">仿真合成：前重后轻，建好之后边际 ≈ 电费</text>
+<path d="M 130 300 L 816.0 270.6" fill="none" stroke="#1a4f8a" stroke-width="3" stroke-dasharray="7,4" stroke-linecap="round"></path>
+<text x="564.0" y="258.0" class="m" fill="#1a4f8a">人类视频：便宜（约 ¥100/h），但迁移成本未计</text>
+<rect x="560" y="90" width="340" height="96" rx="6" fill="#f7f7f7" stroke="#666" stroke-width="2"></rect>
+<text x="576" y="116" class="t">换算成同一个单位才可比</text>
+<text x="576" y="142" class="m" font-size="15.11" style="font-size: 14.27px;">10 亿帧 ÷ 30 fps ÷ 3600 = 9,259 小时</text>
+<text x="576" y="166" class="m" fill="#a52020" font-size="16">270,000 小时是它的 29 倍</text>
+<text x="130" y="376" class="t" font-size="18">看到任何数据集宣传，先做这一步换算。「轨迹 / 帧 / 小时」是三种度量，混着报是行业常态。</text>
+</svg>

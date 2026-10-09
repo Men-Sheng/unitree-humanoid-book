@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 512" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<text x="30" y="30" class="s">p_x = x − z·ẍ/(z̈+g)：同一条式子的三种工况，与「脚该迈到哪」</text>
+<line x1="50" y1="300" x2="170" y2="300" stroke="#666" stroke-width="2"></line>
+<ellipse cx="110" cy="302" rx="52" ry="8" fill="#1a4f8a22" stroke="#1a4f8a" stroke-width="1.5"></ellipse>
+<line x1="110" y1="300" x2="110.0" y2="150" stroke="#111" stroke-width="3"></line>
+<circle cx="110.0" cy="150" r="9" fill="#111" stroke="#111" stroke-width="2"></circle>
+<text x="124.0" y="155" class="tiny">重心</text>
+<line x1="110" y1="330" x2="110" y2="308" stroke="#1a4f8a" stroke-width="3"></line>
+<line x1="110" y1="308" x2="115.2" y2="317.7" stroke="#1a4f8a" stroke-width="3"></line>
+<line x1="110" y1="308" x2="104.8" y2="317.7" stroke="#1a4f8a" stroke-width="3"></line>
+<text x="110" y="346" class="m" fill="#1a4f8a" text-anchor="middle" font-size="16">ZMP</text>
+<text x="110" y="122" class="t" fill="#1a4f8a" text-anchor="middle">站着不动</text>
+<text x="110" y="368" class="tiny" text-anchor="middle">ZMP = 重心投影</text>
+<line x1="340" y1="300" x2="460" y2="300" stroke="#666" stroke-width="2"></line>
+<ellipse cx="400" cy="302" rx="52" ry="8" fill="#1d6b3a22" stroke="#1d6b3a" stroke-width="1.5"></ellipse>
+<line x1="400" y1="300" x2="431.5" y2="150" stroke="#111" stroke-width="3"></line>
+<circle cx="431.5" cy="150" r="9" fill="#111" stroke="#111" stroke-width="2"></circle>
+<text x="445.5" y="155" class="tiny">重心</text>
+<line x1="452.0" y1="330" x2="452.0" y2="308" stroke="#1d6b3a" stroke-width="3"></line>
+<line x1="452.0" y1="308" x2="457.2" y2="317.7" stroke="#1d6b3a" stroke-width="3"></line>
+<line x1="452.0" y1="308" x2="446.8" y2="317.7" stroke="#1d6b3a" stroke-width="3"></line>
+<text x="452.0" y="346" class="m" fill="#1d6b3a" text-anchor="middle" font-size="16">ZMP</text>
+<text x="400" y="122" class="t" fill="#1d6b3a" text-anchor="middle">往前刹车</text>
+<text x="400" y="368" class="tiny" text-anchor="middle">ZMP 跑到投影之前；顶到脚掌边缘就到极限</text>
+<line x1="630" y1="300" x2="750" y2="300" stroke="#666" stroke-width="2"></line>
+<ellipse cx="690" cy="302" rx="52" ry="8" fill="#a5202022" stroke="#a52020" stroke-width="1.5"></ellipse>
+<line x1="690" y1="300" x2="658.5" y2="150" stroke="#111" stroke-width="3"></line>
+<circle cx="658.5" cy="150" r="9" fill="#111" stroke="#111" stroke-width="2"></circle>
+<text x="672.5" y="155" class="tiny">重心</text>
+<line x1="638.0" y1="330" x2="638.0" y2="308" stroke="#a52020" stroke-width="3"></line>
+<line x1="638.0" y1="308" x2="643.2" y2="317.7" stroke="#a52020" stroke-width="3"></line>
+<line x1="638.0" y1="308" x2="632.8" y2="317.7" stroke="#a52020" stroke-width="3"></line>
+<text x="638.0" y="346" class="m" fill="#a52020" text-anchor="middle" font-size="16">ZMP</text>
+<text x="690" y="122" class="t" fill="#a52020" text-anchor="middle">往前加速</text>
+<text x="690" y="368" class="tiny" text-anchor="middle">ZMP 落到投影之后 ⇒ 重力把身体往前带</text>
+<rect x="110" y="400" width="800" height="44" rx="6" fill="#f7f7f7" stroke="#666" stroke-width="2"></rect>
+<text x="126" y="428" class="m" font-size="16.27" style="font-size: 15.57px;">ZMP 出界 = 需要地面「拉」一脚，而地面不给拉力 ⇒ 脚缘离地 ⇒ 开始转动。这就是它唯一的失效方式。</text>
+<rect x="110" y="452" width="800" height="52" rx="6" fill="#f3f8fd" stroke="#1a4f8a" stroke-width="2"></rect>
+<text x="126" y="474" class="m" fill="#1a4f8a">捕获点　x_cap = x + ẋ/ω₀ ，ω₀ = √(g/(z−z_foot)) = 1/τ</text>
+<text x="126" y="496" class="tiny">G1：ω₀ = 3.85 rad/s ⇒ 0.3 m/s 要把脚放到投影之前 78 mm；0.6 m/s ⇒ 156 mm。迈不到就停不下来。</text>
+<text x="110" y="386" class="tiny">三个前提会破：脚不是完全贴合的刚性面（不平地面）· 机体不是刚体（23 个有齿隙的关节）· 摩擦锥只管压不管滑（冰面）。</text>
+</svg>

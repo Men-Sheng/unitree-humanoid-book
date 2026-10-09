@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<line x1="90" y1="300" x2="910" y2="300" stroke="#666" stroke-width="1"/>
+<rect x="113.38658436105311" y="244" width="396.4689362062646" height="32" rx="6" fill="#1a4f8a22" stroke="#1a4f8a" stroke-width="2"/>
+<text x="90" y="232" class="s">电机端 15 bit 编码器</text>
+<text x="517.8555205673176" y="266" class="m" fill="#1a4f8a">0.011°</text>
+<rect x="113.38658436105311" y="182" width="79.54025761566396" height="32" rx="6" fill="#1d6b3a22" stroke="#1d6b3a" stroke-width="2"/>
+<text x="90" y="170" class="s">折算到输出端（÷20.58）</text>
+<text x="200.92684197671707" y="204" class="m" fill="#1d6b3a">0.00053°</text>
+<rect x="113.38658436105311" y="120" width="627.9360987667363" height="32" rx="6" fill="#a5202022" stroke="#a52020" stroke-width="2"/>
+<text x="90" y="108" class="s">谐波减速器背隙（Z1 官方 6 弧分）</text>
+<text x="749.3226831277894" y="142" class="m" fill="#a52020">0.1°</text>
+<line x1="186.03195061663186" y1="300" x2="186.03195061663186" y2="306" stroke="#666" stroke-width="1"/>
+<text x="186.03195061663186" y="324" class="tiny" text-anchor="middle">0.0005</text>
+<line x1="427.3546337444212" y1="300" x2="427.3546337444212" y2="306" stroke="#666" stroke-width="1"/>
+<text x="427.3546337444212" y="324" class="tiny" text-anchor="middle">0.005</text>
+<line x1="668.6773168722106" y1="300" x2="668.6773168722106" y2="306" stroke="#666" stroke-width="1"/>
+<text x="668.6773168722106" y="324" class="tiny" text-anchor="middle">0.05</text>
+<line x1="910.0" y1="300" x2="910.0" y2="306" stroke="#666" stroke-width="1"/>
+<text x="910.0" y="324" class="tiny" text-anchor="middle">0.5</text>
+<text x="500.0" y="348" class="s" text-anchor="middle">角度误差（°，对数刻度）</text>
+<line x1="192.92684197671707" y1="136" x2="741.3226831277894" y2="136" stroke="#666" stroke-width="1.5"/>
+<text x="467.1247625522533" y="124" class="t" fill="#a52020" text-anchor="middle">187 倍</text>
+<text x="90" y="90" class="h" font-size="19">把编码器从 15 bit 换到 20 bit，一点用都没有——地板不在那里。</text>
+</svg>

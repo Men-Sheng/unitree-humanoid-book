@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<text x="30" y="30" class="s">T_结 = T_环境 + P×(R₁+R₂+R₃)，而 R₃ 被四个产品约束推到最大</text>
+<rect x="60" y="110" width="150" height="70" rx="6" fill="#fbfcfe" stroke="#a52020" stroke-width="2"/>
+<text x="135" y="140" class="t" fill="#a52020" text-anchor="middle" font-size="18">绕组 / 磁钢</text>
+<text x="135" y="164" class="tiny" text-anchor="middle">铜损 I²R</text>
+<line x1="210" y1="145" x2="260" y2="145" stroke="#666" stroke-width="2"/>
+<line x1="260" y1="145" x2="250.3" y2="150.2" stroke="#666" stroke-width="2"/>
+<line x1="260" y1="145" x2="250.3" y2="139.8" stroke="#666" stroke-width="2"/>
+<rect x="260" y="110" width="150" height="70" rx="6" fill="#fbfcfe" stroke="#1a4f8a" stroke-width="2"/>
+<text x="335" y="140" class="t" fill="#1a4f8a" text-anchor="middle" font-size="18">机壳内壁</text>
+<text x="335" y="164" class="tiny" text-anchor="middle">导热胶·装配</text>
+<line x1="410" y1="145" x2="460" y2="145" stroke="#666" stroke-width="2"/>
+<line x1="460" y1="145" x2="450.3" y2="150.2" stroke="#666" stroke-width="2"/>
+<line x1="460" y1="145" x2="450.3" y2="139.8" stroke="#666" stroke-width="2"/>
+<rect x="460" y="110" width="150" height="70" rx="6" fill="#fbfcfe" stroke="#1a4f8a" stroke-width="2"/>
+<text x="535" y="140" class="t" fill="#1a4f8a" text-anchor="middle" font-size="18">外壳外壁</text>
+<text x="535" y="164" class="tiny" text-anchor="middle">开关损耗</text>
+<line x1="610" y1="145" x2="660" y2="145" stroke="#666" stroke-width="2"/>
+<line x1="660" y1="145" x2="650.3" y2="150.2" stroke="#666" stroke-width="2"/>
+<line x1="660" y1="145" x2="650.3" y2="139.8" stroke="#666" stroke-width="2"/>
+<rect x="660" y="110" width="150" height="70" rx="6" fill="#fbfcfe" stroke="#1d6b3a" stroke-width="2"/>
+<text x="735" y="140" class="t" fill="#1d6b3a" text-anchor="middle" font-size="18">环境</text>
+<text x="735" y="164" class="tiny" text-anchor="middle">自然对流</text>
+<text x="235" y="98" class="m" fill="#a52020" text-anchor="middle">R₁</text>
+<text x="435" y="98" class="m" fill="#a52020" text-anchor="middle">R₂</text>
+<text x="635" y="98" class="m" fill="#a52020" text-anchor="middle">R₃</text>
+<text x="60" y="220" class="tiny">R₃ 为什么最大：密封（不能有进气口）· 外形要像人腿（不能有大散热鳍）· 面积按 L² 缩而发热按 L³ 涨 · 无风扇（要开孔、会坏）</text>
+<text x="60" y="244" class="tiny">自然对流约 5–10 W/(m²·K)，强制风冷约 25–100 ⇒ 去掉风扇等于把换热能力砍到 1/5–1/10。</text>
+<circle cx="250" cy="330" r="52" fill="none" stroke="#a52020" stroke-width="2"/>
+<text x="250.0" y="413.0" class="m" fill="#a52020" text-anchor="middle" font-size="16">电流 ↑</text>
+<text x="328.0" y="335.0" class="m" fill="#a52020" text-anchor="middle" font-size="16">铜损 ↑</text>
+<text x="250.0" y="257.0" class="m" fill="#a52020" text-anchor="middle" font-size="16">温度 ↑</text>
+<text x="172.0" y="335.0" class="m" fill="#a52020" text-anchor="middle" font-size="16">k_t ↓</text>
+<path d="M 286.8 366.8 A 52 52 0 0 1 300.2 316.5" fill="none" stroke="#a52020" stroke-width="2"/>
+<path d="M 286.8 293.2 A 52 52 0 0 1 236.5 279.8" fill="none" stroke="#a52020" stroke-width="2"/>
+<path d="M 213.2 293.2 A 52 52 0 0 1 199.8 343.5" fill="none" stroke="#a52020" stroke-width="2"/>
+<path d="M 213.2 366.8 A 52 52 0 0 1 263.5 380.2" fill="none" stroke="#a52020" stroke-width="2"/>
+<text x="250" y="336" class="t" fill="#a52020" text-anchor="middle" font-size="17">没有自限机制</text>
+<rect x="420" y="268" width="540" height="130" rx="6" fill="#fdf6f6" stroke="#a52020" stroke-width="2"/>
+<text x="436" y="296" class="t" fill="#a52020">温升 80 °C 时（行业通识系数）</text>
+<text x="436" y="322" class="m">铜阻 +0.393 %/°C ⇒ 涨 31%</text>
+<text x="436" y="346" class="m">剩磁 −0.11 %/°C ⇒ 扭矩少 8.8% ⇒ 电流再涨 9.6%</text>
+<text x="436" y="370" class="m" font-size="16">合起来：同一扭矩下铜损涨 58%。越过磁钢上限后退磁不可逆，而控制器不知道。</text>
+<text x="60" y="412" class="t" font-size="18">这就是「额定扭矩」不是一个数的原因：它是占空比、姿态、环境温度与外壳覆盖的函数。</text>
+</svg>

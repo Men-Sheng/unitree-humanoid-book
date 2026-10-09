@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 448" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<text x="30" y="30" class="s">厂商没说的化学体系，用两次除法推出来</text>
+<rect x="40" y="70" width="920" height="52" rx="6" fill="#fbfcfe" stroke="#1a4f8a" stroke-width="2"></rect>
+<text x="56" y="102" class="t" fill="#1a4f8a" font-size="19">G1</text>
+<text x="140" y="92" class="m" font-size="16">13 串 / 9000 mAh / 充 54 V</text>
+<text x="140" y="112" class="tiny" fill="#1a4f8a">54.0 ÷ 13 = 4.15 V　·　≈ 0.43 kWh（推）</text>
+<rect x="40" y="128" width="920" height="52" rx="6" fill="#fbfcfe" stroke="#1d6b3a" stroke-width="2"></rect>
+<text x="56" y="160" class="t" fill="#1d6b3a" font-size="19">H1</text>
+<text x="140" y="150" class="m" font-size="16">15 Ah / 0.864 kWh / 最大 67.2 V</text>
+<text x="140" y="170" class="tiny" fill="#1d6b3a">67.2 ÷ 16 = 4.20 V　·　0.864 ÷ 15 ÷ 16 = 3.60 V</text>
+<rect x="40" y="186" width="920" height="52" rx="6" fill="#fbfcfe" stroke="#1d6b3a" stroke-width="2"></rect>
+<text x="56" y="218" class="t" fill="#1d6b3a" font-size="19">H2</text>
+<text x="140" y="208" class="m" font-size="16">15 Ah / 0.972 kWh / 最大 75.6 V</text>
+<text x="140" y="228" class="tiny" fill="#1d6b3a">75.6 ÷ 18 = 4.20 V　·　0.972 ÷ 15 ÷ 18 = 3.60 V</text>
+<rect x="40" y="244" width="920" height="52" rx="6" fill="#fbfcfe" stroke="#666" stroke-width="2"></rect>
+<text x="56" y="276" class="t" fill="#666" font-size="19">R1</text>
+<text x="140" y="266" class="m" font-size="16">容量与电压未公布 [未]</text>
+<text x="140" y="286" class="tiny" fill="#666">—　·　续航约 1 h</text>
+<rect x="40" y="310" width="440" height="100" rx="6" fill="#fdf6f6" stroke="#a52020" stroke-width="2"></rect>
+<text x="56" y="338" class="t" fill="#a52020">4.20 V 终止 / 3.60 V 标称 ⇒</text>
+<text x="56" y="364" class="t" fill="#a52020" font-size="19">钴基或三元锂，不是磷酸铁锂</text>
+<text x="56" y="390" class="tiny">（LFP 是 3.2 / 3.65，16 串只能到 58.4 V）</text>
+<rect x="520" y="310" width="440" height="100" rx="6" fill="#f7f7f7" stroke="#666" stroke-width="2"></rect>
+<text x="536" y="338" class="t">代价三条，各对应本书一章：</text>
+<text x="536" y="364" class="m" font-size="16">·　循环寿命短（第 37 章保修）</text>
+<text x="536" y="384" class="m" font-size="16">·　热稳定性差（第 36 章热）</text>
+<text x="536" y="404" class="m" font-size="16">·　电压平台斜率大 ⇒ 易塌陷（第 13 章）</text>
+<text x="40" y="438" class="tiny" font-size="12.04" style="font-size: 10.35px;">两条完全独立的路径（最大电压÷串数、能量÷容量÷串数）落在同一组数上——这就是本书敢写这句推断的理由。</text>
+</svg>

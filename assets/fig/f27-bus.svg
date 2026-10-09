@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.0 0.0 1053.9 420.0" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<text x="30" y="30" class="s">三条总线，两种哲学：同步 vs 成本</text>
+<rect x="40" y="60" width="440" height="150" rx="6" fill="#f3f8fd" stroke="#1a4f8a" stroke-width="2"></rect>
+<text x="56" y="86" class="t" fill="#1a4f8a">宇树：RS-485 主从轮询</text>
+<rect x="60" y="106" width="90" height="40" rx="6" fill="#fff" stroke="#1a4f8a" stroke-width="2"></rect>
+<text x="105" y="132" class="m" fill="#1a4f8a" text-anchor="middle">主控</text>
+<rect x="220" y="106" width="40" height="40" rx="6" fill="#fff" stroke="#666" stroke-width="1.5"></rect>
+<text x="240" y="132" class="tiny" fill="#666" text-anchor="middle">1</text>
+<rect x="270" y="106" width="40" height="40" rx="6" fill="#fff" stroke="#666" stroke-width="1.5"></rect>
+<text x="290" y="132" class="tiny" fill="#666" text-anchor="middle">2</text>
+<rect x="320" y="106" width="40" height="40" rx="6" fill="#fff" stroke="#666" stroke-width="1.5"></rect>
+<text x="340" y="132" class="tiny" fill="#666" text-anchor="middle">3</text>
+<rect x="370" y="106" width="40" height="40" rx="6" fill="#fff" stroke="#666" stroke-width="1.5"></rect>
+<text x="390" y="132" class="tiny" fill="#666" text-anchor="middle">4</text>
+<rect x="420" y="106" width="40" height="40" rx="6" fill="#fff" stroke="#666" stroke-width="1.5"></rect>
+<text x="440" y="132" class="tiny" fill="#666" text-anchor="middle">5</text>
+<line x1="150" y1="126" x2="220" y2="126" stroke="#1a4f8a" stroke-width="2"></line>
+<line x1="220" y1="126" x2="440" y2="126" stroke="#1a4f8a" stroke-width="2"></line>
+<line x1="240" y1="126" x2="240" y2="106" stroke="#1a4f8a" stroke-width="1.5"></line>
+<line x1="290" y1="126" x2="290" y2="106" stroke="#1a4f8a" stroke-width="1.5"></line>
+<line x1="340" y1="126" x2="340" y2="106" stroke="#1a4f8a" stroke-width="1.5"></line>
+<line x1="390" y1="126" x2="390" y2="106" stroke="#1a4f8a" stroke-width="1.5"></line>
+<line x1="440" y1="126" x2="440" y2="106" stroke="#1a4f8a" stroke-width="1.5"></line>
+<text x="56" y="172" class="tiny">一主多从 · 半双工 · 无仲裁 · 无内建错误管理</text>
+<text x="56" y="194" class="m" font-size="14.57" style="font-size: 13.27px;">官方帧长：下行 17 B / 上行 16 B；ID 0–14，15 = 广播</text>
+<rect x="520" y="60" width="440" height="150" rx="6" fill="#f4faf6" stroke="#1d6b3a" stroke-width="2"></rect>
+<text x="536" y="86" class="t" fill="#1d6b3a">工业界：EtherCAT 逐站转发</text>
+<rect x="540" y="106" width="80" height="40" rx="6" fill="#fff" stroke="#1d6b3a" stroke-width="2"></rect>
+<text x="580" y="132" class="m" fill="#1d6b3a" text-anchor="middle">主站</text>
+<rect x="650" y="106" width="44" height="40" rx="6" fill="#fff" stroke="#666" stroke-width="1.5"></rect>
+<text x="672" y="132" class="tiny" fill="#666" text-anchor="middle">1</text>
+<rect x="710" y="106" width="44" height="40" rx="6" fill="#fff" stroke="#666" stroke-width="1.5"></rect>
+<text x="732" y="132" class="tiny" fill="#666" text-anchor="middle">2</text>
+<line x1="694" y1="126" x2="710" y2="126" stroke="#1d6b3a" stroke-width="2"></line>
+<rect x="770" y="106" width="44" height="40" rx="6" fill="#fff" stroke="#666" stroke-width="1.5"></rect>
+<text x="792" y="132" class="tiny" fill="#666" text-anchor="middle">3</text>
+<line x1="754" y1="126" x2="770" y2="126" stroke="#1d6b3a" stroke-width="2"></line>
+<rect x="830" y="106" width="44" height="40" rx="6" fill="#fff" stroke="#666" stroke-width="1.5"></rect>
+<text x="852" y="132" class="tiny" fill="#666" text-anchor="middle">4</text>
+<line x1="814" y1="126" x2="830" y2="126" stroke="#1d6b3a" stroke-width="2"></line>
+<rect x="890" y="106" width="44" height="40" rx="6" fill="#fff" stroke="#666" stroke-width="1.5"></rect>
+<text x="912" y="132" class="tiny" fill="#666" text-anchor="middle">5</text>
+<line x1="874" y1="126" x2="890" y2="126" stroke="#1d6b3a" stroke-width="2"></line>
+<line x1="620" y1="126" x2="650" y2="126" stroke="#1d6b3a" stroke-width="2"></line>
+<text x="536" y="172" class="tiny">全双工以太网 · DC 分布式时钟亚微秒对齐 · 每站一颗 ESC</text>
+<text x="536" y="194.0" class="m" font-size="13.76" style="font-size: 11.83px;">ESC 约 ¥87/颗 对 RS-485 收发器约 2 元 ⇒ 23 关节差约 1,</text>
+<text x="536" y="215.1" class="m" font-size="16">955 元</text>
+<rect x="40" y="232" width="920" height="120" rx="6" fill="#fdf6f6" stroke="#a52020" stroke-width="2"></rect>
+<text x="56" y="260" class="t" fill="#a52020" font-size="18">一次除法就能判断厂商那个赫兹数指的是什么（GO-M8010-6 官方帧长）</text>
+<text x="56" y="288" class="m" font-size="16.82" style="font-size: 16.64px;">15 台 × 6000 Hz × (17 + 16) B × 8 = 23.76 Mbps　÷　官方 4 Mbps　=　5.9 倍　⇒ 全双工全量交换不可能</text>
+<text x="56" y="314" class="m" fill="#a52020" font-size="16.49" style="font-size: 15.99px;">反过来：4 Mbps ÷ (15 × 33 B × 8) = 1010 Hz　——　与官方 Z1 页标的 Control Frequency 1 kHz 撞在同一处</text>
+<text x="40" y="378" class="t" font-size="18">人形不需要「23 个关节同一纳秒动作」，因为每个关节是独立闭环、总线只下发给定值。</text>
+<text x="40" y="404" class="s">所以 RS-485 不是选错了；它缺的那个能力，恰好是这台机器不需要的。</text>
+</svg>

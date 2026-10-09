@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.0 0.0 1000.0 597.0" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<text x="30" y="34" class="s">定子电流矢量被拆成两个互相垂直的分量：q 轴那一份出扭矩，d 轴那一份只改磁场。这一步是纯数学旋转，不耗能——它只</text>
+<text x="30" y="58" class="s">是换了一双眼睛看同一组三相电流。</text>
+<line x1="68" y1="320" x2="428" y2="320" stroke="#666" stroke-width="1"/>
+<line x1="428" y1="320" x2="418.3" y2="325.2" stroke="#666" stroke-width="1"/>
+<line x1="428" y1="320" x2="418.3" y2="314.8" stroke="#666" stroke-width="1"/>
+<line x1="250" y1="502" x2="250" y2="142" stroke="#666" stroke-width="1"/>
+<line x1="250" y1="142" x2="255.2" y2="151.7" stroke="#666" stroke-width="1"/>
+<line x1="250" y1="142" x2="244.8" y2="151.7" stroke="#666" stroke-width="1"/>
+<text x="432" y="312" class="s" fill="#666">d 轴</text>
+<text x="258" y="138" class="s" fill="#666">q 轴</text>
+<circle cx="250" cy="320" r="148" fill="none" stroke="#1a4f8a" stroke-width="2"/>
+<path d="M 158,320 a 92,92 0 1,0 184,0 a 92,92 0 1,0 -184,0" fill="none" stroke="#a52020" stroke-width="2" stroke-dasharray="7 6" stroke-linecap="round"/>
+<line x1="250" y1="320" x2="314.87892972478346" y2="186.97848114772327" stroke="#111" stroke-width="3"/>
+<line x1="314.87892972478346" y1="186.97848114772327" x2="315.3" y2="198.0" stroke="#111" stroke-width="3"/>
+<line x1="314.87892972478346" y1="186.97848114772327" x2="306.0" y2="193.4" stroke="#111" stroke-width="3"/>
+<text x="324.87892972478346" y="180.97848114772327" class="t">i_s</text>
+<line x1="314.87892972478346" y1="186.97848114772327" x2="314.87892972478346" y2="320" stroke="#1d6b3a" stroke-width="1" stroke-dasharray="5 4"/>
+<line x1="314.87892972478346" y1="186.97848114772327" x2="250" y2="186.97848114772327" stroke="#a52020" stroke-width="1" stroke-dasharray="5 4"/>
+<line x1="250" y1="320" x2="308.87892972478346" y2="320" stroke="#1d6b3a" stroke-width="2"/>
+<line x1="308.87892972478346" y1="320" x2="299.2" y2="325.2" stroke="#1d6b3a" stroke-width="2"/>
+<line x1="308.87892972478346" y1="320" x2="299.2" y2="314.8" stroke="#1d6b3a" stroke-width="2"/>
+<line x1="250" y1="320" x2="250" y2="192.97848114772327" stroke="#a52020" stroke-width="2"/>
+<line x1="250" y1="192.97848114772327" x2="255.2" y2="202.7" stroke="#a52020" stroke-width="2"/>
+<line x1="250" y1="192.97848114772327" x2="244.8" y2="202.7" stroke="#a52020" stroke-width="2"/>
+<circle cx="250" cy="320" r="4" fill="#111" stroke="#111" stroke-width="2"/>
+<text x="46" y="176" class="s" fill="#1a4f8a">电流极限圆</text>
+<text x="46" y="198" class="m" fill="#1a4f8a">|i_s| ≤ I_max</text>
+<text x="46" y="220" class="tiny" fill="#666">由发热决定</text>
+<line x1="150" y1="206" x2="146" y2="220" stroke="#1a4f8a" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="46" y="470" class="s" fill="#a52020">电压极限圆：转速一高就收缩</text>
+<line x1="150" y1="458" x2="188" y2="388" stroke="#a52020" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="438" y="350" class="s" fill="#1d6b3a">i_q 出扭矩</text>
+<text x="234" y="253.48924057386165" class="s" fill="#a52020" text-anchor="end">i_d</text>
+<text x="46" y="506" class="tiny">β = atan2(i_d, i_q)：最大扭矩每安培角</text>
+<text x="600" y="150" class="t">表贴式（L_d = L_q）</text>
+<text x="600" y="178" class="m">τ = 1.5 · p · λ_m · i_q</text>
+<text x="600" y="206" class="s">⇒ 扭矩只由 i_q 决定，i_d 不出力。</text>
+<text x="600" y="254" class="t">代入 GO-M8010-6</text>
+<text x="600" y="282" class="m">k_t = 23.7 ÷ 40 = 0.64 N·m/A</text>
+<text x="600" y="310" class="s">⇒ 要 12 N·m 就给 i_q ≈ 18.8 A；这 18.8</text>
+<text x="600" y="332" class="s">A 与转速无关，只与是否垂直有关。</text>
+<line x1="600" y1="380" x2="960" y2="380" stroke="#ddd" stroke-width="2"/>
+<text x="600" y="408" class="t">内置式（IPM）多一项磁阻扭矩</text>
+<text x="600" y="436" class="m">τ = 1.5 p [λ_m i_q</text>
+<text x="600" y="460" class="m">　　　+ (L_d − L_q) i_d i_q]</text>
+<text x="600" y="488" class="s">⇒ 负的 i_d 反而加扭矩，这才是 MTPA 角不</text>
+<text x="600" y="510" class="s">为零的原因。</text>
+<text x="600" y="540" class="s">代价：电压极限圆把电流圆吞掉时，只能加大负</text>
+<text x="600" y="562" class="s">i_d 削弱磁场（弱磁），用发热换转速。人形</text>
+<text x="600" y="584" class="s">关节不需要超基速，所以几乎不用弱磁。</text>
+</svg>

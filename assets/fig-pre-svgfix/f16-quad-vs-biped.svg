@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<line x1="60" y1="300" x2="440" y2="300" stroke="#666" stroke-width="2"/>
+<rect x="140" y="190" width="220" height="50" rx="6" fill="#f3f8fd" stroke="#1a4f8a" stroke-width="2"/>
+<line x1="165" y1="240" x2="165" y2="300" stroke="#1a4f8a" stroke-width="3"/>
+<circle cx="165" cy="300" r="5" fill="#1a4f8a" stroke="#1a4f8a" stroke-width="2"/>
+<line x1="220" y1="240" x2="220" y2="300" stroke="#1a4f8a" stroke-width="3"/>
+<circle cx="220" cy="300" r="5" fill="#1a4f8a" stroke="#1a4f8a" stroke-width="2"/>
+<line x1="300" y1="240" x2="300" y2="300" stroke="#1a4f8a" stroke-width="3"/>
+<circle cx="300" cy="300" r="5" fill="#1a4f8a" stroke="#1a4f8a" stroke-width="2"/>
+<line x1="355" y1="240" x2="355" y2="300" stroke="#1a4f8a" stroke-width="3"/>
+<circle cx="355" cy="300" r="5" fill="#1a4f8a" stroke="#1a4f8a" stroke-width="2"/>
+<text x="250" y="178" class="t" fill="#1a4f8a" text-anchor="middle">四足：重力走结构骨架</text>
+<text x="250" y="330" class="s" text-anchor="middle">支撑多边形 = 四个接触点的凸包</text>
+<text x="250" y="354" class="s" fill="#1d6b3a" text-anchor="middle">站立时关节力矩 ≈ 0（抱闸锁住即可）</text>
+<line x1="560" y1="300" x2="940" y2="300" stroke="#666" stroke-width="2"/>
+<rect x="700" y="150" width="60" height="100" rx="6" fill="#fdf6f6" stroke="#a52020" stroke-width="2"/>
+<line x1="715" y1="250" x2="700" y2="300" stroke="#a52020" stroke-width="3"/>
+<line x1="745" y1="250" x2="760" y2="300" stroke="#a52020" stroke-width="3"/>
+<circle cx="700" cy="300" r="5" fill="#a52020" stroke="#a52020" stroke-width="2"/>
+<circle cx="760" cy="300" r="5" fill="#a52020" stroke="#a52020" stroke-width="2"/>
+<ellipse cx="700" cy="302" rx="26" ry="7" fill="#a5202022" stroke="#a52020" stroke-width="1.5"/>
+<ellipse cx="760" cy="302" rx="26" ry="7" fill="#a5202022" stroke="#a52020" stroke-width="1.5"/>
+<line x1="730" y1="150" x2="730" y2="100" stroke="#666" stroke-width="2"/>
+<line x1="730" y1="100" x2="735.2" y2="109.7" stroke="#666" stroke-width="2"/>
+<line x1="730" y1="100" x2="724.8" y2="109.7" stroke="#666" stroke-width="2"/>
+<text x="738" y="128" class="tiny" fill="#666">重心</text>
+<path d="M 730 150 L 700 300" stroke="#a52020" stroke-width="1.6" stroke-dasharray="5,4" fill="none"/>
+<text x="640" y="240" class="tiny" fill="#a52020">正在往前倒</text>
+<text x="730" y="330" class="s" text-anchor="middle">支撑多边形 = 两只脚掌（走路时只剩一只）</text>
+<text x="730" y="354" class="s" fill="#a52020" text-anchor="middle">每个腿腰关节必须每一毫秒都在闭环出力</text>
+<rect x="300" y="372" width="400" height="40" rx="6" fill="#fff" stroke="#1a4f8a" stroke-width="2"/>
+<text x="500" y="398" class="t" text-anchor="middle" font-size="18">τ = √(l/g)：G1 髋高 0.66 m ⇒ 0.259 s 内必须做点什么</text>
+<text x="60" y="415" class="tiny"></text>
+</svg>

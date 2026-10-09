@@ -1,0 +1,28 @@
+# ── 构建产物与依赖：一条命令可重生（bash tools/rebuild_all.sh）────────────
+print/node_modules/
+print/build/
+print/src/
+print/*.png
+submission/images/
+submission/src-docx/
+code/tools/*.log
+code/tools/__pycache__/
+**/__pycache__/
+*.pyc
+v6-*.png
+
+# ── 交稿快照（PDF 18.5 MB / docx 6.8 MB，每次重建都是整份新副本，会把仓库撑大）──
+# 想把某一版快照入库：git add -f "print/人形机器人：从一颗关节往下挖.pdf" submission/*.docx
+# 更合适的做法：把成品挂到 GitHub Releases，仓库里只留可复现的源。
+print/*.pdf
+submission/*.docx
+final/*.docx
+
+# ── 本地杂项 ──
+.DS_Store
+Thumbs.db
+*.tmp
+.tmp-*
+
+# 注意：research/raw/ 与 verification/*.bak 是**证据存档**（一手页面、改动前状态），
+# 故意纳入版本库，不要加进这里。

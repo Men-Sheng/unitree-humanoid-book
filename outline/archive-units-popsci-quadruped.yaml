@@ -1,0 +1,577 @@
+# outline/units.yaml — 《宇树机器人》科普书 Phase 2 大纲（现行版）
+#
+# 结构原则（作者指定）：**整体 → 局部 → 底层 → 回到整体 → 再往深里问**。
+# 少代码（全书只有第 4 部允许出现伪流程，不出现可复制的工程代码）。
+# 第一性原理 = 每一章至少给一个**能自己复算的数**（anchor_number）和**一个日常类比**（analogy）。
+# 幽默风趣 = 见 bible/voice-profile.md 的可数规则，不靠段子堆砌。
+#
+# 自定义字段（科普书专用，book-factory 不读但 Critic 会用）：
+#   zoom:            whole | part |底层 | cross | deep | epilogue | appendix —— 叙述尺度
+#   anchor_number:   本章的数量级锚点（数字 + 单位 + 来源标记）
+#   analogy:         主类比（一章最多一个，用坏了就删）
+#   code:            none | pseudo | real —— 代码量，全书以 none 为主
+#   gate_critical:   写完后必须过 3 个盲评 agent 的反驳
+#   needs_measure:   本章有只有"亲手量/亲眼看到"才能填的数 → 挂 verification/
+#
+# 机型：Go2(AIR/PRO/EDU) Go1 A1 B2/B2W AS2 G1 H1/H1_2 H2 Z1 Dex1/Dex3 Unilidar L1/L2
+# 数字来源标记：[厂]=官方公布 [拆]=第三方拆解 [算]=本书推算 [查]=未找到，须进附录 E 诚实表
+
+units:
+
+  # ═════════════ 第 0 部 走进来：你面前有一台机器（整体） ═════════════
+  - unit: "00"
+    part: "第 0 部 走进来：你面前有一台机器（整体）"
+    title: 开场：踢不倒的狗
+    zoom: whole
+    gate_critical: true
+    code: none
+    needs_measure: false
+    purpose: 读者被一个具体现象勾住——为什么推它一下它晃两下就站稳了，而桌上扫平的水杯不会
+    anchor_number: 从被推到恢复平衡 ≈ 1 s 量级 [查：需实测]
+    analogy: 它不是「站住了」，它是每一毫秒都在接住自己往下掉的身体
+    risks: [一上来就讲自由度和坐标系，把科普读者劝退]
+    target_words: 3500
+
+  - unit: "01"
+    part: "第 0 部 走进来：你面前有一台机器（整体）"
+    title: 这本书怎么读：三条路线
+    zoom: whole
+    gate_critical: false
+    code: none
+    purpose: 三类读者（看个热闹 / 想真搞懂 / 要挑一台或做一个）各自知道从哪章进、哪章可跳
+    anchor_number: 全书 45 章，最短路径 6 章
+    analogy: 博物馆的三条参观动线
+    risks: [线性通读在算术章卡住]
+    target_words: 2000
+
+  - unit: "02"
+    part: "第 0 部 走进来：你面前有一台机器（整体）"
+    title: 一台机器人 = 六件事
+    zoom: whole
+    gate_critical: true
+    code: none
+    purpose: 读者能用「骨架·肌肉·神经·感官·大脑·胃」六个词复述任何一台机器人的组成，且一个术语都不用
+    anchor_number: 六类子系统；Go2 的 12 个「肌肉」、1 个「大脑」、1 个「胃」
+    analogy: 把机器人当成一只会算数的动物，而不是会动的电脑
+    risks: [六分法过粗，后文要能挂回去]
+    target_words: 4000
+
+  - unit: "03"
+    part: "第 0 部 走进来：你面前有一台机器（整体）"
+    title: 为什么是宇树：从实验室到货架
+    zoom: whole
+    gate_critical: true
+    code: none
+    purpose: 读者知道「机器人突然便宜了」这件事真实发生过，并能说出大约是什么让它变便宜
+    anchor_number: 价格数量级对比：一台 Go2 ≈ 一部高配手机；人形 G1 起售价 [厂，待核]
+    analogy: 从「一台一台手搓的科研仪器」到「一条产线上的商品」
+    risks: [写成企业宣传稿；降价归因给不出来源]
+    target_words: 4500
+
+  # ═════════════ 第 1 部 拆开来：它由哪些东西组成（局部） ═════════════
+  - unit: "04"
+    part: "第 1 部 拆开来：它由哪些东西组成（局部）"
+    title: 清点一台 Go2
+    zoom: part
+    gate_critical: false
+    code: none
+    needs_measure: true
+    purpose: 读者能对着实物把主要部件点出来，并知道「12 个自由度」具体数在哪
+    anchor_number: 12 关节 = 4 腿 × 3；整机质量 ≈ 15 kg 量级 [厂]
+    analogy: 拆一台洗衣机：先数零件，再问每个零件在忙什么
+    risks: [把「自由度」和「电机数」混为一谈]
+    target_words: 4000
+    accumulate: "一副骨架 + 12 个会动的黑盒子 —— 但它一推就倒，什么也干不了"
+
+  - unit: "05"
+    part: "第 1 部 拆开来：它由哪些东西组成（局部）"
+    title: 肌肉单元：电机 + 减速器 + 编码器
+    zoom: part
+    gate_critical: true
+    code: none
+    purpose: 读者明白一个关节为什么必须是三件套，缺一样会怎样
+    anchor_number: 电机端扭矩 N·m 级 → 输出端放大到几十上百 N·m [厂/算]
+    analogy: 电机是小腿肌腱，减速器是杠杆，编码器是闭眼也能摸到杯子的本体感
+    risks: [「电机功率大就够了」这个常见误解]
+    target_words: 4500
+    accumulate: "有了肌肉：能出力了。但它不知道自己出了多少力、也不知道腿在哪儿"
+
+  - unit: "06"
+    part: "第 1 部 拆开来：它由哪些东西组成（局部）"
+    title: 减速器：身上最不像机器人的关键零件
+    zoom: part
+    gate_critical: true
+    code: none
+    purpose: 读者能分清行星、谐波、准直驱三种方案，并说出各自的代价（间隙、背隙、效率、成本、噪音）
+    anchor_number: 减速比量级：行星 ~10:1，谐波 ~50-100:1 [查：需逐机型核实]
+    analogy: 用自行车变速器的低档爬坡——不是更有力，是换成了慢而大的力
+    risks: [把「减速比大」直接等于「好」；忽略背隙对控制的影响]
+    target_words: 5000
+    accumulate: "力气被放大到能用。但慢、有间隙、发热"
+
+  - unit: "07"
+    part: "第 1 部 拆开来：它由哪些东西组成（局部）"
+    title: 编码器：它怎么知道自己弯了多少度
+    zoom: part
+    gate_critical: false
+    code: none
+    purpose: 读者理解绝对值/增量式、单圈/多圈的区别，以及断电后「位置记忆」从哪来
+    anchor_number: 分辨率量级（12-17 bit → 每度几百到几万格）[查]
+    analogy: 盲拧魔方：手知道转了多少格，靠的不是眼睛
+    risks: [以为有编码器就不需要 IMU]
+    target_words: 3500
+    accumulate: "它现在知道每条腿弯了多少度 —— 可它还是不知道自己是歪的"
+
+  - unit: "08"
+    part: "第 1 部 拆开来：它由哪些东西组成（局部）"
+    title: 胃：电池、功耗与两小时
+    zoom: part
+    gate_critical: true
+    code: none
+    needs_measure: true
+    purpose: 读者能用「电池 Wh ÷ 体重」判断任何一台移动机器人续航为什么是这个量级
+    anchor_number: Go2 电池容量 Wh 量级、标称续航约 1-2 h [厂]
+    analogy: 背包里装多少干粮，决定这只狗能走多远——而干粮本身也有体重
+    risks: [把待机时间与行走续航混说；忽略负载时的非线性下降]
+    target_words: 4500
+    accumulate: "有了胃：能自己走一段了。但走多久、能驮多重，全被这块电池钉死"
+
+  - unit: "09"
+    part: "第 1 部 拆开来：它由哪些东西组成（局部）"
+    title: 眼睛：IMU、深度相机、激光雷达各看见什么
+    zoom: part
+    gate_critical: true
+    code: none
+    purpose: 读者能说出三类传感器各自的「能看见/看不见」，理解为什么机器人要同时装好几种
+    anchor_number: IMU 输出频率量级、雷达量程与点数、深度相机有效距离 [厂/查]
+    analogy: 内耳管平衡、眼睛管物体、蝙蝠耳朵管距离——三只器官干三件事
+    risks: [以为有激光雷达就「看得见世界」]
+    target_words: 5000
+    accumulate: "有了感官：能看见远近和姿态。可它看见的东西有几毫秒的延迟，而且有盲区"
+
+  - unit: "10"
+    part: "第 1 部 拆开来：它由哪些东西组成（局部）"
+    title: 嘴、耳朵和脸：交互器件
+    zoom: part
+    gate_critical: false
+    code: none
+    purpose: 读者知道扬声器/麦克风/灯阵/语音模块这些「看起来像玩具」的东西在工程上解决什么问题
+    anchor_number: Go2 与 G1 的麦克风/扬声器配置差异 [查]
+    analogy: 机器狗对你说话，是为了让你别把它当成吸尘器
+    risks: [写成外观点评；漏掉「反馈通道给人」这个真实工程理由]
+    target_words: 3000
+    accumulate: "能对外发出信号（灯、声音）。但这些都是给人看的，不是它需要的"
+
+  - unit: "11"
+    part: "第 1 部 拆开来：它由哪些东西组成（局部）"
+    title: 大脑：为什么不是单片机
+    zoom: part
+    gate_critical: false
+    code: none
+    purpose: 读者能区分「实时控制」和「想事情」两类算力需求，理解为什么机身上往往有两套处理器
+    anchor_number: 控制回路 500 Hz 级 vs 感知/规划 10-30 Hz 级 [算/查]
+    analogy: 脊髓反射不需要问大脑；但走哪条路要问
+    risks: [把「算力大」当成「更聪明」]
+    target_words: 4500
+    accumulate: "有了会想事情的大脑。可大脑太快太慢都不对：太慢接不住自己，太快没电"
+
+  - unit: "12"
+    part: "第 1 部 拆开来：它由哪些东西组成（局部）"
+    title: 神经：总线、串口与每毫秒一次汇报
+    zoom: part
+    gate_critical: true
+    code: pseudo
+    purpose: 读者理解「一条线上挂 12 个关节」为什么需要协议、地址和 CRC，以及延迟预算怎么分
+    anchor_number: 电机总线波特率量级（6 Mbps 级）、ID 0-15 [核：官方协议文档]
+    analogy: 一个老师点名 12 个学生，每人只许说三个字
+    risks: [讲成通信教科书；一上来就 DDS]
+    target_words: 4500
+    accumulate: "神经接通了：大脑能同时点名 12 个关节。但点名的速度就是它的反应上限"
+
+  - unit: "13"
+    part: "第 1 部 拆开来：它由哪些东西组成（局部）"
+    title: 骨骼与脚：连杆、材料、IP 与那一块脚垫
+    zoom: part
+    gate_critical: false
+    code: none
+    needs_measure: true
+    purpose: 读者明白腿为什么是连杆而不是「膝盖」，以及防护等级、摩擦、散热这些细节如何决定能不能下地
+    anchor_number: 防护等级、足端直径与摩擦系数的作用 [厂/查]
+    analogy: 冰爪与拖鞋的区别，不在腿有多粗
+    risks: [结构部分容易写成参数罗列]
+    target_words: 3500
+    accumulate: "现在它是一台能下地的机器：有骨骼、有摩擦、有防护、会热"
+
+  # ═════════════ 第 2 部 往底层走：它凭什么站得住（底层） ═════════════
+  - unit: "14"
+    part: "第 2 部 往底层走：它凭什么站得住（底层）"
+    title: 平衡：永远在接住自己
+    zoom: whole
+    gate_critical: false
+    code: pseudo
+    purpose: 读者理解「稳定」不是静态属性，而是持续修正的过程
+    anchor_number: 重心高度与支撑面大小的比值 → 倾倒时间尺度量级 [算]
+    analogy: 接住一根倒下的扫帚——你从没让它静止过
+    risks: [把平衡讲成「重心投影落在支撑面内」就完事]
+    target_words: 4000
+
+  - unit: "15"
+    part: "第 2 部 往底层走：它凭什么站得住（底层）"
+    title: 倒立摆与两个数：为什么 10 毫秒就够它不倒
+    zoom: base
+    gate_critical: true
+    code: pseudo
+    purpose: 读者能自己算出「反应慢多少就会摔」，理解控制频率不是营销参数
+    anchor_number: 倒摆失稳时间 ∝ √(l/g)；约 0.3-0.5 s 量级 [算]
+    analogy: 端着满杯水急停，水给你的警告比传感器早
+    risks: [公式化过头；必须给「代进去算一遍」]
+    target_words: 4500
+
+  - unit: "16"
+    part: "第 2 部 往底层走：它凭什么站得住（底层）"
+    title: 扭矩算术：一个关节能撑几倍体重
+    zoom: base
+    gate_critical: true
+    code: pseudo
+    purpose: 读者会用「电机扭矩 × 减速比 ÷ 腿长 ≈ 可支持的力」这道三步算术，并据此判断负载上限
+    anchor_number: 全书最重要的一次复算：代入官方扭矩与减速比，得出与标称负载的对比 [算+厂]
+    analogy: 用撬棍抬汽车：不是力变大了，是力臂换了
+    risks: [静力估算被当成动态能力；必须注明动载系数]
+    target_words: 5000
+
+  - unit: "17"
+    part: "第 2 部 往底层走：它凭什么站得住（底层）"
+    title: 能量算术：每公里多少瓦时，和人比谁省力
+    zoom: base
+    gate_critical: true
+    code: none
+    purpose: 读者会用 Wh/km 与「每千克瓦时」评价任何移动机器人，并知道四足为什么费电
+    anchor_number: 电池 Wh ÷ 官方续航 ÷ 速度 → Wh/km [算]；与人步行代谢对比（需来源）
+    analogy: 同样走一公里，你的身体比它便宜一个数量级
+    risks: [代谢对比的来源必须可靠，别用网络流传数]
+    target_words: 4500
+
+  - unit: "18"
+    part: "第 2 部 往底层走：它凭什么站得住（底层）"
+    title: 频率算术：500 Hz 是从哪冒出来的
+    zoom: base
+    gate_critical: false
+    code: pseudo
+    purpose: 读者理解采样定理的直觉版：「要控制多快的动作，就得看多勤」
+    anchor_number: 控制周期 2 ms ↔ 可处理的最高扰动频率 [算]
+    analogy: 接飞盘时你不会每秒只看它一眼
+    risks: [把奈奎斯特定理讲成公式课]
+    target_words: 3500
+
+  - unit: "19"
+    part: "第 2 部 往底层走：它凭什么站得住（底层）"
+    title: 从眼睛到脚掌：一条延迟链
+    zoom: base
+    gate_critical: false
+    code: pseudo
+    purpose: 读者能把「感知→估计→规划→指令→总线→电流→力」的延迟逐项加起来
+    anchor_number: 各环节延迟量级表（相机曝光、推理、DDS 传输、电机响应）[查/算]
+    analogy: 你踩刹车之前，车已经往前走了几米
+    risks: [各环延迟缺官方数据，必须标估算与不确定度]
+    target_words: 4000
+
+  - unit: "20"
+    part: "第 2 部 往底层走：它凭什么站得住（底层）"
+    title: 为什么四足比双足容易一万倍
+    zoom: base
+    gate_critical: true
+    code: none
+    purpose: 读者理解支撑多边形、静态稳定与动态稳定的分界，以及「必须一直迈步」意味着什么
+    anchor_number: 四足支撑多边形面积 vs 双足 ≈ 数量级差异 [算]
+    analogy: 四条腿的桌子推不倒，一条腿的桌子必须一直用手扶着
+    risks: [过度简化成「人形难=难」；要给出难在哪几个数]
+    target_words: 4000
+
+  - unit: "21"
+    part: "第 2 部 往底层走：它凭什么站得住（底层）"
+    title: 平方-立方律：把人放大十倍会先塌哪里
+    zoom: base
+    gate_critical: true
+    code: pseudo
+    purpose: 读者能用一条比例律解释为什么巨型机器人不存在、为什么小机器狗反而灵活
+    anchor_number: 长度 ×10 → 重量 ×1000、截面积 ×100 [算]
+    analogy: 蚂蚁从十楼掉下去没事，人不行；不是蚂蚁坚强，是尺度偏心
+    risks: [类比滑过头，把生物力学和电机力学混为一谈, 必须写它解释不了什么（材料强度、控制带宽、成本）——《规模》单规律过度外推被反噬]
+    target_words: 4000
+
+  - unit: "22"
+    part: "第 2 部 往底层走：它凭什么站得住（底层）"
+    title: 从规则到学习：强化学习到底在算什么
+    zoom: base
+    gate_critical: false
+    code: none
+    purpose: 读者能解释「摔一万次学会走路」这句话里每一步是什么，且不以为它在「理解」走路
+    anchor_number: 训练并行环境数量级 / 训练时长 / 等效「练了多少年」 [查]
+    analogy: 蒙眼下山：每走一步问一句「更疼还是更不疼」
+    risks: [拟人化过头；暗示机器人在「思考」]
+    target_words: 5000
+
+  - unit: "23"
+    part: "第 2 部 往底层走：它凭什么站得住（底层）"
+    title: 模仿学习与 VLA：把「看过人怎么做」接上身体
+    zoom: base
+    gate_critical: false
+    code: none
+    purpose: 读者能区分「自己试出来」与「看人演示学出来」，并知道数据从哪来、有多贵
+    anchor_number: 采一条演示需要多少秒、训一个抓取策略要多少条 [查]
+    analogy: 学做菜：自己乱试 vs 站在师傅旁边看一百遍
+    risks: [把 VLA 讲成通用人工智能]
+    target_words: 4500
+
+  - unit: "24"
+    part: "第 2 部 往底层走：它凭什么站得住（底层）"
+    title: 「具身智能」这个词到底指什么
+    zoom: base
+    gate_critical: false
+    code: none
+    purpose: 读者能拆掉一个营销词，说出它的技术含义、成立部分和被夸大的部分
+    anchor_number: 无（本章以概念澄清为主，用一个可验证的判据代替数字）
+    analogy: 「智能手机」和「手机」的区别不在手机里
+    risks: [变成观点杂文；必须给判据与例子]
+    target_words: 4000
+
+  # ═════════════ 第 3 部 回到整体：全系列横切（同一套物理，不同的取舍） ═════════════
+  - unit: "25"
+    part: "第 3 部 回到整体：全系列横切（同一套物理，不同的取舍）"
+    title: Go2 三档：同一副身体，卖的是三种能力
+    zoom: cross
+    gate_critical: true
+    code: none
+    needs_measure: true
+    purpose: 读者能解释 AIR/PRO/EDU 的差别落在哪些器件与权限上，而不是「配置高低」
+    anchor_number: 三档在算力、传感器、低层接口上的差异表 [厂/查]
+    analogy: 同一辆车，区别是允不允许你打开引擎盖
+    risks: [权限差异易被写成「解锁教程」，越界, 真机数据写成品牌软文（《数学之美》被批 Google 宣传味）——本章必须同时写这台做不到什么]
+    target_words: 4500
+
+  - unit: "26"
+    part: "第 3 部 回到整体：全系列横切（同一套物理，不同的取舍）"
+    title: 大狗 B2 / AS2：当电池成了主要重量
+    zoom: cross
+    gate_critical: false
+    code: none
+    purpose: 读者理解重载平台的约束如何从「扭矩-质量-电池」三角里长出来
+    anchor_number: 自重 / 负载 / 续航 三个数在 B2 与 Go2 之间的比例 [厂]
+    analogy: 驮得多的马也吃得多，而且要先给饲料留位置
+    risks: [与第 16-17 章的算术重复→用 claim-index 管, 写成品牌软文：只报能核对的数，且必须写这台做不到什么（《数学之美》教训）]
+    target_words: 4000
+
+  - unit: "27"
+    part: "第 3 部 回到整体：全系列横切（同一套物理，不同的取舍）"
+    title: 人形 G1 / H1 / H2：难在哪几个数上
+    zoom: cross
+    gate_critical: true
+    code: none
+    purpose: 读者能把「人形难」落到具体数字（自由度、重心高、支撑面小、双足动态、功耗）
+    anchor_number: G1 自由度与质量、H1/H2 差异 [厂/查]
+    analogy: 让桌子站起来走路，还得单脚轮流站着不倒
+    risks: [写成「人形是终极形态」的布道, 写成品牌软文：只报能核对的数，且必须写这台做不到什么（《数学之美》教训）]
+    target_words: 5000
+
+  - unit: "28"
+    part: "第 3 部 回到整体：全系列横切（同一套物理，不同的取舍）"
+    title: 手与臂：Z1、Dex3 与「灵巧」为什么还没被解决
+    zoom: cross
+    gate_critical: false
+    code: none
+    purpose: 读者理解抓取比走路难在哪（接触、感知、自由度组合爆炸）
+    anchor_number: 手的自由度数量 vs 腿；抓取数据集规模 [查]
+    analogy: 让你闭眼只用两根手指拧开瓶盖
+    risks: [容易写成展望而非解释, 写成品牌软文：只报能核对的数，且必须写这台做不到什么（《数学之美》教训）]
+    target_words: 4500
+
+  - unit: "29"
+    part: "第 3 部 回到整体：全系列横切（同一套物理，不同的取舍）"
+    title: 老一代 A1 / Go1：六年前的机器现在看是什么水平
+    zoom: cross
+    gate_critical: false
+    code: none
+    purpose: 读者通过新旧对比看到「哪部分进步快、哪部分十年不动」
+    anchor_number: A1/Go1 与 Go2 的质量、续航、价格、传感器对比 [厂/查]
+    analogy: 看六年前的手机，你会知道瓶颈在电池而不是芯片
+    risks: [怀旧写成厂商编年史, 写成品牌软文：只报能核对的数，且必须写这台做不到什么（《数学之美》教训）]
+    target_words: 3500
+
+  - unit: "30"
+    part: "第 3 部 回到整体：全系列横切（同一套物理，不同的取舍）"
+    title: 一颗雷达的价格曲线：感知器件怎么变便宜
+    zoom: cross
+    gate_critical: false
+    code: none
+    purpose: 读者理解「机器人变便宜」很大程度是传感器降价，而不是算法奇迹
+    anchor_number: L1/L2 与消费级深度相机的价格量级与时间 [厂/查]
+    analogy: 自动驾驶没等到完美的雷达，先等到了便宜的雷达
+    risks: [价格数据易过期，必须带日期, 写成品牌软文：只报能核对的数，且必须写这台做不到什么（《数学之美》教训）]
+    target_words: 3500
+
+  - unit: "31"
+    part: "第 3 部 回到整体：全系列横切（同一套物理，不同的取舍）"
+    title: 一台机器狗的一天
+    zoom: whole
+    gate_critical: false
+    code: none
+    needs_measure: true
+    purpose: 读者看到前面所有零件与原理在一天里如何协作：充电、出发、看、走、摔、爬起、回巢
+    anchor_number: 一天里各子系统的占空比与能耗分配 [算/查]
+    analogy: 把全书倒回去放一遍，但这次按时间轴
+    risks: [写成流水账；必须显式回指每一章, 写成品牌软文：只报能核对的数，且必须写这台做不到什么（《数学之美》教训）]
+    target_words: 5000
+
+  # ═════════════ 第 4 部 再往深里问（技术爱好者与工作者） ═════════════
+  - unit: "32"
+    part: "第 4 部 再往深里问（技术爱好者与工作者）"
+    title: 没有中心的通信：DDS 为什么出现在机器人身上
+    zoom: deep
+    gate_critical: false
+    code: pseudo
+    purpose: 读者理解「发布/订阅」这个模型解决了什么，为什么不是「一台电脑连一堆线」
+    anchor_number: 一条总线上同时有多少路话题在跑 [查/算]
+    analogy: 微信群聊 vs 打电话：没人是服务器
+    risks: [最容易写成技术手册的一章，必须守住「不给代码」, 难度突升：第 4 部换例子不换叙述者，第一个小标题必须是"人话问题"（《编码》后 7 章变教材是真实差评来源)]
+    target_words: 4500
+
+  - unit: "33"
+    part: "第 4 部 再往深里问（技术爱好者与工作者）"
+    title: 接口三级：谁被挡在哪一级
+    zoom: deep
+    gate_critical: false
+    code: pseudo
+    purpose: 读者能说出高层运控、低层关节、电机总线三级各自能做什么、谁有权限、为什么这样分
+    anchor_number: 三级各自的更新率量级 [厂/查]
+    analogy: 打客服电话 / 找部门经理 / 直接进车间
+    risks: [权限与机型档位强相关，写错就是硬伤, 难度突升：第 4 部换例子不换叙述者，第一个小标题必须是"人话问题"（《编码》后 7 章变教材是真实差评来源)]
+    target_words: 4500
+
+  - unit: "34"
+    part: "第 4 部 再往深里问（技术爱好者与工作者）"
+    title: 在虚拟世界里先摔一万次：仿真与 sim2real
+    zoom: deep
+    gate_critical: false
+    code: none
+    purpose: 读者理解仿真为什么能训出真机能用的东西，以及「迁移」失败长什么样
+    anchor_number: 仿真一小时的等效训练时长 vs 真机一小时 [算/查]
+    analogy: 飞行模拟器与真实气流之间那道缝
+    risks: [域随机化等概念易讲玄，必须给具体例子, 难度突升：第 4 部换例子不换叙述者，第一个小标题必须是"人话问题"（《编码》后 7 章变教材是真实差评来源)]
+    target_words: 4500
+
+  - unit: "35"
+    part: "第 4 部 再往深里问（技术爱好者与工作者）"
+    title: 一条数据管线：从人的手到机器的手
+    zoom: deep
+    gate_critical: false
+    code: pseudo
+    purpose: 读者能画出「遥操作采集→清洗→训练→回放→部署」这条线，并知道每环的成本
+    anchor_number: 采 100 条演示需要的人时 [查/算]
+    analogy: 教做菜：请人示范、录下来、让学徒看一百遍
+    risks: [与第 23 章重叠→claim-index 管, 难度突升：第 4 部换例子不换叙述者，第一个小标题必须是"人话问题"（《编码》后 7 章变教材是真实差评来源)]
+    target_words: 4000
+
+  - unit: "36"
+    part: "第 4 部 再往深里问（技术爱好者与工作者）"
+    title: 自己造一个最小机器人
+    zoom: deep
+    gate_critical: false
+    code: pseudo
+    purpose: 读者知道从单片机小车到四足之间要跨几步，每步卡在哪个器件或哪个数上
+    anchor_number: 最小可行系统的预算量级与关键器件清单 [算/查]
+    analogy: 先做一辆会躲墙的小车，再谈走路
+    risks: [唯一容易滑向教程的一章；只给路标与判据，不给步骤, 难度突升：第 4 部换例子不换叙述者，第一个小标题必须是"人话问题"（《编码》后 7 章变教材是真实差评来源)]
+    target_words: 4500
+
+  - unit: "37"
+    part: "第 4 部 再往深里问（技术爱好者与工作者）"
+    title: 便宜从哪来：供应链、器件国产化与许可
+    zoom: deep
+    gate_critical: false
+    code: none
+    purpose: 读者能判断「哪些降价是工程进步、哪些是规模效应」，并知道开源不等于可商用
+    anchor_number: 成本结构占比（无一手来源则明确标「未证实」）
+    analogy: 同样一碗面，店便宜不是因为面好，是因为面粉厂就在旁边
+    risks: [归因极易失真；许可部分必须逐仓库给状态, 难度突升：第 4 部换例子不换叙述者，第一个小标题必须是"人话问题"（《编码》后 7 章变教材是真实差评来源)]
+    target_words: 4000
+
+  # ═════════════ 尾声 ═════════════
+  - unit: "38"
+    part: "尾声"
+    title: 它不会来抢你的工作，但会去踩你的泥地
+    zoom: epilogue
+    gate_critical: false
+    code: none
+    purpose: 读者看到机器人真正落地的场景长什么样（含田间、巡检、重载），以及「能干」与「能卖」的差距
+    anchor_number: 一个真实场景的任务时长与人力对比 [查：作者自有田间机器人经验可作一手]
+    analogy: 第一台拖拉机改变的不是耕地，是「谁在耕地」
+    risks: [结尾容易空泛拔高]
+    target_words: 3500
+
+  - unit: "39"
+    part: "尾声"
+    title: 这本书里哪些是量过的、哪些是厂商说的、哪些没验证
+    zoom: epilogue
+    gate_critical: true
+    code: none
+    purpose: 读者能查到本书每个关键数字的来源类型与日期，并能指出可疑处
+    anchor_number: 全书数字来源分级统计
+    analogy: 菜谱最后写「哪几道我亲自做过、哪几道是听说的」
+    risks: [诚实表写成免责声明；必须可点击可核对]
+    target_words: 2500
+
+  # ═════════════ 附录 ═════════════
+  - unit: "40"
+    part: "附录"
+    title: 附录 A：全系列规格与器件总表
+    zoom: appendix
+    gate_critical: true
+    code: none
+    purpose: 读者一张表查遍全系列：自由度、扭矩、质量、续航、传感器、算力、价格、发布时间
+    anchor_number: 每格带来源标记与抓取日期
+    risks: [厂商口径不一致时未标注；未公布格必须留空不猜]
+    target_words: 4000
+
+  - unit: "41"
+    part: "附录"
+    title: 附录 B：四道算术速查（扭矩 / 能量 / 频率 / 延迟）
+    zoom: appendix
+    gate_critical: true
+    code: pseudo
+    purpose: 读者拿到任何一台机器人，能用四道算式在 10 分钟内判断它行不行
+    anchor_number: 每道算式给代入示例
+    risks: [单位换算出错是这类表最常见的硬伤]
+    target_words: 2500
+
+  - unit: "42"
+    part: "附录"
+    title: 附录 C：术语对照与「别被这些词唬住」清单
+    zoom: appendix
+    gate_critical: false
+    code: none
+    purpose: 读者遇到行话能翻译成人话，并识别哪些词是在装
+    anchor_number: 无
+    risks: [与 glossary.md 重复→由 claim-index 管，术语以 glossary 为真源]
+    target_words: 3000
+
+  - unit: "43"
+    part: "附录"
+    title: 附录 D：去哪继续学（含「能不能商用」标注）
+    zoom: appendix
+    gate_critical: false
+    code: none
+    purpose: 想动手的读者有正确入口，且知道每个入口的许可与失效风险
+    anchor_number: 官方仓库/文档/社区项目清单 + license + 最近更新
+    risks: [链接腐烂；必须带抓取日期]
+    target_words: 3000
+
+  - unit: "44"
+    part: "附录"
+    title: 附录 E：参考来源与抓取日期
+    zoom: appendix
+    gate_critical: false
+    code: none
+    purpose: 全书引用可回溯
+    anchor_number: 无
+    risks: [与 bible/sources.md 双真源→由 sync 工具生成，不手写]
+    target_words: 2000

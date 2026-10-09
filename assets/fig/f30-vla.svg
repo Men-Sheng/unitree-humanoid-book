@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1250 440" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<text x="30" y="30" class="s">全行业两年内收敛到同一张图：四个部件，动作头三选一</text>
+<rect x="60" y="60" width="400" height="62" rx="6" fill="#fbfcfe" stroke="#1a4f8a" stroke-width="2"/>
+<text x="76" y="86" class="t" fill="#1a4f8a" font-size="18">① VLM 主干</text>
+<text x="76" y="108" class="tiny">1.8B–7B　看懂场景、理解指令</text>
+<text x="480" y="96" class="m" fill="#666" font-size="16">下界=先验容量　上界=端侧内存带宽</text>
+<line x1="260" y1="122" x2="260" y2="128" stroke="#1a4f8a" stroke-width="2"/>
+<line x1="260" y1="128" x2="254.8" y2="118.3" stroke="#1a4f8a" stroke-width="2"/>
+<line x1="260" y1="128" x2="265.2" y2="118.3" stroke="#1a4f8a" stroke-width="2"/>
+<rect x="60" y="128" width="400" height="62" rx="6" fill="#fbfcfe" stroke="#a52020" stroke-width="2"/>
+<text x="76" y="154" class="t" fill="#a52020" font-size="18">② 动作专家</text>
+<text x="76" y="176" class="tiny">80M–1B　专职生成动作，比主干小 1–2 个数量级</text>
+<text x="480" y="164" class="m" fill="#666" font-size="16">小，才能跑高频</text>
+<line x1="260" y1="190" x2="260" y2="196" stroke="#a52020" stroke-width="2"/>
+<line x1="260" y1="196" x2="254.8" y2="186.3" stroke="#a52020" stroke-width="2"/>
+<line x1="260" y1="196" x2="265.2" y2="186.3" stroke="#a52020" stroke-width="2"/>
+<rect x="60" y="196" width="400" height="62" rx="6" fill="#fbfcfe" stroke="#1d6b3a" stroke-width="2"/>
+<text x="76" y="222" class="t" fill="#1d6b3a" font-size="18">③ 动作头（三选一）</text>
+<text x="76" y="244" class="tiny">流匹配 / 扩散　·　离散 token　·　小回归 visuomotor</text>
+<text x="480" y="232" class="m" fill="#666" font-size="16">多峰→前两种；要 200 Hz→第三种</text>
+<line x1="260" y1="258" x2="260" y2="264" stroke="#1d6b3a" stroke-width="2"/>
+<line x1="260" y1="264" x2="254.8" y2="254.3" stroke="#1d6b3a" stroke-width="2"/>
+<line x1="260" y1="264" x2="265.2" y2="254.3" stroke="#1d6b3a" stroke-width="2"/>
+<rect x="60" y="264" width="400" height="62" rx="6" fill="#fbfcfe" stroke="#1a4f8a" stroke-width="2"/>
+<text x="76" y="290" class="t" fill="#1a4f8a" font-size="18">④ 分块 + 异步双系统</text>
+<text x="76" y="312" class="tiny">一次输出 H 步；边执行边算下一块</text>
+<text x="480" y="300" class="m" fill="#666" font-size="16">块长 = 延迟容忍度</text>
+<rect x="60" y="332" width="400" height="56" rx="6" fill="#f4faf6" stroke="#1d6b3a" stroke-width="2"/>
+<text x="260" y="356" class="t" fill="#1d6b3a" text-anchor="middle" font-size="18">⑤ 关节层（第 12 章那条链）</text>
+<text x="260" y="376" class="tiny" fill="#1d6b3a" text-anchor="middle">kp/kd 在两块之间做局部纠错</text>
+<rect x="790" y="60" width="440" height="300" rx="6" fill="#f7f7f7" stroke="#666" stroke-width="2"/>
+<text x="806" y="88" class="t">公开口径的几个数</text>
+<text x="806" y="118" class="m" fill="#1a4f8a" font-size="16">Figure Helix</text>
+<text x="806" y="136" class="tiny">S2 7B @7–9 Hz　S1 80M @200 Hz　全端侧</text>
+<text x="806" y="156" class="m" fill="#1a4f8a" font-size="16">π*0.6</text>
+<text x="806" y="174" class="tiny">Gemma3-4B + 860M flow　63 ms/块（H100）</text>
+<text x="806" y="194" class="m" fill="#1a4f8a" font-size="16">GR00T N1.7-3B</text>
+<text x="806" y="212" class="tiny">horizon 40　状态/动作 132 维　端侧 16 GB+</text>
+<text x="806" y="232" class="m" fill="#1a4f8a" font-size="16">SmolVLA</text>
+<text x="806" y="250" class="tiny">450M（含约 100M 动作专家）　CPU 也能跑</text>
+<text x="806" y="270" class="m" fill="#1a4f8a" font-size="16">宇树 UnifoLM-WLA</text>
+<text x="806" y="288" class="tiny">6B　约 2500 h　64 任务　Apache-2.0</text>
+<text x="806" y="308" class="m" fill="#1a4f8a" font-size="16">银河 AstraBrain</text>
+<text x="806" y="326" class="tiny">WBC 0.5：8040 万参数、384 专家蒸馏、ONNX</text>
+<text x="60" y="414" class="t" font-size="16.3">为什么必须双系统：主干比平衡慢。第 17 章 τ = 0.259 s，第 26 章推理 ≥ 120 ms —— 两个数一比，架构就定了。</text>
+</svg>

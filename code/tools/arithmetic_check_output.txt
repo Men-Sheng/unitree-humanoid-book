@@ -1,0 +1,18 @@
+selfcheck: 3/3 算式实现正确
+bus_budget(J288 舵机总线) 单个来回_bit=460  12 个单元一轮_us=920.0  控制周期 500Hz 预算_us=2000.0  总线占预算比例=46%  地址够不够=够：12 个单元，可用地址 15 个
+resolution_vs_backlash(Z1 机械臂关节) 官方背隙_度=0.1000  能不能相除=不能——缺另一个数。这两个数不能跨机型混用（宇树没给 GO-M8010-6 的背隙，也没给 Z1 的编码器位数）
+resolution_vs_backlash(Go2 关节电机) 编码器每圈格数=32768  输出端分辨率_度=0.001736  能不能相除=不能——缺另一个数。这两个数不能跨机型混用（宇树没给 GO-M8010-6 的背隙，也没给 Z1 的编码器位数）
+reverse_cot(AS2 主算例) 每公里耗电_Wh=32.4  CoT_无量纲=0.59  对比_人步行CoT=0.34（本书换算）/ 0.37（Nature 2026 论文口径）  倍数=约为人的 1.7 倍
+torque_chain       足端单腿可出力_N=111.3  四腿合计_N=445.1  按 1/2.0 静力裕度可驮_kg=7.7  官方标称负载_kg=TBD  扭矩来源=URDF 关节输出上限 + 等效力臂（厂商源码值）
+energy_chain       算不了（缺输入）
+frequency_chain    算不了（缺输入）
+latency_chain      算不了（缺输入）
+
+缺数 7 项
+  TBD: rated_payload_kg
+  TBD: camera_exposure_ms
+  TBD: perception_infer_ms
+  TBD: planner_ms
+  TBD: bus_roundtrip_ms
+  TBD: motor_current_response_ms
+  TBD: cost_of_transport(文献值)

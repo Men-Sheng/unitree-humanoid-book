@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<text x="30" y="34" class="s">同一个电机，改三个数就换一种“材质”。物理上没有任何东西被换掉，换掉的是误差到扭矩的映射——刚度是软件写的。</text>
+<text x="40" y="96" class="t">它等效于这样一根弹簧</text>
+<line x1="70" y1="120" x2="70" y2="300" stroke="#111" stroke-width="3"/>
+<line x1="58" y1="128" x2="70" y2="120" stroke="#111" stroke-width="1"/>
+<line x1="58" y1="145" x2="70" y2="137" stroke="#111" stroke-width="1"/>
+<line x1="58" y1="162" x2="70" y2="154" stroke="#111" stroke-width="1"/>
+<line x1="58" y1="179" x2="70" y2="171" stroke="#111" stroke-width="1"/>
+<line x1="58" y1="196" x2="70" y2="188" stroke="#111" stroke-width="1"/>
+<line x1="58" y1="213" x2="70" y2="205" stroke="#111" stroke-width="1"/>
+<line x1="58" y1="230" x2="70" y2="222" stroke="#111" stroke-width="1"/>
+<line x1="58" y1="247" x2="70" y2="239" stroke="#111" stroke-width="1"/>
+<line x1="58" y1="264" x2="70" y2="256" stroke="#111" stroke-width="1"/>
+<line x1="58" y1="281" x2="70" y2="273" stroke="#111" stroke-width="1"/>
+<line x1="58" y1="298" x2="70" y2="290" stroke="#111" stroke-width="1"/>
+<path d="M 70.0,168.0 L 86.0,181.0 L 96.0,155.0 L 106.0,181.0 L 116.0,155.0 L 126.0,181.0 L 136.0,155.0 L 146.0,181.0 L 156.0,155.0 L 166.0,181.0 L 176.0,168.0" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+<text x="90" y="132" class="s">k_p（刚度）</text>
+<line x1="176" y1="168" x2="280" y2="168" stroke="#111" stroke-width="2"/>
+<line x1="70" y1="250" x2="196" y2="250" stroke="#111" stroke-width="2"/>
+<line x1="196" y1="250" x2="222" y2="250" stroke="#111" stroke-width="2"/>
+<rect x="222" y="236" width="32" height="28" rx="2" fill="none" stroke="#111" stroke-width="2"/>
+<line x1="254" y1="250" x2="280" y2="250" stroke="#111" stroke-width="2"/>
+<line x1="238" y1="236" x2="238" y2="216" stroke="#111" stroke-width="2"/>
+<text x="192" y="208" class="s">k_d（阻尼）</text>
+<rect x="280" y="150" width="66" height="140" rx="6" fill="#f4f7fb" stroke="#1a4f8a" stroke-width="2"/>
+<text x="313" y="226" class="t" text-anchor="middle">J</text>
+<text x="313" y="312" class="s" text-anchor="middle">负载惯量</text>
+<line x1="352" y1="220" x2="410" y2="220" stroke="#a52020" stroke-width="2"/>
+<line x1="410" y1="220" x2="400.3" y2="225.2" stroke="#a52020" stroke-width="2"/>
+<line x1="410" y1="220" x2="400.3" y2="214.8" stroke="#a52020" stroke-width="2"/>
+<text x="381" y="206" class="s" fill="#a52020" text-anchor="middle">外力</text>
+<text x="40" y="344" class="tiny">推它，它让；撤力，它回。让多少、回多快，全由 k_p 与 k_d 说了算。</text>
+<text x="500" y="96" class="t">控制器里真正跑的式子（宇树口径：一条混合公式）</text>
+<text x="500" y="126" class="m">τ = τ_ff + k_p (q_des − q) + k_d (ω_des − ω)</text>
+<text x="500" y="154" class="s">位置误差 → 乘 k_p → 直接变扭矩，中间没有独立的</text>
+<text x="500" y="176" class="s">位置环。</text>
+<line x1="500" y1="184" x2="960" y2="184" stroke="#ddd" stroke-width="2"/>
+<text x="500" y="212" class="t">为什么“软”和“硬”是同一台机器</text>
+<text x="500" y="244" class="s" fill="#666">想要</text>
+<text x="596" y="244" class="s">擦桌子</text>
+<text x="714" y="244" class="s">端住水杯</text>
+<text x="832" y="244" class="s">敲键抓抛</text>
+<text x="500" y="270" class="s" fill="#666">k_p</text>
+<text x="596" y="270" class="s">几十</text>
+<text x="714" y="270" class="s">一两百</text>
+<text x="832" y="270" class="s">数百</text>
+<text x="500" y="296" class="s" fill="#666">被推</text>
+<text x="596" y="296" class="s">让很多</text>
+<text x="714" y="296" class="s">让一点</text>
+<text x="832" y="296" class="s">几乎不让</text>
+<text x="500" y="322" class="s" fill="#666">回位</text>
+<text x="596" y="322" class="s">慢</text>
+<text x="714" y="322" class="s">快</text>
+<text x="832" y="322" class="s">立刻顶回</text>
+<text x="500" y="348" class="s" fill="#666">代价</text>
+<text x="596" y="348" class="s">误差大</text>
+<text x="714" y="348" class="s">谐振余量</text>
+<text x="832" y="348" class="s">齿隙放大</text>
+<text x="596" y="382" class="s" fill="#1d6b3a">软</text>
+<text x="714" y="382" class="s" fill="#666">中</text>
+<text x="832" y="382" class="s" fill="#a52020">硬</text>
+<line x1="40" y1="404" x2="960" y2="404" stroke="#111" stroke-width="2"/>
+<text x="40" y="430" class="s">上限从哪来：ω_n = √(k_p / J)。刚度翻 4 倍，固有频率只翻 2 倍；</text>
+<text x="40" y="452" class="s">但它很快会撞上编码器分辨率、齿隙与 1 kHz 采样——撞上就是振荡。（第 12、14 章）</text>
+</svg>

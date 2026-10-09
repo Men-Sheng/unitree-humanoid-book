@@ -1,0 +1,112 @@
+{
+  "surfaces": [
+    {
+      "surface": "arithmetic_check",
+      "runner": "python code/tools/arithmetic_check.py",
+      "executable": true,
+      "determined": true,
+      "real_runner": true,
+      "waived": false,
+      "waiver_reason": null,
+      "debt": null,
+      "blocking": false,
+      "undeclared": false
+    },
+    {
+      "surface": "source_traceability",
+      "runner": "python code/tools/check_sources.py",
+      "executable": true,
+      "determined": true,
+      "real_runner": true,
+      "waived": false,
+      "waiver_reason": null,
+      "debt": null,
+      "blocking": false,
+      "undeclared": false
+    },
+    {
+      "surface": "analogy_boundary",
+      "runner": "reviewer-only",
+      "executable": false,
+      "determined": true,
+      "real_runner": false,
+      "waived": false,
+      "waiver_reason": null,
+      "debt": null,
+      "blocking": false,
+      "undeclared": false
+    },
+    {
+      "surface": "term_first_use",
+      "runner": "python code/tools/check_terms.py",
+      "executable": true,
+      "determined": true,
+      "real_runner": true,
+      "waived": false,
+      "waiver_reason": null,
+      "debt": null,
+      "blocking": false,
+      "undeclared": false
+    },
+    {
+      "surface": "style_budget",
+      "runner": "scripts/lint_style.py + python code/tools/check_humor_budget.py",
+      "executable": true,
+      "determined": true,
+      "real_runner": true,
+      "waived": false,
+      "waiver_reason": null,
+      "debt": null,
+      "blocking": false,
+      "undeclared": false
+    },
+    {
+      "surface": "unit_and_typography",
+      "runner": "autocorrect --fix   # 中文标点与中西文空格，抄 trpl-zh-cn 的 CI",
+      "executable": true,
+      "determined": true,
+      "real_runner": true,
+      "waived": false,
+      "waiver_reason": null,
+      "debt": null,
+      "blocking": false,
+      "undeclared": false
+    },
+    {
+      "surface": "measurement_reproducibility",
+      "runner": "reviewer-only",
+      "executable": false,
+      "determined": true,
+      "real_runner": false,
+      "waived": false,
+      "waiver_reason": null,
+      "debt": null,
+      "blocking": false,
+      "undeclared": false
+    },
+    {
+      "surface": "doc_cross_ref",
+      "runner": "scripts/lint_render.py --check-links",
+      "executable": true,
+      "determined": true,
+      "real_runner": true,
+      "waived": false,
+      "waiver_reason": null,
+      "debt": null,
+      "blocking": false,
+      "undeclared": false
+    },
+    {
+      "surface": "render_build",
+      "runner": "npm run build   # imac-pdf-book；pandoc 出 epub/docx；vitepress 出连载站",
+      "executable": true,
+      "determined": true,
+      "real_runner": true,
+      "waived": false,
+      "waiver_reason": null,
+      "debt": null,
+      "blocking": false,
+      "undeclared": false
+    }
+  ]
+}

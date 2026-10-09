@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.0 0.0 1065.2 400.0" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<rect x="50" y="80" width="200" height="90" rx="6" fill="#fbfcfe" stroke="#1a4f8a" stroke-width="2"></rect>
+<text x="150" y="110" class="h" fill="#1a4f8a" text-anchor="middle">Train</text>
+<text x="150" y="134" class="tiny" text-anchor="middle">Isaac Gym / Isaac Lab</text>
+<text x="150" y="154" class="tiny" text-anchor="middle">1000+ 并行环境</text>
+<line x1="250" y1="125" x2="290" y2="125" stroke="#666" stroke-width="2"></line>
+<line x1="290" y1="125" x2="280.3" y2="130.2" stroke="#666" stroke-width="2"></line>
+<line x1="290" y1="125" x2="280.3" y2="119.8" stroke="#666" stroke-width="2"></line>
+<rect x="290" y="80" width="200" height="90" rx="6" fill="#fbfcfe" stroke="#1a4f8a" stroke-width="2"></rect>
+<text x="390" y="110" class="h" fill="#1a4f8a" text-anchor="middle">Play</text>
+<text x="390" y="134" class="tiny" text-anchor="middle">同一仿真器回放</text>
+<line x1="490" y1="125" x2="530" y2="125" stroke="#666" stroke-width="2"></line>
+<line x1="530" y1="125" x2="520.3" y2="130.2" stroke="#666" stroke-width="2"></line>
+<line x1="530" y1="125" x2="520.3" y2="119.8" stroke="#666" stroke-width="2"></line>
+<rect x="530" y="80" width="200" height="90" rx="6" fill="#fbfcfe" stroke="#a52020" stroke-width="2"></rect>
+<text x="630" y="110" class="h" fill="#a52020" text-anchor="middle">Sim2Sim</text>
+<text x="630" y="134" class="tiny" text-anchor="middle">换到 MuJoCo</text>
+<text x="630" y="154" class="tiny" text-anchor="middle">专抓「拟合了仿真器」</text>
+<line x1="730" y1="125" x2="770" y2="125" stroke="#666" stroke-width="2"></line>
+<line x1="770" y1="125" x2="760.3" y2="130.2" stroke="#666" stroke-width="2"></line>
+<line x1="770" y1="125" x2="760.3" y2="119.8" stroke="#666" stroke-width="2"></line>
+<rect x="770" y="80" width="200" height="90" rx="6" fill="#fbfcfe" stroke="#1d6b3a" stroke-width="2"></rect>
+<text x="870" y="110" class="h" fill="#1d6b3a" text-anchor="middle">Sim2Real</text>
+<text x="870" y="134" class="tiny" text-anchor="middle">rt/lowcmd 500 Hz</text>
+<text x="870" y="154" class="tiny" text-anchor="middle">策略 50 Hz</text>
+<text x="50" y="200" class="s">Sim2Sim 看起来傻：已经能走了为什么再换个仿真器走一遍？因为它防的是「策略学到的是仿真器的接触算法，不是走路」。</text>
+<rect x="50" y="226" width="430" height="130" rx="6" fill="#f4faf6" stroke="#1d6b3a" stroke-width="2"></rect>
+<text x="66" y="252" class="t" fill="#1d6b3a" font-size="18">官方 EventCfg 里【有】的随机化</text>
+<text x="66" y="280" class="m" font-size="16">地面摩擦　　[0.1, 1.25]</text>
+<text x="66" y="300" class="m" font-size="16">附加质量　　[−1, +3] kg</text>
+<text x="66" y="320" class="m" font-size="16">随机推力　　每 5 s / 1.5 m/s</text>
+<text x="66" y="340" class="m" font-size="16">观测噪声 + 5 帧历史</text>
+<rect x="520" y="226" width="430" height="130" rx="6" fill="#fdf6f6" stroke="#a52020" stroke-width="2"></rect>
+<text x="536" y="252" class="t" fill="#a52020" font-size="14.62" style="font-size: 12.57px;">官方【没有】随机化的（= 本书前面证明过的不确定源）</text>
+<text x="536" y="280" class="m" fill="#a52020" font-size="16">✗　k_t 随温度漂（第 04、36 章）</text>
+<text x="536" y="300" class="m" fill="#a52020" font-size="16">✗　通信延迟（第 12、27 章）</text>
+<text x="536" y="320" class="m" fill="#a52020" font-size="16">✗　关节摩擦 Fs/Fd 的变化（第 14 章）</text>
+<text x="536" y="340" class="m" fill="#a52020" font-size="16">✗　连杆惯量（第 18 章）</text>
+<text x="50" y="380" class="h" font-size="19">随机化清单就是这个策略的能力边界声明。四个 ✗ 恰好对应第 5 部的热、总线、磨损、漂移。</text>
+</svg>

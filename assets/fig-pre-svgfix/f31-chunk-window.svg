@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<text x="30" y="30" class="s">块长有两个相反的界：一个来自推理时间，一个来自世界的变化速度</text>
+<line x1="130" y1="300" x2="890" y2="300" stroke="#666" stroke-width="1"/>
+<line x1="130" y1="300" x2="130" y2="90" stroke="#666" stroke-width="1"/>
+<text x="130.0" y="322" class="tiny" text-anchor="middle">4</text>
+<text x="170.0" y="322" class="tiny" text-anchor="middle">8</text>
+<text x="210.0" y="322" class="tiny" text-anchor="middle">12</text>
+<text x="250.0" y="322" class="tiny" text-anchor="middle">16</text>
+<text x="290.0" y="322" class="tiny" text-anchor="middle">20</text>
+<text x="330.0" y="322" class="tiny" text-anchor="middle">24</text>
+<text x="370.0" y="322" class="tiny" text-anchor="middle">28</text>
+<text x="410.0" y="322" class="tiny" text-anchor="middle">32</text>
+<text x="450.0" y="322" class="tiny" text-anchor="middle">36</text>
+<text x="490.0" y="322" class="tiny" text-anchor="middle">40</text>
+<text x="530.0" y="322" class="tiny" text-anchor="middle">44</text>
+<text x="570.0" y="322" class="tiny" text-anchor="middle">48</text>
+<text x="610.0" y="322" class="tiny" text-anchor="middle">52</text>
+<text x="650.0" y="322" class="tiny" text-anchor="middle">56</text>
+<text x="690.0" y="322" class="tiny" text-anchor="middle">60</text>
+<text x="730.0" y="322" class="tiny" text-anchor="middle">64</text>
+<text x="770.0" y="322" class="tiny" text-anchor="middle">68</text>
+<text x="810.0" y="322" class="tiny" text-anchor="middle">72</text>
+<text x="850.0" y="322" class="tiny" text-anchor="middle">76</text>
+<text x="890.0" y="322" class="tiny" text-anchor="middle">80</text>
+<text x="510.0" y="346" class="s" text-anchor="middle">动作块长度 H（步，Δt = 20 ms）</text>
+<text x="84" y="195.0" class="s" text-anchor="middle" font-size="15">时间（毫秒）</text>
+<path d="M 130 273.75 L 890 90.0" fill="none" stroke="#a52020" stroke-width="2.5" stroke-linecap="round"/>
+<text x="880" y="85.25" class="m" fill="#a52020" text-anchor="end">平均反应延迟 = H·Δt / 2</text>
+<path d="M 130 279.0 L 890 279.0" fill="none" stroke="#1d6b3a" stroke-width="2.5" stroke-dasharray="6,4" stroke-linecap="round"/>
+<text x="140" y="269.0" class="m" fill="#1d6b3a">一次推理 T_infer（端侧 ≈160 ms）</text>
+<path d="M 130 286.875 L 890 286.875" fill="none" stroke="#1a4f8a" stroke-width="2" stroke-dasharray="3,3" stroke-linecap="round"/>
+<text x="140" y="304.875" class="tiny" fill="#1a4f8a">世界能等你多久：接触/平衡需要 10–100 ms</text>
+<line x1="410.0" y1="300" x2="410.0" y2="90" stroke="#111" stroke-width="1.5" stroke-dasharray="5,4"/>
+<text x="410.0" y="82" class="t" text-anchor="middle" font-size="17">可行窗口在这里</text>
+<rect x="600" y="90" width="300" height="90" rx="6" fill="#fdf6f6" stroke="#a52020" stroke-width="2"/>
+<text x="616" y="118" class="t" fill="#a52020">H = 40 的读法</text>
+<text x="616" y="144" class="m">一块覆盖 800 ms</text>
+<text x="616" y="168" class="m" fill="#a52020">平均反应 400 ms &gt; τ = 259 ms</text>
+<text x="130" y="376" class="t" font-size="18">所以 VLA 在结构上不能承担平衡与接触密集任务——不是模型不够大，是 H·Δt 这个乘数不允许。</text>
+</svg>

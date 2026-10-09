@@ -1,0 +1,538 @@
+# ⚠️ 已归档（2026-10-07 定位调整）
+# 这一版是"开发者工作流手册"的 50 章大纲。作者把本书重新定位为**科普 + 技术爱好者**
+# （少代码、第一性原理、整体→局部→底层、幽默风趣），现行大纲见 outline/units.yaml。
+# 本文件保留不删，因为它的第 2/3/5/6/7 篇与附录 A1-A4 仍是现行大纲第 4 部（技术追问层）
+# 与附录 D 的素材来源；话题全表与兼容矩阵这两张表也仍然要做，只是降级为"给想深究的人"。
+# 若将来出第二本（开发者手册），从这里续。
+
+# outline/units.yaml — 《宇树机器人开发者工作流全栈》Phase 2 大纲
+#
+# schema: book-factory/templates/chapter-entry.yaml § TECHNICAL
+# 状态：Phase 2 草稿，待 Phase 1.5（knowledge-graph）完成后补
+#   concepts_introduced / concepts_used(introduced_in) / examples / exercises / forward_references
+# 依赖顺序校验（introduced_in 必须早于本单元）在那一步跑。
+#
+# 本文件额外使用两个自定义字段（供构建与核查排期用，不影响 skill 读取）：
+#   layer:            about | using | reference | summary   —— Inside Macintosh 四层归属
+#   live_check:       true 表示本章含"只有真机才能定"的论断，必须挂 verification/ 核查单
+#   requires_edu:     true 表示低层/EDU 权限，AIR/PRO 读者需跳读替代节
+#
+# unit 编号是读者阅读顺序，也是 drafts/unit-NN/ 的稳定 id。
+# 机型缩写：G2=Go2(AIR/PRO/EDU) G1=G1 H1=H1/H1_2 H2=H2 B2=B2/B2W AS2=AS2 Z1=Z1 A1=A1/Go1(历史栈)
+
+units:
+
+  # ===================== 第 0 篇 序与路线图 =====================
+  - unit: "00"
+    title: 前言：这本书的范围、版本基线与非官方声明
+    part: "第 0 篇 序与路线图"
+    layer: about
+    gate_critical: true          # 开篇单元，缺陷最贵
+    live_check: false
+    purpose: 读者能说出这本书讲哪层、钉在哪个版本、以及自己手上哪台机器在覆盖范围内
+    risks: [误以为这是官方文档, 误以为覆盖所有机型所有固件]
+    target_words: 2500
+
+  - unit: "01"
+    title: 四条读者路线图
+    part: "第 0 篇 序与路线图"
+    layer: about
+    gate_critical: true
+    live_check: false
+    purpose: 四类入口读者（发指令的 / 训策略的 / 做产品的 / 开实验课的）各自知道该读哪 6-8 章、可跳哪些
+    risks: [线性通读导致在低层章节卡死]
+    target_words: 2000
+
+  - unit: "02"
+    title: 全栈架构图：从电机换算是多少转到 App 按一下按钮
+    part: "第 0 篇 序与路线图"
+    layer: about
+    gate_critical: true          # 全书唯一"地图"，错了全书错位
+    live_check: false
+    purpose: 读者能画出六层栈（电机总线→DDS→SDK→ROS2/仿真→策略→应用）并指出任一功能落在哪层
+    risks: [把 sport_client 与 rt/lowcmd 当成同一层, 以为 ROS2 是必需环节]
+    target_words: 3500
+
+  # ===================== 第 1 篇 概念层（About） =====================
+  - unit: "03"
+    title: About 通信：DDS 域、Participant、Topic 与 IDL
+    part: "第 1 篇 概念层"
+    layer: about
+    gate_critical: true
+    live_check: false
+    purpose: 读者能解释"为什么宇树两侧连接都收敛成 DDS 话题"、请求/应答与高频状态两条路的区别、以及域号/PARTICIPANT_NAME 为何是第一个坑
+    risks: [把 DDS 当成 ROS2 的替身, 以为 topic 名字会随 SDK 版本稳定]
+    target_words: 4000
+
+  - unit: "04"
+    title: About 控制面：高层运控、低层关节与电机总线三级权限
+    part: "第 1 篇 概念层"
+    layer: about
+    gate_critical: true          # 空白论证第 3 项，判定链必须准确
+    live_check: true
+    requires_edu: true
+    purpose: 读者能判断"我这个机型+固件+当前运动模式下，能不能拿到 rt/lowcmd"，并知道被谁挡住（EDU 授权 / MCF / App 运动模式 / MotionSwitcher）
+    risks: [以为 AIR/PRO 也能直接发 lowcmd, 不知道抢占会互相踢]
+    target_words: 4500
+
+  - unit: "05"
+    title: About 机型与档位：同一套 SDK 为什么行为不同
+    part: "第 1 篇 概念层"
+    layer: about
+    gate_critical: true
+    live_check: false
+    purpose: 读者能为 G2/G1/H1/H2/B2/AS2/Z1/A1 各自指出 IDL 命名空间、控制接口代次、可用传感器与文档入口
+    risks: [混用 unitree_go 与 unitree_hg 的 IDL, 用 Go2 的示例套 G1]
+    target_words: 4000
+
+  - unit: "06"
+    title: About 仿真与 sim2real：三条线各自解决什么
+    part: "第 1 篇 概念层"
+    layer: about
+    gate_critical: false
+    live_check: false
+    purpose: 读者能选对仿真器（MuJoCo 快速验证接口 / Isaac Lab 训练与采集 / 旧 Isaac Gym 的历史项目）并解释"同参数同结果"为什么是硬要求
+    risks: [以为仿真训完直接上真机, 忽视 unitree_sim_isaaclab 与真机共用话题]
+    target_words: 3500
+
+  - unit: "07"
+    title: About 感知栈：雷达、深度相机、里程计与坐标系约定
+    part: "第 1 篇 概念层"
+    layer: about
+    gate_critical: true          # 坐标系错了整链皆错
+    live_check: false
+    purpose: 读者能说清 L1/L2、Go2 自带 utlidar、robot_odom 各自的原点/轴向/单位，以及为什么同一份点云在不同文档里轴向不一致
+    risks: [坐标系约定不统一导致 LIO 发散, 把 utlidar 与 unilidar 当成同一个东西]
+    target_words: 3500
+
+  - unit: "08"
+    title: About 操作栈：遥操作→数据→模仿学习→部署
+    part: "第 1 篇 概念层"
+    layer: about
+    gate_critical: false
+    live_check: false
+    purpose: 读者能描述 xr_teleoperate / sim_isaaclab / unitree_lerobot / unifolm 在一条链上的位置与数据格式交接点
+    risks: [以为遥操作数据可直接喂任意策略]
+    target_words: 3000
+
+  # ===================== 第 2 篇 上手（Using） =====================
+  - unit: "09"
+    title: Using 环境：Ubuntu/gcc/CMake、cyclonedds 0.10.2 与那个不能 source 的坑
+    part: "第 2 篇 上手"
+    layer: using
+    gate_critical: true          # 全书第一道墙，失败率最高
+    live_check: true
+    purpose: 读者能在 30 分钟内得到一个"能收发宇树话题"的环境，并知道 Windows/WSL2/conda 三条路的代价
+    risks: [编译 cyclonedds 时终端已 source ROS2, pip 装 SDK 前没设 CYCLONEDDS_HOME, 版本装成 0.10.5]
+    target_words: 5000
+
+  - unit: "10"
+    title: Using 第一个订阅：收到 rt/sportmodestate
+    part: "第 2 篇 上手"
+    layer: using
+    gate_critical: true
+    live_check: true
+    purpose: 读者能跑通 C++ 与 Python 各一个订阅程序，打印真实字段，并用 IDL 源码核对字段含义
+    risks: [队列长度与回调阻塞, 以为字段单位是 SI]
+    target_words: 4500
+
+  - unit: "11"
+    title: Using 安全前置：急停、吊架、App 抢端口与电池
+    part: "第 2 篇 上手"
+    layer: using
+    gate_critical: true          # 安全单元，必须零错误
+    live_check: true
+    purpose: 读者在第一次发运动指令前完成物理与软件两侧的安全准备，并知道出错时的现场处置顺序
+    risks: [手机 App 占着 Wi-Fi 端口, 低层无速度/位置限幅直接上, 无人值守]
+    target_words: 3500
+
+  - unit: "12"
+    title: Using 第一次让它动：sport_client 与 MotionSwitcher 抢占
+    part: "第 2 篇 上手"
+    layer: using
+    gate_critical: false
+    live_check: true
+    requires_edu: false
+    purpose: 读者能列出当前可用运动模式、发起一次受控指令、并在被其他控制器抢占时正确恢复
+    risks: [不知道 MotionSwitcher 会拒绝, 指令无应答时反复重发]
+    target_words: 4000
+
+  - unit: "13"
+    title: Using ROS2 桥：unitree_ros2 的消息、cyclonedds_ws 与话题映射
+    part: "第 2 篇 上手"
+    layer: using
+    gate_critical: false
+    live_check: true
+    purpose: 读者能在 ROS2 Humble 下拿到与原生 SDK 等价的话题，并解释官方为何没有 ros2_control 硬件接口层
+    risks: [foxy 必须自编译而 humble 不必, rmw 实现串味]
+    target_words: 4500
+
+  - unit: "14"
+    title: Using 仿真里跑同一段代码：unitree_mujoco（MuJoCo 3.3.6）
+    part: "第 2 篇 上手"
+    layer: using
+    gate_critical: false
+    live_check: false
+    purpose: 读者能用同一份客户端代码在仿真与真机之间切换，并理解这为什么是"契约一致"的证明
+    risks: [依赖 Boost/Spdlog/yaml-cpp/GLFW 装不上, 仿真与真机话题不同名]
+    target_words: 4000
+
+  - unit: "15"
+    title: Using 排障手册：上手阶段会撞的 12 件事
+    part: "第 2 篇 上手"
+    layer: summary
+    gate_critical: false
+    live_check: true
+    purpose: 读者能用手查表定位"收不到任何消息 / 只收到一半 / 发出去不动 / 仿真能认真机不能"这四类症状
+    risks: [症状描述与根因不匹配]
+    target_words: 3500
+
+  # ===================== 第 3 篇 低层控制与实时 =====================
+  - unit: "16"
+    title: About/Reference rt/lowcmd 与 rt/lowstate 的完整契约
+    part: "第 3 篇 低层控制"
+    layer: reference
+    gate_critical: true          # 全书最重的一张表
+    live_check: true
+    requires_edu: true
+    purpose: 读者能查到每个字段的类型、单位、有效范围、更新频率、坐标系与越界后果
+    risks: [频率与固件版本相关, mode_machine 与 mode_pr 语义被误传]
+    target_words: 6000
+
+  - unit: "17"
+    title: Using 关节级控制：kp/kd、前馈力矩、限位与保护
+    part: "第 3 篇 低层控制"
+    layer: using
+    gate_critical: false
+    live_check: true
+    requires_edu: true
+    purpose: 读者能安全地做位置/力矩混合控制实验，并给出自己机型的合理增益初值与失效模式
+    risks: [kd 给负导致发散, 无软限位的姿态]
+    target_words: 4500
+
+  - unit: "18"
+    title: Reference 电机总线：GO-M8010-6/A1/B1/IM6014/SV1-25/J288/S288
+    part: "第 3 篇 低层控制"
+    layer: reference
+    gate_critical: true
+    live_check: false
+    purpose: 读者能按帧格式与 CRC32 直接驱动一只电机，并完成转子侧↔输出侧 kp/kd 换算
+    risks: [半双工 8N1 6Mbps 时序, ID 15 是广播, “M107”这类不存在的型号在网上传播]
+    target_words: 5000
+
+  - unit: "19"
+    title: Using 历史栈：unitree_legged_sdk（A1/Go1）与 unitree_guide（MPC）
+    part: "第 3 篇 低层控制"
+    layer: using
+    gate_critical: false
+    live_check: false
+    purpose: 读者能判断自己是否还在用旧栈、旧栈与新栈的接口差异、以及为什么 2024 年后不该新项目选它
+    risks: [把旧 SDK 的 DDS 配置照搬到 Go2]
+    target_words: 4000
+
+  - unit: "20"
+    title: About 步态与运控理论：只给结论，指向宇树自著教材
+    part: "第 3 篇 低层控制"
+    layer: about
+    gate_critical: false
+    live_check: false
+    purpose: 读者知道经典运控（平衡/步态规划/巡线）的推导去哪本书记，以及它对应到本书哪一章的实现
+    risks: [重复造轮子、与机工社那本撞车]
+    target_words: 2500
+
+  # ===================== 第 4 篇 强化学习与 sim2real =====================
+  - unit: "21"
+    title: Using unitree_rl_gym：Train→Play→Sim2Sim→Sim2Real
+    part: "第 4 篇 RL 与 sim2real"
+    layer: using
+    gate_critical: false
+    live_check: true
+    purpose: 读者能跑通一条 Go2/G1 训练链，并理解它依赖已停发的 Isaac Gym Preview 4 意味着什么
+    risks: [Preview 4 装不上, 参数与配置漂移导致结果不可复现]
+    target_words: 5000
+
+  - unit: "22"
+    title: Using unitree_rl_lab：Isaac Lab 版与从 rl_gym 迁移
+    part: "第 4 篇 RL 与 sim2real"
+    layer: using
+    gate_critical: false
+    live_check: true
+    purpose: 读者能把旧工程迁到 rl_lab（Go2/H1/G1-29dof），并处理 USD 资产下载与 GPU 代次问题
+    risks: [RTX 50 系需 Isaac Sim 5.0.0, 仅官方测过 3080/3090/4090]
+    target_words: 4500
+
+  - unit: "23"
+    title: Using 部署：policy*.pt → ONNX → 真机推理进程与时序
+    part: "第 4 篇 RL 与 sim2real"
+    layer: using
+    gate_critical: true          # 空白论证第 5 项，官方无文档
+    live_check: true
+    requires_edu: true
+    purpose: 读者能把训练好的策略以固定控制周期部署到真机，并解释观测归一化、延迟、首帧与看门狗
+    risks: [官方无 ONNX 导出文档→必须自证, 控制周期与 lowstate 频率不匹配]
+    target_words: 5500
+
+  - unit: "24"
+    title: Using 没有 4090 怎么办：mjlab、CPU 与降规模训练
+    part: "第 4 篇 RL 与 sim2real"
+    layer: using
+    gate_critical: false
+    live_check: false
+    purpose: 读者能在弱算力下得到可用策略，并知道哪些结论会因此失真
+    risks: [并行环境数骤降导致的收敛差异被忽略]
+    target_words: 3000
+
+  - unit: "25"
+    title: About 地形、heightmap 与状态估计
+    part: "第 4 篇 RL 与 sim2real"
+    layer: about
+    gate_critical: false
+    live_check: false
+    purpose: 读者能解释策略观测里 heightfield 从哪来、仿真与真机来源差异、以及错位会怎样表现
+    risks: [把仿真 ground truth 当传感器输入]
+    target_words: 3000
+
+  # ===================== 第 5 篇 感知、定位与自主 =====================
+  - unit: "26"
+    title: Reference unilidar_sdk2（L2 4D）与 unilidar_sdk（L1）
+    part: "第 5 篇 感知与自主"
+    layer: reference
+    gate_critical: false
+    live_check: true
+    purpose: 读者能按 hw/fw/sdk 三者匹配关系装好雷达并拿到点云与 IMU 话题
+    risks: [sdk 2.0.2 / hw 1.1.1.1 / fw 2.3.3.0 的组合约束被忽略]
+    target_words: 4000
+
+  - unit: "27"
+    title: Using LIO：point_lio_unilidar（GPL-2.0）与 FAST-LIO 的选择
+    part: "第 5 篇 感知与自主"
+    layer: using
+    gate_critical: true          # 含许可阻断判断
+    live_check: true
+    purpose: 读者能跑通一条 LIO 定位链，并明确知道 GPL-2.0 对自己交付物的影响
+    risks: [把 GPL 代码链进闭源产品, 外参与 IMU 噪声模型照抄]
+    target_words: 4500
+
+  - unit: "28"
+    title: Using Go2 自带感知：utlidar 点云、robot_odom 与社区自主栈
+    part: "第 5 篇 感知与自主"
+    layer: using
+    gate_critical: false
+    live_check: true
+    purpose: 读者能区分 Go2 自带传感器话题与外接 Unilidar 话题，并评估 autonomy_stack_go2 一类社区方案的可用性
+    risks: [utlidar/unilidar 混淆, robot_odom 的坐标系来源不清]
+    target_words: 4000
+
+  - unit: "29"
+    title: Reference 图传与鉴权：WebRTC、每机 AES-128 与 H264
+    part: "第 5 篇 感知与自主"
+    layer: reference
+    gate_critical: true          # 空白论证第 4 项，固件 1.1.15 断代
+    live_check: true
+    purpose: 读者能拿到相机流，并解释为什么网上大量旧脚本在 1.1.15 之后直接失效
+    risks: [静态 token 已废, App 抢占, 图传与控制的端口关系]
+    target_words: 4500
+
+  - unit: "30"
+    title: Using 导航：NAV2 集成与工程边界
+    part: "第 5 篇 感知与自主"
+    layer: using
+    gate_critical: false
+    live_check: true
+    requires_edu: false
+    purpose: 读者能把定位、代价地图、控制器接成一条可跑的导航链，并知道在足式平台上哪些假设不成立
+    risks: [轮式假设（底盘运动模型、延迟）被直接套用]
+    target_words: 4000
+
+  # ===================== 第 6 篇 操作与人形（G1/H1/H2/Z1） =====================
+  - unit: "31"
+    title: Using xr_teleoperate：AVP/Quest 遥操作与依赖钉版
+    part: "第 6 篇 操作与人形"
+    layer: using
+    gate_critical: false
+    live_check: true
+    purpose: 读者能搭起遥操作会话（pinocchio 3.1.0 / conda py3.8）并稳定采到一段数据
+    risks: [依赖版本一换就崩, 网络延迟与关节限幅的处理]
+    target_words: 4500
+
+  - unit: "32"
+    title: Reference 灵巧手生态：Dex3-1/Dex1-1/Dex5/Inspire/Brainco/Linker
+    part: "第 6 篇 操作与人形"
+    layer: reference
+    gate_critical: false
+    live_check: false
+    purpose: 读者能对比各家手的 serial2dds 接口差异并选一只
+    risks: [各家 service 部署步骤互不兼容, 部分仓库无 LICENSE]
+    target_words: 3500
+
+  - unit: "33"
+    title: Using unitree_lerobot：数据格式、pi05/groot 与训练转换
+    part: "第 6 篇 操作与人形"
+    layer: using
+    gate_critical: false
+    live_check: true
+    purpose: 读者能把采集数据转成 LeRobot v2.0+ 格式、训一个策略、并在 G1+Dex1/Dex3 上部署
+    risks: [LeRobot 版本升级导致数据不兼容]
+    target_words: 4500
+
+  - unit: "34"
+    title: Using unitree_sim_isaaclab：采集、回放、数据增强与抢控警告
+    part: "第 6 篇 操作与人形"
+    layer: using
+    gate_critical: true          # 安全：与真机共用 DDS 话题
+    live_check: true
+    purpose: 读者能在仿真里复现遥操作会话，并清楚知道同网段真机会被抢控
+    risks: [同网段真机被误控造成损坏或伤害]
+    target_words: 4000
+
+  - unit: "35"
+    title: Using 端到端项目：采 100 条演示到 G1+Dex3 真机执行
+    part: "第 6 篇 操作与人形"
+    layer: summary
+    gate_critical: true
+    live_check: true
+    purpose: 读者独立复现一条完整模仿学习管线（第 31→33→34→23 章的闭环）
+    risks: [链条任一环版本不匹配即失败, 需要综合前六篇所有约定]
+    target_words: 5500
+
+  - unit: "36"
+    title: Using Z1 机械臂：独立总线栈与 ros 接口
+    part: "第 6 篇 操作与人形"
+    layer: using
+    gate_critical: false
+    live_check: false
+    purpose: 读者能把 Z1 单独驱动或挂到四足/人形平台上
+    risks: [z1 的 SDK 代次与整机 SDK2 不是一套]
+    target_words: 3000
+
+  - unit: "37"
+    title: About unifolm 与 VLA/世界模型：能复现什么、许可是什么
+    part: "第 6 篇 操作与人形"
+    layer: about
+    gate_critical: true          # CC BY-NC-SA 与无 LICENSE 的合规判断
+    live_check: false
+    purpose: 读者能判断 unifolm-world-model-action（CC BY-NC-SA 4.0）与 unifolm-vla（无 LICENSE）分别能怎么用
+    risks: [默认“开源=可商用”, 权重与训练数据可得性]
+    target_words: 3500
+
+  # ===================== 第 7 篇 产品化与合规 =====================
+  - unit: "38"
+    title: Reference 许可合规：哪些代码能进你的产品
+    part: "第 7 篇 产品化与合规"
+    layer: reference
+    gate_critical: true          # 空白论证第 10 项，全网无人讲
+    live_check: false
+    purpose: 读者能对任一官方仓库判断 BSD-3 / Apache-2.0 / GPL-2.0 / CC BY-NC-SA / 无 LICENSE / README 明示非商用 六类下自己能不能商用交付
+    risks: [GitHub 显示 NOASSERTION 实为 Apache-2.0 的误判, 把“可下载”当“可商用”]
+    target_words: 4500
+
+  - unit: "39"
+    title: Using 二次开发形态：EDM 扩展坞、Payload、App 模板与 EDU 授权
+    part: "第 7 篇 产品化与合规"
+    layer: using
+    gate_critical: false
+    live_check: false
+    purpose: 读者能选对二开路径（挂载算力、载荷接口、上架 App、申请 EDU）并知道各自接口
+    risks: [供电与通信能力被高估]
+    target_words: 3500
+
+  - unit: "40"
+    title: Using 版本管理与升级：固件、SDK、话题变更的迁移策略
+    part: "第 7 篇 产品化与合规"
+    layer: using
+    gate_critical: true
+    live_check: true
+    purpose: 读者能在升级固件前评估自己代码会不会断，并有一套灰度与回滚做法
+    risks: [1.1.7 / 1.1.15 这类断代点无官方 changelog]
+    target_words: 4000
+
+  - unit: "41"
+    title: Using 可靠性与测试：HIL、日志回放、故障码
+    part: "第 7 篇 产品化与合规"
+    layer: using
+    gate_critical: false
+    live_check: true
+    purpose: 读者能把"跑一次成功"变成"可回归的测试"，包括录制真机数据在仿真回放
+    risks: [无故障码对照表, 温度/电池边界未测]
+    target_words: 3500
+
+  - unit: "42"
+    title: About 安全工程：急停链路、力矩限制与现场规程
+    part: "第 7 篇 产品化与合规"
+    layer: about
+    gate_critical: true
+    live_check: false
+    purpose: 读者能为自己的系统画出急停链路并写出可执行的现场规程
+    risks: [软件看门狗被当成唯一保护]
+    target_words: 3500
+
+  # ===================== 附录 =====================
+  - unit: "43"
+    title: "附录 A1：DDS 话题与消息全表（含频率、单位、坐标系）"
+    part: 附录
+    layer: reference
+    gate_critical: true          # 本书最大差异化，必须机器可校验
+    live_check: true
+    purpose: 读者能查到全系列每一个话题的名字、消息类型、方向、频率、字段单位、坐标系与适用机型
+    risks: [来源混杂, 机型/固件差异导致同话题不同字段]
+    target_words: 8000
+
+  - unit: "44"
+    title: "附录 A2：版本兼容矩阵（SDK × 固件 × 机型 × ROS2 × cyclonedds × Isaac × MuJoCo × GPU）"
+    part: 附录
+    layer: reference
+    gate_critical: true          # 全网零来源，本书立身之本
+    live_check: true
+    purpose: 读者能一行定位"我这套组合能不能跑、要装哪几个版本"
+    risks: [矩阵每格都需要实测证据, 未测格必须显式标“未验证”]
+    target_words: 5000
+
+  - unit: "45"
+    title: "附录 A3：中英术语表与缩写"
+    part: 附录
+    layer: summary
+    gate_critical: false
+    live_check: false
+    purpose: 读者能在中英术语间一一对应，解决官方文档中英分叉
+    risks: [一词多译]
+    target_words: 3000
+
+  - unit: "46"
+    title: "附录 A4：官方仓库清单与许可状态（可否商用）"
+    part: 附录
+    layer: summary
+    gate_critical: true
+    live_check: false
+    purpose: 读者能按仓库查 license、最近更新时间、是否停更、商用阻断
+    risks: [license 会变, 必须带抓取日期]
+    target_words: 3000
+
+  - unit: "47"
+    title: "附录 A5：排障速查（症状 → 根因 → 处置）"
+    part: 附录
+    layer: summary
+    gate_critical: false
+    live_check: true
+    purpose: 读者能从症状两跳内定位到章节
+    risks: [与第 15 章重复→由 claim-index 管]
+    target_words: 3000
+
+  - unit: "48"
+    title: "附录 A6：本书未验证事项（waivers 公开表）"
+    part: 附录
+    layer: summary
+    gate_critical: true          # 诚实性单元：把欠债对读者公开
+    live_check: false
+    purpose: 读者能知道书里哪些论断是实测的、哪些是推理的、哪些待测
+    risks: [被读者当成全部实测→损害信任]
+    target_words: 2000
+
+  - unit: "49"
+    title: "附录 A7：代码仓库与仿真环境复现说明"
+    part: 附录
+    layer: summary
+    gate_critical: false
+    live_check: false
+    purpose: 读者能用 code/ + Docker/conda 环境一次搭出与书里完全一致的可执行环境
+    risks: [环境漂移导致“书里能跑我跑不通”]
+    target_words: 2500

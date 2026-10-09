@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<text x="60" y="78" class="h" font-size="19">A　级联三环（教科书 / ODrive 官方口径）</text>
+<rect x="60" y="100" width="150" height="56" rx="6" fill="#fbfcfe" stroke="#1a4f8a" stroke-width="2"/>
+<text x="135.0" y="126.0" class="t" fill="#1a4f8a" text-anchor="middle" font-size="17">位置环</text>
+<text x="135.0" y="146.0" class="tiny" fill="#666" text-anchor="middle">P 或 PI</text>
+<line x1="135" y1="156" x2="135" y2="178" stroke="#1a4f8a" stroke-width="2"/>
+<line x1="135" y1="178" x2="129.8" y2="168.3" stroke="#1a4f8a" stroke-width="2"/>
+<line x1="135" y1="178" x2="140.2" y2="168.3" stroke="#1a4f8a" stroke-width="2"/>
+<text x="145" y="168" class="tiny" fill="#666">给定</text>
+<rect x="60" y="178" width="150" height="56" rx="6" fill="#fbfcfe" stroke="#1a4f8a" stroke-width="2"/>
+<text x="135.0" y="204.0" class="t" fill="#1a4f8a" text-anchor="middle" font-size="17">速度环</text>
+<text x="135.0" y="224.0" class="tiny" fill="#666" text-anchor="middle">PI</text>
+<line x1="135" y1="234" x2="135" y2="256" stroke="#1a4f8a" stroke-width="2"/>
+<line x1="135" y1="256" x2="129.8" y2="246.3" stroke="#1a4f8a" stroke-width="2"/>
+<line x1="135" y1="256" x2="140.2" y2="246.3" stroke="#1a4f8a" stroke-width="2"/>
+<text x="145" y="246" class="tiny" fill="#666">给定</text>
+<rect x="60" y="256" width="150" height="56" rx="6" fill="#fbfcfe" stroke="#1a4f8a" stroke-width="2"/>
+<text x="135.0" y="282.0" class="t" fill="#1a4f8a" text-anchor="middle" font-size="17">电流环</text>
+<text x="135.0" y="302.0" class="tiny" fill="#666" text-anchor="middle">PI</text>
+<rect x="250" y="256" width="130" height="56" rx="6" fill="#fbfcfe" stroke="#1d6b3a" stroke-width="2"/>
+<text x="315.0" y="282.0" class="t" fill="#1d6b3a" text-anchor="middle" font-size="17">SVPWM</text>
+<rect x="410" y="256" width="110" height="56" rx="6" fill="#fbfcfe" stroke="#1d6b3a" stroke-width="2"/>
+<text x="465.0" y="282.0" class="t" fill="#1d6b3a" text-anchor="middle" font-size="17">电机</text>
+<line x1="210" y1="284" x2="250" y2="284" stroke="#1a4f8a" stroke-width="2"/>
+<line x1="250" y1="284" x2="240.3" y2="289.2" stroke="#1a4f8a" stroke-width="2"/>
+<line x1="250" y1="284" x2="240.3" y2="278.8" stroke="#1a4f8a" stroke-width="2"/>
+<line x1="380" y1="284" x2="410" y2="284" stroke="#1d6b3a" stroke-width="2"/>
+<line x1="410" y1="284" x2="400.3" y2="289.2" stroke="#1d6b3a" stroke-width="2"/>
+<line x1="410" y1="284" x2="400.3" y2="278.8" stroke="#1d6b3a" stroke-width="2"/>
+<path d="M 465 312 V 130 H 210" fill="none" stroke="#666" stroke-width="1.6" stroke-dasharray="5,4"/>
+<text x="300" y="118" class="tiny" fill="#666">反馈：编码器 / 电流</text>
+<text x="60" y="340" class="s">三个环、六个整定参数；积分项会替你兜住稳态误差。</text>
+<text x="560" y="78" class="h" font-size="19">B　单条混合公式（宇树 IM6014 官方口径）</text>
+<rect x="560" y="100" width="400" height="92" rx="6" fill="#fdf6f6" stroke="#a52020" stroke-width="2"/>
+<text x="576" y="132" class="m" fill="#a52020" font-size="19">τ = τ_ff + k_p(q_des − q) + k_d(ω_des − ω)</text>
+<text x="576" y="158" class="tiny" fill="#666">官方称 hybrid control formula；位置/速度模式只是</text>
+<text x="576" y="178" class="tiny" fill="#666">对同一式子做 parameter trimming，不是加环。</text>
+<rect x="620" y="214" width="140" height="56" rx="6" fill="#fbfcfe" stroke="#a52020" stroke-width="2"/>
+<text x="690.0" y="240.0" class="t" fill="#a52020" text-anchor="middle" font-size="17">电流环</text>
+<text x="690.0" y="260.0" class="tiny" fill="#666" text-anchor="middle">只有比例增益</text>
+<rect x="800" y="214" width="130" height="56" rx="6" fill="#fbfcfe" stroke="#1d6b3a" stroke-width="2"/>
+<text x="865.0" y="240.0" class="t" fill="#1d6b3a" text-anchor="middle" font-size="17">FOC→桥</text>
+<line x1="760" y1="242" x2="800" y2="242" stroke="#a52020" stroke-width="2"/>
+<line x1="800" y1="242" x2="790.3" y2="247.2" stroke="#a52020" stroke-width="2"/>
+<line x1="800" y1="242" x2="790.3" y2="236.8" stroke="#a52020" stroke-width="2"/>
+<line x1="760" y1="192" x2="760" y2="214" stroke="#a52020" stroke-width="2"/>
+<line x1="760" y1="214" x2="754.8" y2="204.3" stroke="#a52020" stroke-width="2"/>
+<line x1="760" y1="214" x2="765.2" y2="204.3" stroke="#a52020" stroke-width="2"/>
+<text x="560" y="300" class="s">τ ÷ k_t = i_q_ref　⇒　没有独立的速度环，也没有位置环。</text>
+<rect x="560" y="320" width="400" height="66" rx="6" fill="#fff" stroke="#a52020" stroke-width="2" stroke-dasharray="5,4"/>
+<text x="576" y="346" class="t" fill="#a52020" font-size="18">后果：纯比例必有静差 ⇒</text>
+<text x="576" y="370" class="s" fill="#a52020">　　 前馈 τ_ff 不是可选项，是唯一能消静差的手段</text>
+<text x="60" y="366" class="s">级联的「内环 ≥ 外环 5–10 倍」判据在 B 里只作用一处：</text>
+<text x="60" y="392" class="s">混合公式（kHz 量级）→ 电流环（kHz 量级）。位置与速度不再是环。</text>
+</svg>

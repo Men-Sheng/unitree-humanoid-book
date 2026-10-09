@@ -1,0 +1,33 @@
+# code/tools/topic_registry.yaml — 待探测的 DDS 话题登记表
+#
+# 这是附录 A1（话题全表）的数据驱动源。每加一条话题，就加一行；
+# dds_topic_probe.py 读它，不需要改代码。
+#
+# 字段：
+#   topic   : DDS 话题名（区分大小写，就是 rt/... 那个字符串）
+#   module  : unitree_sdk2py 里的 IDL 模块点分路径
+#   cls     : 消息类名（末尾的下划线是这套 IDL 生成的命名习惯）
+#   dir     : 方向。machine->you = 可订阅；you->machine = 只发不收，探测时预期无数据
+#   note    : 备注（哪代机型、什么条件下才有）
+#
+# 来源标注：src = 从官方 SDK 源码 grep 到的字符串（可信）；doc = 仅见于文档/社区（待证）。
+# 已核实来源（2026-10-07，unitree_sdk2_python master）：
+#   src: rt/lowstate rt/lowcmd rt/arm_sdk rt/lf/sportmodestate rt/utlidar/switch
+#        rt/secondary_imu rt/lf/lowstate
+#   下面标 doc 的条目是**待你实测确认**的，不要当事实写进书里。
+
+topics:
+  - {topic: "rt/sportmodestate",  module: "unitree_sdk2py.idl.unitree_go.msg.dds_",  cls: "SportModeState_", dir: "machine->you", src: doc, note: "高层运控状态；Go2/B2 系"}
+  - {topic: "rt/lf/sportmodestate", module: "unitree_sdk2py.idl.unitree_go.msg.dds_", cls: "SportModeState_", dir: "machine->you", src: src, note: "源码中出现；与上条的关系待测"}
+  - {topic: "rt/lowstate",        module: "unitree_sdk2py.idl.unitree_go.msg.dds_",  cls: "LowState_",       dir: "machine->you", src: src, note: "低层关节状态；需 EDU/解锁"}
+  - {topic: "rt/lf/lowstate",     module: "unitree_sdk2py.idl.unitree_go.msg.dds_",  cls: "LowState_",       dir: "machine->you", src: src, note: "源码中出现"}
+  - {topic: "rt/secondary_imu",   module: "unitree_sdk2py.idl.unitree_go.msg.dds_",  cls: "IMUState_",       dir: "machine->you", src: src, note: "躯干第二 IMU"}
+  - {topic: "rt/bms_state",       module: "unitree_sdk2py.idl.unitree_go.msg.dds_",  cls: "BmsState_",       dir: "machine->you", src: doc, note: "电池状态；话题名待证"}
+  - {topic: "rt/error",           module: "unitree_sdk2py.idl.unitree_go.msg.dds_",  cls: "Error_",          dir: "machine->you", src: doc, note: "故障码；话题名待证"}
+  - {topic: "rt/utlidar/cloud",   module: "unitree_sdk2py.idl.sensor_msgs.msg",      cls: "PointCloud2_",    dir: "machine->you", src: doc, note: "Go2 自带雷达点云（社区用名）"}
+  - {topic: "rt/utlidar/imu",     module: "unitree_sdk2py.idl.unitree_go.msg.dds_",  cls: "IMUState_",       dir: "machine->you", src: doc, note: "雷达自带 IMU"}
+  - {topic: "rt/utlidar/robot_odom", module: "unitree_sdk2py.idl.nav_msgs.msg",      cls: "Odometry_",       dir: "machine->you", src: doc, note: "里程计；坐标系是本章要测的东西"}
+  - {topic: "rt/heightmap",       module: "unitree_sdk2py.idl.unitree_go.msg.dds_",  cls: "HeightMap_",      dir: "machine->you", src: doc, note: "RL 策略观测用的地形"}
+  # 只发不收的：探测时预期 "no data"，出现数据说明有别的控制器在发（抢占诊断有用）
+  - {topic: "rt/lowcmd",          module: "unitree_sdk2py.idl.unitree_go.msg.dds_",  cls: "LowCmd_",         dir: "you->machine", src: src, note: "低层指令"}
+  - {topic: "rt/arm_sdk",         module: "unitree_sdk2py.idl.unitree_go.msg.dds_",  cls: "MotorStates_",    dir: "you->machine", src: src, note: "机械臂/Z1 通道；类型待校正"}

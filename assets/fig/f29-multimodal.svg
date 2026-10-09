@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.0 0.0 1012.5 380.0" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<text x="30" y="30" class="s">演示里一半从左边抓、一半从右边抓，MSE 会学成「抓中间」</text>
+<line x1="90" y1="280" x2="470" y2="280" stroke="#666" stroke-width="1"/>
+<text x="280.0" y="304" class="tiny" text-anchor="middle">标签：杯子放哪（米）</text>
+<path d="M 123.33333333333331 280 Q 153.33333333333331 90 183.33333333333331 280 Z" fill="#1a4f8a33" stroke="#1a4f8a" stroke-width="2"/>
+<text x="153.33333333333331" y="84" class="m" fill="#1a4f8a" text-anchor="middle">左</text>
+<path d="M 376.6666666666667 280 Q 406.6666666666667 90 436.6666666666667 280 Z" fill="#1a4f8a33" stroke="#1a4f8a" stroke-width="2"/>
+<text x="406.6666666666667" y="84" class="m" fill="#1a4f8a" text-anchor="middle">右</text>
+<line x1="280.0" y1="280" x2="280.0" y2="90" stroke="#a52020" stroke-width="2" stroke-dasharray="6,4"/>
+<text x="280.0" y="324" class="t" fill="#a52020" text-anchor="middle" font-size="17">MSE 最优解 = 条件均值 = 0</text>
+<text x="280.0" y="348" class="tiny" fill="#a52020" text-anchor="middle">而 0 处是桌沿：放不进去，也不算失败样本</text>
+<rect x="520" y="70" width="440" height="200" rx="6" fill="#f4faf6" stroke="#1d6b3a" stroke-width="2"/>
+<text x="536" y="98" class="t" fill="#1d6b3a">三条出路：把「均值」换成「分布」</text>
+<text x="536" y="130" class="m" fill="#1d6b3a">自回归离散 token</text>
+<text x="536" y="150" class="tiny">π0-FAST / GO-1 隐动作　复用 LLM 工具链，但序列长</text>
+<text x="536" y="176" class="m" fill="#1d6b3a">扩散 diffusion</text>
+<text x="536" y="196" class="tiny">几十步去噪　分布建模好，但慢</text>
+<text x="536" y="222" class="m" fill="#1d6b3a">流匹配 flow matching</text>
+<text x="536" y="242" class="tiny">5–10 步积分　当前主流（π、GR00T、GraspVLA、UnifoLM）</text>
+<text x="90" y="320" class="t" font-size="18">一条判据：任务的所有正确做法之间差距很小 ⇒ MSE 够用；差距是离散互斥的 ⇒ MSE 一定失败。</text>
+<text x="90" y="348" class="s">看一个策略项目的损失函数，就能看出作者有没有理解自己的任务分布。</text>
+</svg>

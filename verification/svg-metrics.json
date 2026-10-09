@@ -1,0 +1,74 @@
+[
+ {
+  "name": "f06-commutation.svg",
+  "kind": "OUT_OF_BOX",
+  "txt": "换向器 + 碳刷",
+  "over": 3.8,
+  "tw": 126.9,
+  "bw": 210
+ },
+ {
+  "name": "f06-commutation.svg",
+  "kind": "OUT_OF_BOX",
+  "txt": "FOC + 编码器",
+  "over": 3.8,
+  "tw": 127,
+  "bw": 250
+ },
+ {
+  "name": "f12-cascade-vs-formula.svg",
+  "kind": "OUT_OF_BOX",
+  "txt": "τ = τ_ff + k_p(q_des − q) + k_d(ω_des −",
+  "over": 4.6,
+  "tw": 388.6,
+  "bw": 400
+ },
+ {
+  "name": "f15-one-motor-two-gears.svg",
+  "kind": "OUT_OF_BOX",
+  "txt": "满扭矩转子侧 6.15–6.18 N·m",
+  "over": 11.5,
+  "tw": 241.5,
+  "bw": 250
+ },
+ {
+  "name": "f18-three-ceilings.svg",
+  "kind": "OUT_OF_BOX",
+  "txt": "ω_n = √(kp/armature) = 62.8 rad/s",
+  "over": 4.8,
+  "tw": 328.8,
+  "bw": 340
+ },
+ {
+  "name": "f22-diagnosis.svg",
+  "kind": "OUT_OF_BOX",
+  "txt": "改结构，或把带宽压到 f_m/3",
+  "over": 19.7,
+  "tw": 229.7,
+  "bw": 940
+ },
+ {
+  "name": "f22-diagnosis.svg",
+  "kind": "OUT_OF_BOX",
+  "txt": "软足垫 / 重新随机化接触参数",
+  "over": 24.9,
+  "tw": 234.9,
+  "bw": 940
+ },
+ {
+  "name": "f27-bus.svg",
+  "kind": "OUT_OF_BOX",
+  "txt": "955 元",
+  "over": 9.1,
+  "tw": 57,
+  "bw": 440
+ },
+ {
+  "name": "f38-compound-decay.svg",
+  "kind": "OUT_OF_BOX",
+  "txt": "100% → 90.5%",
+  "over": 39.6,
+  "tw": 119.6,
+  "bw": 340
+ }
+]

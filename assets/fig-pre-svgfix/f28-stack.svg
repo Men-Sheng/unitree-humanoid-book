@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" width="100%" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#111">
+<style>text{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}.m{font-family:'Cascadia Mono','Consolas',monospace;font-size:17px}.s{font-size:16px;fill:#666}.t{font-size:21px;font-weight:600}.h{font-size:23px;font-weight:700}.tiny{font-size:14px;fill:#666}line,path,rect,circle,polygon{vector-effect:non-scaling-stroke}</style>
+<text x="30" y="30" class="s">同样的字节，中间隔了几层：每一层都要付时间利息</text>
+<text x="270" y="68" class="t" fill="#1a4f8a" text-anchor="middle">ROS 2 应用</text>
+<rect x="120" y="84" width="300" height="44" rx="6" fill="#fbfbfd" stroke="#666" stroke-width="2"/>
+<text x="270" y="112" class="m" fill="#111" text-anchor="middle">你的节点（rclcpp）</text>
+<rect x="120" y="134" width="300" height="44" rx="6" fill="#fdf6f6" stroke="#1a4f8a" stroke-width="2"/>
+<text x="270" y="162" class="m" fill="#1a4f8a" text-anchor="middle">ROS 2 图：话题 / 服务 / 参数</text>
+<rect x="120" y="184" width="300" height="44" rx="6" fill="#fdf6f6" stroke="#1a4f8a" stroke-width="2"/>
+<text x="270" y="212" class="m" fill="#1a4f8a" text-anchor="middle">rmw 抽象层</text>
+<rect x="120" y="234" width="300" height="44" rx="6" fill="#fbfbfd" stroke="#666" stroke-width="2"/>
+<text x="270" y="262" class="m" fill="#111" text-anchor="middle">CycloneDDS 序列化 + 网络</text>
+<text x="730" y="68" class="t" fill="#a52020" text-anchor="middle">宇树 SDK2 应用</text>
+<rect x="580" y="84" width="300" height="44" rx="6" fill="#fbfbfd" stroke="#666" stroke-width="2"/>
+<text x="730" y="112" class="m" fill="#111" text-anchor="middle">你的代码</text>
+<rect x="580" y="134" width="300" height="44" rx="6" fill="#fdf6f6" stroke="#a52020" stroke-width="2"/>
+<text x="730" y="162" class="m" fill="#a52020" text-anchor="middle">unitree_sdk2 主题与请求响应</text>
+<rect x="580" y="184" width="300" height="44" rx="6" fill="#fbfbfd" stroke="#666" stroke-width="2"/>
+<text x="730" y="212" class="m" fill="#111" text-anchor="middle">CycloneDDS 序列化 + 网络</text>
+<rect x="120" y="320" width="760" height="40" rx="6" fill="#f7f7f7" stroke="#666" stroke-width="2"/>
+<text x="500" y="346" class="m" fill="#666" text-anchor="middle">下面都是同一台机器：rt/lowcmd 500 Hz → 关节 MCU 内环路 kHz → PWM 20 kHz</text>
+<text x="120" y="384" class="tiny">少一层就少一次序列化、少一次拷贝、少一份不确定性。这不是偏好：关键路径是确定性的时候，抽象层要付利息。</text>
+</svg>

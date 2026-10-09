@@ -1,0 +1,84 @@
+# code/tools/calculations.yaml — 本书"四道算术"的可复算输入
+#
+# 来源标记：厂=厂商公布  拆=第三方拆解  算=本书推算  查=未找到
+# 单位：m / kg / N·m / W / Wh / s / Hz。抓取日期 2026-10-07，逐条见 research/unitree-hardware.md。
+
+subject:
+  name: "Unitree AS2（第 20 章的能量对照：三个数全是厂商公布，零估算；本书不拿它当主算例，见附录 B.3）"
+  mass_kg: 20.0                 # 厂
+  battery_wh: 648.0             # 厂
+  range_km: 20.0                # 厂：官方标称里程
+  hip_height_m: TBD             # 查：未公布，第 8 章要它就得实测
+  control_rate_hz: TBD          # 查：AS2 未公布（Go2 有源码值，见下）
+
+crosscheck_go2:
+  name: "Unitree Go2（器件与频率链的算例）"
+  mass_kg: 15.0                 # 厂；unitree_mujoco MJCF 逐连杆合计 15.21 kg，自洽
+  leg_count: 4                  # 厂：四足
+  battery_wh: 236.8             # 拆：充电头网实测 29.6 V / 8000 mAh（EDU 15000 mAh ≈ 444 Wh）
+  joint_effort_thigh_nm: 23.7   # 厂(源码)：unitree_ros Go2 URDF 大腿/髋关节上限
+  joint_effort_calf_nm: 45.43   # 厂(源码)：小腿关节上限
+  joint_velocity_rads: 30.1     # 厂(源码)
+  arm_effective_m: 0.213        # 算：等效力臂（第 16 章要交代这个数怎么来的）
+  control_rate_hz: 500          # 厂(源码)：go2_low_level.cpp dt=0.002，注释给 0.001~0.01
+  sport_rate_hz: 50             # 厂(源码)：高层运控
+  rl_policy_rate_hz: 50         # 厂(源码)：unitree_rl_lab sim.dt 0.005 × decimation 4
+  rated_payload_kg: TBD         # 查：档位不同，需逐档核实
+
+human_reference:
+  mass_kg: 70.0                 # 算：常用参考体重
+  wh_per_km: 65.0               # 二手：dothemath.ucsd.edu《MPG of a Human》，本书独立换算 CoT≈0.34
+  cot: 0.34                     # 算：65 Wh/km ÷ (70×9.81×1000/3600)
+  literature_cot: 0.37          # 文献：Nature 2026-09-23 KAIST RAIBO2 论文给出的人步行 CoT（DOI 10.1038/s41586-026-11102-5）
+
+derived:
+  torque_chain:
+    formula: "F_leg = τ_joint ÷ arm_eff ; 可驮 = (n_legs × F_leg) ÷ (k × g) − m"
+    static_safety_factor: 2.0
+    peak_to_continuous_derate: 1.0   # URDF 的 effort 已是关节输出上限，不再做峰值降额；第 16 章要交代这点
+    leg_geometry_factor: 1.0
+  energy_chain:
+    formula: "Wh_per_km = E_batt ÷ range ; CoT = Wh_per_km × 3600 ÷ (1000 × m × g)"
+    cost_of_transport: TBD           # 由上式反推，不预设
+  frequency_chain:
+    formula: "τ_fall = √(l ÷ g) ; 可用周期数 = τ_fall × f_control"
+  latency_chain:
+    formula: "t_total = Σ 各环节延迟"
+    stages:
+      camera_exposure_ms: TBD
+      perception_infer_ms: TBD
+      planner_ms: TBD
+      bus_roundtrip_ms: TBD
+      motor_current_response_ms: TBD
+
+headline_claims:
+  # 这些是算出来、可以写进书的结论；每条都要能重跑
+  - "AS2 每公里 32.4 Wh，换算成无量纲 CoT = 0.59"
+  - "同一把尺子下：人步行 CoT ≈ 0.34（本书换算）/ 0.37（Nature 论文口径）；KAIST 四足 RAIBO2 = 0.25"
+  - "→ 所以'机器比人费电'这句话，对最好的四足机器人**不成立**；对宇树 AS2 成立（0.59 vs 0.34，约 1.7 倍）"
+  - "Go2 大腿 23.7 N·m ÷ 0.213 m 力臂 = 单腿 111 N，四腿 445 N ≈ 45 kgf；取 2 倍静力裕度再扣 15 kg 自重 → 可驮约 7-8 kg 量级"
+  - "Go2 失稳时间常数 √(0.3÷9.81) ≈ 0.175 s，500 Hz 下有 87 个控制周期可用"
+
+# 第 07 章的算例：读数分辨率 vs 齿轮背隙
+go2_motor:
+  encoder_bits: 15          # 厂：GO-M8010-6 内置绝对值编码器 15 bit
+  gear_ratio: 6.33          # 厂：1:6.33 行星
+  backlash_arcmin: TBD      # 查：GO-M8010-6 未公布背隙；不许拿 Z1 的数顶替
+
+z1_joint:
+  encoder_bits: TBD         # 查：Z1 未公布编码器位数（所以"背隙÷分辨率"这一算在 Z1 上算不出来）
+  gear_ratio: 60.0          # 厂：官方写"60+"，取下沿，正文必须注明是下沿
+  backlash_arcmin: 6.0      # 厂：官方给 ~6 弧分
+
+# 第 12 章的算例：总线点名预算。
+# ⚠️ 这是宇树**唯一公开了完整报文格式**的总线（J288/S288 数字舵机），
+#    不是 Go2 关节那条（那条只公布"高速 485 @4 Mbps、内部 6000 Hz"，报文格式未公布）。
+#    所以本章用它讲原理，并明确标注：结论是"这类总线的规律"，不是"Go2 的实际数字"。
+j288_bus:
+  baud_bps: 6000000         # 厂：specs/protocol.md，固定 6 Mbps
+  bits_per_byte: 10         # 算：8N1 = 1 起始 + 8 数据 + 1 停止
+  control_bytes: 20         # 厂：控制包 20 字节（含 CRC32）
+  feedback_bytes: 26        # 厂：反馈包 26 字节
+  addresses_usable: 15      # 厂：ID 0-15，其中 15 是广播且不回应 → 可寻址 15 个
+  servos_on_bus: 12         # 算：取"一条总线挂 12 个"作示例（手/腿两种规模都试）
+  control_rate_hz: 500      # 借 Go2 低层频率作对照；J288 自身回路频率未公布

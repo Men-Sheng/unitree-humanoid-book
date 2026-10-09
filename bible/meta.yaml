@@ -1,0 +1,128 @@
+# bible/meta.yaml — 项目身份、契约与流水线配置
+# schema: book-factory/templates/meta.yaml (schema_version 3.0)
+# 2026-10-07 按作者指示重定位为科普书；开发者手册版配置见 git 历史 / archive-units-developer-manual.yaml
+
+project:
+  profile: "book-technical"
+  subtype: "opinion"             # 有论点、要求连续阅读、不布置作业；不选 textbook（无课程场景）
+  title: "机器狗为什么踢不倒"      # [待你定] 另两个候选见 manifesto §1
+  subtitle: "一台四足机器人的整体、局部与底层"
+  language: "zh"
+  language_variant: "zh-CN"
+
+audience:
+  primary: "想了解'什么是机器人'的科普读者：高中生、大学生、家长、非技术行业从业者、纪录片观众、看到'人形机器人上热搜'想知道门道的人。他们不怕数学，怕被术语甩下车；能接受三段公式，只要每段都能代数字"
+  prerequisites: "初中物理的量级感觉（重量、速度、力、功率）；不需要会微积分、不需要写过代码"
+  not_for: "找 SDK 开发手册与可复制工程代码的人（那是归档的另一种书）；要机型导购与横评的人；想看企业传记的人"
+  experience_level: "beginner"
+  known_frustrations:
+    - "科普文章读完记住'它很厉害'，没记住它是怎么做到的"
+    - "一翻开技术书就是坐标系、自由度和公式，第一页就劝退"
+    - "新闻里的词一个都不认识：具身智能、端到端、VLA、Sim2Real"
+    - "所有对比都是'相当于人的一百步'这种没有出处的数"
+    - "讲得有趣的没干货，有干货的读不下去"
+
+scope:
+  covers: "以宇树全系列真实在售机型为载体，讲清机器人由哪些器件组成、每个器件决定了整机哪个指标、以及用四道算术（扭矩·能量·频率·延迟）判断一台机器人行不行的方法"
+  does_not_cover: "控制理论推导（指向机工社《四足机器人控制算法》）、SDK 与 API 用法、可复制的工程代码、刷固件与解锁、硬件维修与改装、机型导购、企业传记、AI 伦理与未来学"
+  depth: "mixed"                 # 第 0-3 部科普深度，第 4 部给技术爱好者
+
+target_version:
+  subject: "宇树在售机型与器件规格"
+  version: "2026-Q4 基线"          # 所有数字带抓取日期；成书版在版权页钉基线
+  released: "2026-10"
+
+pinned_versions:
+  # 科普书不钉软件版本，钉的是"数据快照日期"与"拆的是哪一台"
+  data_snapshot: "2026-10-07"
+  teardown_unit: "待你确认：哪一台 Go2（档位 + 固件版本）作为第 1 部的解剖对象"
+  go2_firmware: "TBD"            # [待你定] 决定第 25 章三档差异表能写多实
+  measurement_tools: "家用秤 / 卷尺 / 手机慢动作摄像 / 分贝计 App（全部无拆机损伤）"
+
+validation_surface:
+  # 科普书不靠跑代码，靠三件事：数字可复算、来源可回溯、类比不越界。
+  surfaces:
+    - surface: arithmetic_check
+      applies_to: ["final/**/*.md"]
+      runner: "python code/tools/arithmetic_check.py"   # 每个"本书推算"的数重跑一遍算式
+      executable: true
+      pins: { data_snapshot: "2026-10-07" }
+      note: "四道算术（扭矩链/能量预算/频率预算/延迟链）必须能被脚本复算，误差 >20% 即报 major"
+    - surface: source_traceability
+      applies_to: ["final/**/*.md"]
+      runner: "python code/tools/check_sources.py"      # 每个数字/规格句必须挂 bible/sources.md 编号 + 来源标记
+      executable: true
+      note: "来源标记四分级：[厂]厂商公布 / [拆]第三方拆解 / [算]本书推算 / [查]未找到。出现裸数字（无编号无标记）即 major"
+    - surface: analogy_boundary
+      applies_to: ["final/**/*.md"]
+      runner: "reviewer-only"                            # 类比是否越界，只能人/agent 判断
+      executable: false
+      note: "每章契约必须填 analogy_breaks_at；未填即 Critic 阻塞。此项无法机器判定，靠盲评 agent"
+    - surface: term_first_use
+      applies_to: ["final/**/*.md"]
+      runner: "python code/tools/check_terms.py"         # 术语首现处是否有'中文（English）'格式 + 每章新术语 ≤3 + 定义前不得复用
+      executable: true
+      pins: { glossary: "bible/glossary.md" }
+    - surface: style_budget
+      applies_to: ["final/**/*.md"]
+      runner: "scripts/lint_style.py + python code/tools/check_humor_budget.py"
+      executable: true
+      note: "voice-profile §6 的预算表：笑点/千字 ≤3、感叹号 0、网络梗 0、拟人化 ≤2 且同段给机制"
+    - surface: unit_and_typography
+      applies_to: ["final/**/*.md"]
+      runner: "autocorrect --fix   # 中文标点与中西文空格，抄 trpl-zh-cn 的 CI"
+      executable: true
+    - surface: measurement_reproducibility
+      applies_to: ["final/**/*.md"]
+      runner: "reviewer-only"                            # 作者亲手量的数，别人复现不了，只能记录方法与误差
+      executable: false
+      note: "每个 [本书实测] 数字必须记：量具、方法、次数、读数波动、日期。缺任一项 → 降级为 [待核]"
+    - surface: doc_cross_ref
+      applies_to: ["final/**/*.md"]
+      runner: "scripts/lint_render.py --check-links"
+      executable: true
+    - surface: render_build
+      applies_to: ["final/**/*.md"]
+      runner: "npm run build   # imac-pdf-book；pandoc 出 epub/docx；vitepress 出连载站"
+      executable: true
+
+tone:
+  register: "会讲故事的工科生：幽默是结构性的（反差、荒谬假设+认真计算、自嘲、具体细节），不是调料；不知道的地方正色说不知道"
+  voice_authority: "bible/voice-profile.md（本项目的声音优先于任何 skill 的默认语气）"
+  humor_allowed: true
+  humor_scope: "第 0-3 部与第 4 部均可；安全、电池、急停、伤害相关段落零笑点"
+
+structure:
+  unit_word: "章"
+  parts:
+    - "第 0 部 走进来：你面前有一台机器（整体）"
+    - "第 1 部 拆开来：它由哪些东西组成（局部）"
+    - "第 2 部 往底层走：它凭什么站得住（底层）"
+    - "第 3 部 回到整体：全系列横切（同一套物理，不同的取舍）"
+    - "第 4 部 再往深里问（技术爱好者与工作者）"
+    - "尾声"
+    - "附录 A-E"
+  zoom_ladder: "whole → part → base → cross → deep；每章契约的 zoom_step 相对上一章不许跳两级"
+  four_beat_engine: "现象 → 读者的第一猜测 → 猜测在哪一步崩掉 → 真正的机制（配一个能算的数）"
+
+conventions:
+  source_citation: "invisible-in-prose"   # 正文不写"据官方文档"，来源进章末编号表与附录 E
+  code_style: "全书 0 段可复制工程代码；伪流程 ≤6 处，且只出现在第 4 部"
+  numbers: "每个关键数字 = 数量级 + 日常锚 + 一句后果；精确值进表格"
+  analogy: "一章最多一个主类比，且必须写 analogy_breaks_at"
+  terminology: "每章新术语 ≤3；先现象后命名；行话黑名单出现即翻译"
+  figures: "每章至少一张图：实物照片（作者自摄）或本书自绘示意图；Mermaid 用于连载站，PDF 用 SVG；图必须有编号与一句话图注"
+  exercises: "不布置作业；每章末给'一个可检验的说法'（读者能拿去说且能被反驳）"
+  warnings: "安全内容零笑点；危险写在动作之前，给为什么与后果"
+
+pipeline:
+  mode: "fast"
+  retry_cap: 2
+  adversarial_verify: "gate_critical"   # 18 个 gate_critical 章做 3 盲评反驳；其中一票专问"这页是否在骗读者"
+  manuscript_gate:
+    max_rounds: 5
+    rounds_without_new_to_close: 2
+
+models: {}
+
+schema_version: "3.0"

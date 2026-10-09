@@ -1,0 +1,1011 @@
+# bible/knowledge-graph.yaml — 概念依赖图（v3，2026-10-08 人形重定位之后重建）
+#
+# ⚠ 本文件对应 outline/units.yaml 的 **v3 人形编号**（00-45）。
+#   v2 四足科普版的图已作废；作废版本可从 git/归档大纲对照，不再作为校验对象。
+#
+# tools/check_kg.py 校验三件事：
+#   ① introduced_in 指向的章必须存在
+#   ② requires 的每个概念，其 introduced_in 必须**严格早于**本概念的 introduced_in
+#   ③ 每章引入的新概念 ≤ TERM_BUDGET（v3 = 6，见 voice-profile §3）
+#
+# v3 的读者是"有从业经验、没做过机器人的工程师"，所以术语预算从 3 提到 6：
+#   工程师需要的是准确命名，不是被保护。但"先现象后命名"这条不变——
+#   名字出现时它指的东西必须已经被理解，否则这一章就是教材而不是书。
+#
+# kind: term(名词) | mechanic(机制/因果) | pattern(方法/套路) | anchor(数量级锚点) | skill(读者带走的可判断)
+# requires 只写"不先懂它就看不懂它"的硬依赖，不写"相关"。
+
+schema_version: "3"
+mode: full
+profile: book-technical
+term_budget: 6
+
+# ── 前置：进第 0 章前假设读者已有的常识（不占术语预算）────────────────
+prerequisites:
+  - id: pre-ohm
+    one_liner: "会用 V=IR、P=UI，知道电阻发热是 I²R"
+  - id: pre-pid
+    one_liner: "写过或调过 PID，知道积分项消稳态误差、微分项会放大噪声"
+  - id: pre-mos
+    one_liner: "知道 MOSFET 是电压控制的开关，有导通电阻和开关损耗"
+  - id: pre-sin
+    one_liner: "会展开 sin(A±B)，知道 cos 与 sin 差 90°"
+  - id: pre-unit
+    one_liner: "N·m、rad/s、W、Wh 之间的关系不用查（N·m × rad/s = W）"
+  - id: pre-git
+    one_liner: "看得懂仓库 README、能 clone、知道 license 有约束力"
+  - id: pre-encoder
+    one_liner: "知道编码器是数角度用的，分辨率按位数算（v3 起列为常识，不再当行话查）"
+  - id: pre-dof
+    one_liner: "知道自由度（DoF）是什么意思，知道它是从关节数出来的"
+  - id: pre-gear
+    one_liner: "知道减速比、背隙/齿隙、额定 vs 峰值这些传动件参数在说什么"
+  - id: pre-loop
+    one_liner: "知道闭环/开环、带宽、相位裕度这些控制口语（不必会推，但要听得懂）"
+  - id: pre-beam
+    one_liner: "知道悬臂梁会弯、梁端变形与 L³/E/I 有关，以及弹性模量是什么（材料力学基础）"
+  - id: pre-qp
+    one_liner: "知道二次规划/带约束优化是什么，知道矩阵运算量随维度按三次方涨"
+
+concepts:
+
+  # ===== 第 0 部：定位 =====
+  - id: six-time-domains
+    name: 六个时间域
+    kind: pattern
+    one_liner: "同一台机器上同时跑着 50 µs 到 200 ms 相差四个数量级的时钟，分层依据是物理时间常数而不是功能分类"
+    introduced_in: unit-00
+    requires: []
+  - id: closed-loop-bandwidth
+    name: 闭环带宽由最慢的那一环决定
+    kind: mechanic
+    one_liner: "一个环能多快响应扰动，由它自己那圈的完整回路延迟决定，不由最聪明的环节决定"
+    introduced_in: unit-00
+    requires: [six-time-domains]
+  - id: three-buses
+    name: 三条总线
+    kind: term
+    one_liner: "板内调试（SPI/UART）、关节实时环（RS-485/CAN-FD/EtherCAT）、算力侧（以太网+DDS），三者约束完全不同"
+    introduced_in: unit-00
+    requires: [six-time-domains]
+  - id: two-worlds
+    name: 两个世界
+    kind: pattern
+    one_liner: "真机不可微会摔会发热，仿真可并行可给梯度；谁能填平中间的沟谁掌握数据生产速率"
+    introduced_in: unit-00
+    requires: [six-time-domains]
+  - id: depth-ladder
+    name: 四格深度尺
+    kind: skill
+    one_liner: "stack / mechanism / base / boundary 四格填满才算写完一章"
+    introduced_in: unit-01
+    requires: []
+  - id: evidence-grade
+    name: 五级来源标记
+    kind: skill
+    one_liner: "[厂][拆][行][算][未]；[行] 永远不能写成 [厂]，[未] 是内容不是缺陷"
+    introduced_in: unit-01
+    requires: []
+  - id: humanoid-line-ladder
+    name: 人形产品线的器件档位阶梯
+    kind: term
+    one_liner: "H1 / H1-2 / G1 / R1 / H2 按关节峰值扭矩排开是一条 23.7→34.4→120→360 N·m 的阶梯"
+    introduced_in: unit-02
+    requires: []
+  - id: square-cube
+    name: 平方-立方律
+    kind: mechanic
+    one_liner: "等比放大 L 倍：质量 ∝ L³，关节要扛的力矩 ∝ L⁴；G1→H2 实测扭矩 ×3.0-4.0 对上预测 ×3.61"
+    introduced_in: unit-02
+    requires: [humanoid-line-ladder]
+  - id: rated-vs-peak
+    name: 额定扭矩 vs 峰值扭矩
+    kind: skill
+    one_liner: "宇树全系只公布峰值，一个额定值都没有；这条空白本身就是信息"
+    introduced_in: unit-02
+    requires: [humanoid-line-ladder]
+  - id: page-vs-urdf
+    name: 页面值与 URDF 值不是同一件事
+    kind: skill
+    one_liner: "产品页给硬件极限，URDF 的 effort 给仿真约束；冲突时两条都列，不取平均"
+    introduced_in: unit-02
+    requires: [rated-vs-peak]
+  - id: joint-bom-share
+    name: 关节占整机成本四到六成
+    kind: anchor
+    one_liner: "执行器是成本与可靠性的双重瓶颈；23 个关节 ⇒ 单件降 100 元整机降 2300 元"
+    introduced_in: unit-03
+    requires: []
+  - id: four-in-one-joint
+    name: 四合一关节
+    kind: term
+    one_liner: "电机 + 减速器 + 编码器 + FOC 驱动板装进一个密封壳；宇树官方对关节的措辞"
+    introduced_in: unit-03
+    requires: [joint-bom-share]
+
+  # ===== 第 1 部：一颗关节（全书技术核心）=====
+  - id: current-only-knob
+    name: 电流是唯一旋钮
+    kind: mechanic
+    one_liner: "机器人没有位置旋钮也没有力旋钮，只有绕组电流；位置/速度/力是同一个旋钮在不同时间尺度上的别名"
+    introduced_in: unit-04
+    requires: []
+  - id: torque-constant
+    name: 扭矩常数 k_t
+    kind: term
+    one_liner: "τ = k_t·i；单位 N·m/A，把匝数/剩磁/气隙/接法打包成一个系数"
+    introduced_in: unit-04
+    requires: [current-only-knob]
+  - id: output-vs-rotor-reference
+    name: 输出端口径 vs 转子端口径
+    kind: skill
+    one_liner: "手册参数混着两套口径，两者永远差一个减速比；判据是 k_t×峰值电流是否≈峰值扭矩"
+    introduced_in: unit-04
+    requires: [torque-constant]
+  - id: current-as-torque-sense
+    name: 用电流估力矩
+    kind: pattern
+    one_liner: "既然 τ=k_t·i，测力就不一定要力传感器；这条推论决定整条产品线路线"
+    introduced_in: unit-04
+    requires: [torque-constant, output-vs-rotor-reference]
+  - id: lorentz-force
+    name: 安培力 F = B·I·ℓ
+    kind: mechanic
+    one_liner: "载流导线在磁场中受力，方向垂直于 B 与导线；这是扭矩的最终来源"
+    introduced_in: unit-05
+    requires: []
+  - id: magnetic-moment-cross-b
+    name: τ = m × B 与 sinθ
+    kind: mechanic
+    one_liner: "磁矩 m=N·I·A；扭矩大小由夹角正弦决定，θ=0 时为零（沿门板推）"
+    introduced_in: unit-05
+    requires: [lorentz-force]
+  - id: field-orientation-means-orthogonal
+    name: 「定向」定向的是正交
+    kind: skill
+    one_liner: "FOC 的 F 不是把磁场对准转子，而是钉在超前转子 90°；对准恰好是扭矩为零的位置"
+    introduced_in: unit-05
+    requires: [magnetic-moment-cross-b]
+  - id: spm-vs-ipm
+    name: 面贴式与内嵌式
+    kind: term
+    one_liner: "SPM 只有永磁扭矩；IPM 多一项磁阻扭矩。与'内转子'是两个正交分类，常被混用"
+    introduced_in: unit-05
+    requires: [magnetic-moment-cross-b]
+  - id: commutation
+    name: 换向
+    kind: term
+    one_liner: "始终维持 θ=90° 这件事；电刷是机械式换向，FOC 是软件式换向"
+    introduced_in: unit-06
+    requires: [field-orientation-means-orthogonal]
+  - id: brushless-tradeoff
+    name: 无刷的代价是必须知道角度
+    kind: mechanic
+    one_liner: "把电流从转子搬回定子，换来无火花无磨损，代价是必须实时知道转子电角度"
+    introduced_in: unit-06
+    requires: [commutation]
+  - id: rotating-field-synthesis
+    name: 旋转磁场是合成的
+    kind: mechanic
+    one_liner: "三个空间差 120° 的绕组 + 三个时间差 120° 的正弦电流 = 一个模恒定、方向可控的旋转矢量"
+    introduced_in: unit-07
+    requires: [magnetic-moment-cross-b]
+  - id: clarke-transform
+    name: Clarke 变换
+    kind: term
+    one_liner: "三相 → αβ 两相；只需采两相电流，第三相减出来"
+    introduced_in: unit-07
+    requires: [rotating-field-synthesis]
+  - id: amplitude-invariant-convention
+    name: 幅值不变变换约定
+    kind: skill
+    one_liner: "系数 2/3 让合成矢量模等于相电流峰值；换约定则扭矩公式系数一起变，谁都没算错"
+    introduced_in: unit-07
+    requires: [clarke-transform]
+  - id: space-harmonics-6k
+    name: 空间谐波落在 6k±1
+    kind: mechanic
+    one_liner: "三相对称没有 3 次谐波 ⇒ 没有 6 倍电频率的扭矩脉动；这是选三相的硬理由"
+    introduced_in: unit-07
+    requires: [rotating-field-synthesis]
+  - id: volt-second-balance
+    name: 伏秒平衡
+    kind: mechanic
+    one_liner: "电感只记得 ∫Vdt；V=L·di/dt 的直接推论，也是 PWM 合法性的全部依据"
+    introduced_in: unit-08
+    requires: []
+  - id: pwm-duty
+    name: 占空比
+    kind: term
+    one_liner: "V_平均 = d·V_bus；用只有开和关的器件给出连续可变的平均电压"
+    introduced_in: unit-08
+    requires: [volt-second-balance]
+  - id: eight-voltage-vectors
+    name: 八个电压矢量
+    kind: term
+    one_liner: "三相桥 2³=8 种组合：六个有效矢量构成正六边形顶点，两个零矢量在原点"
+    introduced_in: unit-08
+    requires: [pwm-duty]
+  - id: svpwm-linear-region
+    name: SVPWM 线性区
+    kind: mechanic
+    one_liner: "可达区是六边形内切圆，相电压峰值 V_bus/√3；比 SPWM 的 V_bus/2 多 15.5%"
+    introduced_in: unit-08
+    requires: [eight-voltage-vectors]
+  - id: voltage-envelope
+    name: 电压包络
+    kind: skill
+    one_liner: "反电势峰值 k_t·ω 一旦超过 V_bus/√3 就到顶了；所以峰值扭矩与最高转速是两个互斥角点"
+    introduced_in: unit-08
+    requires: [svpwm-linear-region, torque-constant]
+  - id: bus-voltage-buys-speed
+    name: 提母线电压买的是转速不是扭矩
+    kind: skill
+    one_liner: "扭矩由电流决定，转速上限由电压决定；24–75 V 宽范围的意义在后一半"
+    introduced_in: unit-08
+    requires: [voltage-envelope]
+  - id: electrical-time-constant
+    name: 电时间常数 L/R
+    kind: term
+    one_liner: "电流不能突变；τ_e 是毫秒级，这是电流环能跑多快的物理上限"
+    introduced_in: unit-09
+    requires: [volt-second-balance]
+  - id: two-stage-lowpass
+    name: 两级低通
+    kind: mechanic
+    one_liner: "绕组电感滤电流、转子惯量滤角度；斩波之所以合法，因为下面两级都是积分器"
+    introduced_in: unit-09
+    requires: [electrical-time-constant, pwm-duty]
+  - id: current-ripple
+    name: 电流纹波
+    kind: term
+    one_liner: "Δi ≈ V·d(1−d)/(L·f_sw)；不产生平均扭矩，只产生铜损、铁损与噪声"
+    introduced_in: unit-09
+    requires: [two-stage-lowpass]
+  - id: park-transform
+    name: Park 变换
+    kind: term
+    one_liner: "把静止坐标系里的矢量投影到随转子电角度 θ 旋转的 d/q 轴上；一次二维旋转，没有新数学"
+    introduced_in: unit-10
+    requires: [clarke-transform, field-orientation-means-orthogonal]
+  - id: dq-currents
+    name: i_d 与 i_q
+    kind: term
+    one_liner: "在转子坐标系里两个都是直流；i_q 做功、i_d 只磁化。跟踪正弦变成稳住两个常数"
+    introduced_in: unit-10
+    requires: [park-transform]
+  - id: electrical-angle-dependency
+    name: 电角度 θ 是全链唯一假设
+    kind: mechanic
+    one_liner: "FOC 的正确性完全建立在'我知道 θ'上；而它会被装配、接线、标定破坏"
+    introduced_in: unit-10
+    requires: [park-transform, brushless-tradeoff]
+  - id: current-loop-bandwidth
+    name: 电流环带宽
+    kind: anchor
+    one_liner: "≈ f_sw/10–20；因为每秒只能改几次占空比、只能落在特定窗口采几次电流"
+    introduced_in: unit-10
+    requires: [dq-currents, current-ripple]
+  - id: zero-point-calibration
+    name: 零点标定
+    kind: skill
+    one_liner: "5° 角偏只掉 0.38% 扭矩却把 8.7% 电流变成无用电流，且通过一切出厂测试；所以它是工艺不是代码"
+    introduced_in: unit-10
+    requires: [electrical-angle-dependency]
+  - id: mtpa
+    name: 最大扭矩每安培
+    kind: pattern
+    one_liner: "SPM 下 i_d=0 就是 MTPA；i_d 不为零只是白烧铜"
+    introduced_in: unit-11
+    requires: [dq-currents]
+  - id: reluctance-torque
+    name: 磁阻扭矩
+    kind: term
+    one_liner: "IPM 的 (L_d−L_q)i_d i_q 项；让 i_d≠0 第一次变得有意义"
+    introduced_in: unit-11
+    requires: [dq-currents, spm-vs-ipm]
+  - id: field-weakening
+    name: 弱磁
+    kind: mechanic
+    one_liner: "反电势顶到母线时，用去磁的 i_d<0 腾电压；它用扭矩换转速上限，不是提速魔法"
+    introduced_in: unit-11
+    requires: [voltage-envelope, mtpa]
+  - id: cascade-three-loops
+    name: 级联三环
+    kind: pattern
+    one_liner: "位置环出速度给定、速度环出扭矩给定、扭矩÷k_t 出 i_q；三种控制模式只是包了几层"
+    introduced_in: unit-12
+    requires: [current-only-knob, dq-currents]
+  - id: bandwidth-separation
+    name: 5–10 倍带宽分离
+    kind: mechanic
+    one_liner: "内环必须显著快于外环，否则外环把内环动态当未建模扰动，级联假设失效"
+    introduced_in: unit-12
+    requires: [cascade-three-loops, current-loop-bandwidth]
+  - id: five-field-joint-command
+    name: 关节指令五元组
+    kind: term
+    one_liner: "q / dq / kp / kd / tau；τ = tau + kp·Δq + kd·Δω 这一行就是阻抗控制的全部实现"
+    introduced_in: unit-12
+    requires: [cascade-three-loops]
+  - id: local-loop-closes-in-joint
+    name: 闭环必须在关节本地
+    kind: mechanic
+    one_liner: "总线最快也就几千赫兹，环路要 1 kHz 以上才够用；所以总线只负责改给定值"
+    introduced_in: unit-12
+    requires: [five-field-joint-command, three-buses]
+  - id: comm-rate-vs-loop-rate
+    name: 通信频率 ≠ 环路频率
+    kind: skill
+    one_liner: "官方 6000 Hz 与'15 台 / 4 Mbps'做带宽算术后差 21.6 倍；看到前者不要当成后者"
+    introduced_in: unit-12
+    requires: [local-loop-closes-in-joint]
+  - id: shoot-through
+    name: 直通
+    kind: term
+    one_liner: "上下管同时导通 = 母线短路；死区存在的全部理由"
+    introduced_in: unit-13
+    requires: []
+  - id: body-diode-freewheel
+    name: 体二极管续流
+    kind: mechanic
+    one_liner: "死区期间电流只能走体二极管，于是输出电压被钳偏，净效果是每半周期少给一点电压"
+    introduced_in: unit-13
+    requires: [shoot-through, two-stage-lowpass]
+  - id: deadtime-voltage-error
+    name: 死区电压误差
+    kind: anchor
+    one_liner: "ΔV=(t_dead/T)·V_bus；100 ns @20 kHz/24 V = 48 mV，低速时占可用电压的百分之十几"
+    introduced_in: unit-13
+    requires: [body-diode-freewheel]
+  - id: sampling-window
+    name: 电流采样窗口
+    kind: term
+    one_liner: "必须落在下管导通、电流连续、避开开关沿的那扇窗；不同步就是电流环噪声"
+    introduced_in: unit-13
+    requires: [current-ripple]
+  - id: bus-capacitor-role
+    name: 母线电容
+    kind: mechanic
+    one_liner: "吸收再生制动回灌的能量；容量不足 ⇒ 母线过压 ⇒ 炸管"
+    introduced_in: unit-13
+    requires: [two-stage-lowpass]
+  - id: demagnetization-derating
+    name: 退磁与降额
+    kind: mechanic
+    one_liner: "结温过高让磁钢剩磁不可逆下降，k_t 掉，控制器为保扭矩继续加电流，更热——正反馈"
+    introduced_in: unit-13
+    requires: [torque-constant, deadtime-voltage-error]
+  - id: encoder-resolution
+    name: 编码器分辨率
+    kind: term
+    one_liner: "15 bit 单圈 = 32768 格 = 0.011°；折算到输出端要除以减速比"
+    introduced_in: unit-14
+    requires: []
+  - id: backlash-floor
+    name: 齿隙是精度的地板
+    kind: mechanic
+    one_liner: "谐波背隙 6 弧分 = 0.1°，是折算后编码器分辨率的 187 倍；再精细的编码器也救不了空程"
+    introduced_in: unit-14
+    requires: [encoder-resolution]
+  - id: dual-encoder
+    name: 双编码器
+    kind: term
+    one_liner: "转子端 + 输出端各一颗；两数之差就是齿隙与弹性变形的实时读数"
+    introduced_in: unit-14
+    requires: [backlash-floor]
+  - id: quasi-direct-drive
+    name: 准直驱
+    kind: pattern
+    one_liner: "低减速比（G1 约 20.58:1）换齿隙小、摩擦占比小、反驱好，代价是同样的电机出更少扭矩"
+    introduced_in: unit-14
+    requires: [backlash-floor, current-as-torque-sense]
+  - id: torque-transparency
+    name: 力透明度
+    kind: skill
+    one_liner: "能不能拿电机端电流当输出扭矩用，取决于传动链的摩擦与齿隙占不占大头"
+    introduced_in: unit-14
+    requires: [quasi-direct-drive]
+  - id: planetary-vs-harmonic
+    name: 行星与谐波的路线分歧
+    kind: term
+    one_liner: "宇树走两级行星（准直驱、无力传感），另一条路是高减速比谐波 + 全关节力矩传感器"
+    introduced_in: unit-14
+    requires: [torque-transparency]
+  - id: torque-density
+    name: 扭矩密度
+    kind: anchor
+    one_liner: "N·m/kg；H1 官方 189 ⇒ 膝关节单元 ≈1.9 kg，可与拆解 1.1 kg 对量级"
+    introduced_in: unit-15
+    requires: []
+  - id: corner-values
+    name: 角点值不可当工作点
+    kind: skill
+    one_liner: "τ·ω = 名义功率上界（711 W、1.3 kW/kg）是两条轴的端点乘积，不是可运行点"
+    introduced_in: unit-15
+    requires: [voltage-envelope, torque-density]
+
+  # ===== 第 2 部：从关节到姿态 =====
+  - id: support-polygon
+    name: 支撑多边形
+    kind: term
+    one_liner: "重心投影落在里面就不翻；四足天然大，双足必须靠算法维持"
+    introduced_in: unit-16
+    requires: []
+  - id: no-zero-torque-phase
+    name: 没有零力矩相位
+    kind: mechanic
+    one_liner: "四足站着可以让关节不出力，双足每一毫秒都在闭环扛重力；这是人形所有被迫选择的源头"
+    introduced_in: unit-16
+    requires: [support-polygon, five-field-joint-command]
+  - id: power-density-w_per_kg
+    name: 整机功率密度
+    kind: anchor
+    one_liner: "官方 Wh ÷ 官方续航 ÷ 官方体重：AS2 约 8.1、G1 约 6.2、H2 约 4.6 W/kg"
+    introduced_in: unit-16
+    requires: [no-zero-torque-phase]
+  - id: inverted-pendulum-tau
+    name: 倒立摆时间常数
+    kind: term
+    one_liner: "τ=√(l/g)；G1 髋高 0.66 m ⇒ 0.259 s，这就是'从开始往前倒到必须做点什么'的窗口"
+    introduced_in: unit-00
+    requires: []
+  - id: zmp
+    name: 零力矩点
+    kind: term
+    one_liner: "地面反力的作用点；落在支撑多边形内 ⇒ 不翻"
+    introduced_in: unit-17
+    requires: [support-polygon, inverted-pendulum-tau]
+  - id: capture-point
+    name: 捕获点
+    kind: pattern
+    one_liner: "脚该落到哪里才能停下来的那个点；把'平衡'变成'下一步落脚'的判据"
+    introduced_in: unit-17
+    requires: [zmp]
+  - id: programmable-stiffness
+    name: 可编程刚度
+    kind: mechanic
+    one_liner: "kp/kd 是软件里的两个数，但它的上限由电流上限和电流环带宽决定"
+    introduced_in: unit-12
+    requires: [five-field-joint-command, bandwidth-separation]
+  - id: self-excited-oscillation
+    name: 自激振荡
+    kind: mechanic
+    one_liner: "高增益 + 环境刚 + 结构模态落进控制带宽 ⇒ 抖；参数调不出来常常是物理不允许"
+    introduced_in: unit-18
+    requires: [programmable-stiffness]
+  - id: whole-body-control
+    name: 全身控制
+    kind: pattern
+    one_liner: "动力学方程 + 接触约束 + 任务优先级 → 一次求解出全部关节扭矩"
+    introduced_in: unit-19
+    requires: [no-zero-torque-phase]
+  - id: model-predictive-control
+    name: 模型预测控制
+    kind: term
+    one_liner: "在有限视界里滚动求解；代价是每次都要算，矩阵规模随自由度按 n³ 涨"
+    introduced_in: unit-19
+    requires: [whole-body-control]
+  - id: inverse-dynamics
+    name: 逆动力学
+    kind: term
+    one_liner: "给期望加速度反解所需扭矩；是前馈项 tau 的来源"
+    introduced_in: unit-19
+    requires: [whole-body-control]
+  - id: cost-of-transport
+    name: 代谢代价系数 CoT
+    kind: anchor
+    one_liner: "E/(m·g·d)，无量纲；人步行文献 0.37，宇树自家四足马拉松实测 0.25"
+    introduced_in: unit-20
+    requires: [power-density-w_per_kg]
+  - id: energy-chain
+    name: 能量链
+    kind: skill
+    one_liner: "Wh → W → W/kg → CoT 一条链走通，任何一环缺数据就明说缺"
+    introduced_in: unit-16
+    requires: [power-density-w_per_kg]
+  - id: rl-locomotion
+    name: 强化学习运控
+    kind: pattern
+    one_liner: "不写平衡律，而是在仿真里用奖励把它搜出来；宇树公开的正是这条工序"
+    introduced_in: unit-21
+    requires: [inverted-pendulum-tau, two-worlds]
+  - id: domain-randomization
+    name: 域随机化
+    kind: mechanic
+    one_liner: "在参数空间里做积分：让策略对质量、摩擦、延迟的导数不敏感"
+    introduced_in: unit-21
+    requires: [rl-locomotion]
+  - id: teacher-student-distillation
+    name: 师生蒸馏
+    kind: pattern
+    one_liner: "仿真里用特权信息训教师，再蒸馏成只用板载传感器的学生"
+    introduced_in: unit-21
+    requires: [rl-locomotion]
+  - id: sim2real-pipeline
+    name: Train → Play → Sim2Sim → Sim2Real
+    kind: pattern
+    one_liner: "宇树官方四步工序，每一步都在防一类特定的失效"
+    introduced_in: unit-21
+    requires: [domain-randomization, teacher-student-distillation]
+  - id: sim2real-gap
+    name: sim2real 的沟
+    kind: term
+    one_liner: "接触求解器、摩擦模型、延迟、未建模模态四项差异的合成后果"
+    introduced_in: unit-22
+    requires: [sim2real-pipeline]
+  - id: structural-mode
+    name: 结构模态频率
+    kind: mechanic
+    one_liner: "一阶模态落进控制带宽 2–3 倍以内就会被高增益激励；准直驱的传动链更刚所以更有利"
+    introduced_in: unit-22
+    requires: [self-excited-oscillation, quasi-direct-drive, sim2real-gap]
+
+  # ===== 第 3 部：感知、算力与总线 =====
+  - id: time-synchronization-first
+    name: 时间同步先于分辨率
+    kind: skill
+    one_liner: "不同步的传感器比低分辨率的传感器更糟；对齐到 IMU 与关节总线是前提"
+    introduced_in: unit-23
+    requires: []
+  - id: depth-sensing-choices
+    name: 主动与被动测距
+    kind: term
+    one_liner: "双目/结构光/ToF/激光雷达四类，各自在强光、透明、远距离上失效的方式不同"
+    introduced_in: unit-23
+    requires: [time-synchronization-first]
+  - id: imu-bias
+    name: 陀螺零偏
+    kind: term
+    one_liner: "1 °/s 的零偏 60 秒后就是 60° 姿态误差；所以姿态必须被视觉或接触修正"
+    introduced_in: unit-24
+    requires: []
+  - id: extended-kalman-filter
+    name: 扩展卡尔曼滤波
+    kind: pattern
+    one_liner: "预测（方差变大）与更新（按方差倒数加权，方差变小）两步循环；融合买到的是可观测性，不是精度"
+    introduced_in: unit-24
+    requires: [imu-bias, time-synchronization-first]
+  - id: state-estimation-layer
+    name: 状态估计与定位
+    kind: skill
+    one_liner: "器件给的是相对量，「我在哪」是算出来的；宇树未公布其实现 [未]"
+    introduced_in: unit-24
+    requires: [imu-bias]
+  - id: observability
+    name: 可观测性
+    kind: term
+    one_liner: "某个量能否从测量里唯一反推；陀螺看不出绕重力轴的转角，与滤波器好坏无关"
+    introduced_in: unit-24
+    requires: [state-estimation-layer]
+  - id: legged-odometry
+    name: 腿式里程计
+    kind: term
+    one_liner: "用关节编码器反推足端、假设不打滑；误差随步数随机游走，打滑在自己模型里不可观测"
+    introduced_in: unit-24
+    requires: [observability]
+  - id: loop-closure
+    name: 回环
+    kind: term
+    one_liner: "认出见过的地方，是清零累积漂移的唯一手段；先动才能测，测完还要回头改"
+    introduced_in: unit-24
+    requires: [legged-odometry]
+  - id: tactile-array
+    name: 触觉阵列
+    kind: term
+    one_liner: "Dex3-1 的 9 阵列 33 点、Dex5-1 的 94 点；没有触觉就没有可复现的操作"
+    introduced_in: unit-25
+    requires: []
+  - id: hollow-cup-vs-tendon
+    name: 空心杯与腱绳
+    kind: term
+    one_liner: "手指里 45 g 的微型关节两条路线：直驱高响应，腱绳把电机挪到掌心"
+    introduced_in: unit-25
+    requires: [four-in-one-joint, torque-density]
+  - id: memory-bandwidth-bound
+    name: 内存带宽墙
+    kind: mechanic
+    one_liner: "每生成一次动作要把全部权重读一遍；12 GB ÷ 100 GB/s = 120 ms ⇒ 大脑天生 5–10 Hz"
+    introduced_in: unit-26
+    requires: [closed-loop-bandwidth]
+  - id: power-budget-for-brain
+    name: 留给大脑的功耗
+    kind: anchor
+    one_liner: "整机 300–600 W 里常只给大脑 15–60 W；无风扇 + 金属导热是先决条件"
+    introduced_in: unit-26
+    requires: [memory-bandwidth-bound]
+  - id: fieldbus-comparison
+    name: 三种关节总线
+    kind: term
+    one_liner: "RS-485 4–6 Mbps（宇树官方）、CAN-FD 5 Mbps、EtherCAT 1 kHz + 分布式时钟"
+    introduced_in: unit-27
+    requires: [comm-rate-vs-loop-rate, three-buses]
+  - id: bus-budget-arithmetic
+    name: 带宽预算算术
+    kind: skill
+    one_liner: "节点数 × 帧长 × 速率 × 双向，一次乘法就能判断厂商那个赫兹数指的是什么"
+    introduced_in: unit-27
+    requires: [fieldbus-comparison]
+  - id: dds-topic-model
+    name: DDS 主题模型
+    kind: term
+    one_liner: "rt/lowcmd、rt/lowstate、rt/secondary_imu、rt/arm_sdk；宇树核心是 DDS 而不是 ROS 节点"
+    introduced_in: unit-28
+    requires: [three-buses]
+  - id: middleware-detox
+    name: 行业的去 ROS 化
+    kind: pattern
+    one_liner: "留 DDS、弃 ROS 上层；确定性实时要求把发现、序列化、拷贝挪出关键路径"
+    introduced_in: unit-28
+    requires: [dds-topic-model]
+  - id: tf2-timed-tree
+    name: tf2 是一棵带时间的刚体树
+    kind: term
+    one_liner: "换算靠 4×4 齐次变换链乘，成本在缓冲区与时间插值上，所以进不了 1 kHz 环"
+    introduced_in: unit-28
+    requires: [dds-topic-model]
+  - id: nav2-flat-ground-assumption
+    name: nav2 的平面底盘假设
+    kind: mechanism
+    one_liner: "全局路径 + 2.5D 代价地图 + 轨迹跟随；双足的支撑面是离散落脚点，所以那一格常被换成 RL 策略"
+    introduced_in: unit-28
+    requires: [tf2-timed-tree]
+  - id: moveit-redundant-ik
+    name: 冗余臂的逆解是一个选择问题
+    kind: mechanism
+    one_liner: "同一末端位姿对应无穷多组关节角，要么挑解析解要么解带约束 QP，代价按 n³ 涨"
+    introduced_in: unit-28
+    requires: [tf2-timed-tree]
+  - id: ros2-control-executor-tax
+    name: ros2_control 躲不开执行器税
+    kind: mechanism
+    one_liner: "read()/write() 抽象对了，但它跑在 Linux + executor 上，调度与分配抖动一个没少"
+    introduced_in: unit-28
+    requires: [middleware-detox]
+
+  # ===== 第 4 部：大脑 =====
+  - id: policy-as-function
+    name: 策略是一个函数
+    kind: term
+    one_liner: "输入观测、输出动作；把'会不会干活'变成一个可以测成功率的映射"
+    introduced_in: unit-29
+    requires: []
+  - id: imitation-learning
+    name: 模仿学习
+    kind: pattern
+    one_liner: "看示范学；上限是示范质量，不会比示范更好"
+    introduced_in: unit-29
+    requires: [policy-as-function]
+  - id: multimodal-distribution
+    name: 多峰分布
+    kind: mechanic
+    one_liner: "示范里左右各抓一次，用 MSE 回归会学到'既不左也不右'；所以必须建模分布"
+    introduced_in: unit-29
+    requires: [imitation-learning]
+  - id: flow-matching
+    name: 流匹配与扩散
+    kind: term
+    one_liner: "从噪声一路走向动作的两种生成方式；全行业动作头的主流选择"
+    introduced_in: unit-29
+    requires: [multimodal-distribution]
+  - id: vla-architecture
+    name: VLA 架构共识
+    kind: pattern
+    one_liner: "VLM 主干 + 独立动作专家 + 动作分块 + 异步双系统"
+    introduced_in: unit-30
+    requires: [flow-matching, memory-bandwidth-bound]
+  - id: action-chunking
+    name: 动作分块
+    kind: term
+    one_liner: "一次推理输出一段动作；块长 = 延迟容忍度，也 = 对扰动的迟钝度"
+    introduced_in: unit-31
+    requires: [vla-architecture]
+  - id: latency-wall
+    name: 延迟墙
+    kind: mechanic
+    one_liner: "VLM 编码 + 多步去噪把节奏压到几赫兹；接触密集任务需要毫秒，分块救不了"
+    introduced_in: unit-31
+    requires: [action-chunking, closed-loop-bandwidth]
+  - id: world-model-action
+    name: 世界模型-动作（WMA）
+    kind: term
+    one_liner: "既当仿真引擎合成本体数据，也接动作头决策"
+    introduced_in: unit-32
+    requires: [vla-architecture]
+  - id: license-as-product-strategy
+    name: 许可即产品策略
+    kind: skill
+    one_liner: "CC BY-NC-SA 与 Apache-2.0 的差别决定读者能不能拿它做商用验证"
+    introduced_in: unit-32
+    requires: [world-model-action]
+  - id: data-unit-cost
+    name: 数据单位成本
+    kind: anchor
+    one_liner: "真机遥操 ¥500–1000/小时且 8 小时人工只出约 1 小时可用数据；人类视频约 ¥100/小时"
+    introduced_in: unit-33
+    requires: []
+  - id: data-route-divergence
+    name: 三条数据路线
+    kind: pattern
+    one_liner: "真机车队 / 仿真合成 / 人类与互联网视频；三家厂商各押一条，其余技术栈高度同构"
+    introduced_in: unit-33
+    requires: [data-unit-cost, two-worlds]
+  - id: world-model-uses
+    name: 世界模型现在只解决两件事
+    kind: skill
+    one_liner: "数据与评测；没有任何一家把它放进 1 kHz 实时环"
+    introduced_in: unit-34
+    requires: [data-route-divergence, latency-wall]
+
+  # ===== 第 5 部：瓶颈 =====
+  - id: series-count-voltage
+    name: 串数决定电压平台
+    kind: term
+    one_liner: "G1 13 串、H1 16 串 67.2 V、H2 18 串 75.6 V；电压上去了转速上限才上去"
+    introduced_in: unit-35
+    requires: [bus-voltage-buys-speed]
+  - id: voltage-sag-reset
+    name: 电压塌陷死机
+    kind: mechanic
+    one_liner: "峰值功率是平均的 5–10 倍；母线一塌 MCU 复位整机死机，这是 BMS 与母线电容的活"
+    introduced_in: unit-35
+    requires: [bus-capacitor-role, series-count-voltage]
+  - id: sealed-shell-thermal
+    name: 密封壳里的互相加热
+    kind: mechanic
+    one_liner: "电机与驱动同壳，铜损与开关损耗互相当热源；夏天地表 55 °C 时双双降额"
+    introduced_in: unit-36
+    requires: [demagnetization-derating]
+  - id: kt-temp-drift
+    name: k_t 的温度漂移
+    kind: anchor
+    one_liner: "NdFeB 剩磁约 −0.11 %/°C、铜阻 +0.393 %/°C；升温 80 °C 同样电流少出约 8% 扭矩而控制器不知道"
+    introduced_in: unit-36
+    requires: [torque-constant, sealed-shell-thermal]
+  - id: fail-safe-brake
+    name: 抱闸的失效安全
+    kind: mechanic
+    one_liner: "断电才夹紧；所以必须先卸扭矩再断动力，时序错了会摔整机"
+    introduced_in: unit-37
+    requires: []
+  - id: power-sequencing
+    name: 上下电时序
+    kind: skill
+    one_liner: "先断动力还是先断控制、上电默认态是什么，是设计出来的而不是碰出来的"
+    introduced_in: unit-37
+    requires: [fail-safe-brake, voltage-sag-reset]
+  - id: compound-success-decay
+    name: 成功率复合衰减
+    kind: mechanic
+    one_liner: "单步 99% × 100 步 = 37%；这就是演示 30 秒可以、8 小时不行的算术"
+    introduced_in: unit-38
+    requires: []
+  - id: hardware-drift
+    name: 硬件漂移
+    kind: mechanic
+    one_liner: "磨损改变动力学，无记忆策略上线即退化；评测必须包含'跑了一年之后'"
+    introduced_in: unit-38
+    requires: [compound-success-decay, kt-temp-drift]
+  - id: layer-by-layer-jobs
+    name: 六层分工与缺口
+    kind: skill
+    one_liner: "大脑层被 NVIDIA 锁死、关节层全是 MCU+FOC+现场总线、中间件在去 ROS 化"
+    introduced_in: unit-39
+    requires: [middleware-detox, fieldbus-comparison]
+  - id: deliverable-per-layer
+    name: 每层一个可测证据
+    kind: skill
+    one_liner: "波形、时延直方图、温升曲线、成功率表——把'我学过'变成'我能干'的唯一手段"
+    introduced_in: unit-40
+    requires: [layer-by-layer-jobs, evidence-grade]
+
+  - id: friction-cone
+    name: 摩擦锥
+    kind: mechanic
+    one_liner: "切向力不能超过 μ 倍法向力；ZMP 判据只管倾覆，不管滑"
+    introduced_in: unit-17
+    requires: [zmp]
+  - id: stability-margin
+    name: 稳定裕度
+    kind: term
+    one_liner: "ZMP 到支撑多边形边界的最短距离；控制器需要连续量而不是在/不在"
+    introduced_in: unit-17
+    requires: [zmp]
+  - id: three-zmp-assumptions
+    name: ZMP 的三个前提
+    kind: skill
+    one_liner: "脚是完全贴合的刚性面、机体是刚体、接触满足摩擦锥；三者各有对应的失效场景"
+    introduced_in: unit-17
+    requires: [zmp, friction-cone]
+  - id: critical-damping
+    name: 临界阻尼整定
+    kind: skill
+    one_liner: "kd = 2√(kp·J)；kp 与 kd 是一对，不能各自整定"
+    introduced_in: unit-18
+    requires: [programmable-stiffness]
+  - id: three-stiffness-ceilings
+    name: 刚度三道天花板
+    kind: skill
+    one_liner: "协议量程、执行器饱和（kp ≤ τ_max/Δq）、稳定性（ω_n ≤ 电流环带宽/5）；小关节先看量程"
+    introduced_in: unit-18
+    requires: [critical-damping, current-loop-bandwidth]
+  - id: feedforward-vs-feedback-split
+    name: 前馈管该出多大力，反馈管差了多少
+    kind: skill
+    one_liner: "把 kp 调大来补模型误差是新手最常见的错；它让系统对噪声与冲击更敏感"
+    introduced_in: unit-18
+    requires: [programmable-stiffness]
+  - id: qp-cubic-scaling
+    name: QP 的三次方规模
+    kind: mechanic
+    one_liner: "变量维度 ≈ 关节数 + 接触力维度，稠密求解按三次方涨；这决定 WBC 跑在主控而非关节 MCU"
+    introduced_in: unit-19
+    requires: [whole-body-control]
+  - id: contact-mode-explosion
+    name: 接触模式的组合爆炸
+    kind: mechanic
+    one_liner: "单脚/双脚/腾空/多点接触的组合随步数指数涨；这是显式优化让位于 RL 的计算原因"
+    introduced_in: unit-19
+    requires: [qp-cubic-scaling]
+  - id: input-vs-mechanical-power
+    name: 输入功率不等于机械功率
+    kind: skill
+    one_liner: "人 4.6 W/kg 是代谢输入、机器 4.6 W/kg 是电输入，中间隔着 20–25% 的人体效率"
+    introduced_in: unit-20
+    requires: [energy-chain]
+  - id: static-torque-losses
+    name: 静止出扭矩也烧电
+    kind: mechanic
+    one_liner: "铜损 = (τ/k_t)²R 与转速无关；不做功但持续出扭矩，是人形能量账里最大的一项"
+    introduced_in: unit-20
+    requires: [torque-constant, no-zero-torque-phase, input-vs-mechanical-power]
+  - id: sim-to-sim-check
+    name: Sim2Sim 中间检查
+    kind: pattern
+    one_liner: "换一个实现独立的同类仿真器复核，专门抓'过拟合到某个仿真器的接触模型'"
+    introduced_in: unit-21
+    requires: [sim2real-pipeline]
+  - id: action-repeat-hold
+    name: 动作重复（零阶保持）
+    kind: term
+    one_liner: "decimation=4 表示一个动作连执行四个物理步；它强迫策略不依赖超高频反馈"
+    introduced_in: unit-21
+    requires: [sim2real-pipeline]
+  - id: link-flexibility-vs-joint-stiffness
+    name: 连杆刚度与关节刚度的比
+    kind: mechanic
+    one_liner: "比值大才可以把连杆当刚体；kp 抬到接近该比值失效的区间，仿真里不存在的模态就会被激励"
+    introduced_in: unit-22
+    requires: [structural-mode, three-stiffness-ceilings]
+  - id: four-sim2real-gaps
+    name: 仿真里不存在的四样东西
+    kind: skill
+    one_liner: "结构模态、接触求解器差异、齿隙与静摩擦、延迟分布；其中三类调参无解"
+    introduced_in: unit-22
+    requires: [link-flexibility-vs-joint-stiffness, backlash-floor, comm-rate-vs-loop-rate]
+  - id: distribution-shift
+    name: 分布偏移与复合误差
+    kind: mechanic
+    one_liner: "演示只覆盖『人做对了』的状态；模型一犯错就进入没见过的状态，误差按 (1−ε)^N 复合"
+    introduced_in: unit-29
+    requires: [imitation-learning]
+  - id: open-loop-within-chunk
+    name: 块内开环
+    kind: mechanic
+    one_liner: "动作块一次生成、段内不再看观测；这是分块架构的固有属性，不是实现缺陷"
+    introduced_in: unit-31
+    requires: [action-chunking]
+  - id: chunk-length-tradeoff
+    name: 块长的双向界
+    kind: skill
+    one_liner: "H·Δt ≥ T_infer 是下界（异步不卡壳），反应延迟要小是上界；两界夹出这套架构能对付多快的扰动"
+    introduced_in: unit-31
+    requires: [open-loop-within-chunk, latency-wall]
+  - id: license-as-product-strategy
+    name: 许可即产品策略
+    kind: skill
+    one_liner: "NC 保护生态并要求分享，Apache 消除采用摩擦；一家公司可以同时对不同模型用两种"
+    introduced_in: unit-32
+    requires: [world-model-action]
+  - id: license-contamination
+    name: 许可污染
+    kind: skill
+    one_liner: "依赖链上更严的条款会传染；模型 Apache-2.0 不代表它蒸进的数据与编码器也可商用"
+    introduced_in: unit-32
+    requires: [license-as-product-strategy]
+  - id: world-model-four-usages
+    name: 世界模型的四种用法
+    kind: pattern
+    one_liner: "造数据 / 造环境 / 当评委兼策略 / 车端神经仿真器；只有第三种与控制有关，而它仍是开环"
+    introduced_in: unit-34
+    requires: [world-model-uses]
+  - id: real-time-factor
+    name: 实时率
+    kind: anchor
+    one_liner: "模型算一段未来所需时间 ÷ 那段未来的时长；小于 1 就不可能进闭环"
+    introduced_in: unit-34
+    requires: [world-model-four-usages, latency-wall]
+  - id: evaluator-circularity
+    name: 用模型评模型的循环风险
+    kind: skill
+    one_liner: "评估者与被评估者共享物理假设，错误因此相关；世界模型只能当筛子，不能当判据"
+    introduced_in: unit-34
+    requires: [real-time-factor]
+  - id: series-count-from-voltage
+    name: 从电压反推串数与化学体系
+    kind: skill
+    one_liner: "最大电压÷整数串数落在 4.20 V、能量÷容量÷串数落在 3.60 V ⇒ 4.2 V 钴基/三元，不是 LFP"
+    introduced_in: unit-35
+    requires: [series-count-voltage]
+  - id: pack-vs-cell-density
+    name: 包级能量密度只有电芯级的一半
+    kind: anchor
+    one_liner: "BMS、接触器、结构、热界面与必须留的余量吃掉约 40–50%，所以等电芯突破不解决续航"
+    introduced_in: unit-35
+    requires: [series-count-from-voltage]
+  - id: thermal-resistance-chain
+    name: 串联热阻链
+    kind: mechanic
+    one_liner: "T_结 = T_环境 + P×(R₁+R₂+R₃)，而密封、无风扇、外形与 L²/L³ 失配共同把 R₃ 推到最大"
+    introduced_in: unit-36
+    requires: [sealed-shell-thermal]
+  - id: demagnetization-loop
+    name: 热—铜损—退磁正反馈
+    kind: mechanic
+    one_liner: "温升 80 °C 时同扭矩铜损涨约 58%；越过磁钢上限后退磁不可逆，控制器只会继续加电流"
+    introduced_in: unit-36
+    requires: [thermal-resistance-chain, kt-temp-drift]
+  - id: shutdown-sequence
+    name: 安全停机时序
+    kind: skill
+    one_liner: "先命令 tau→0 并软化 kp/kd、等机械稳定、再断抱闸、最后断动力且保留控制电；顺序错了会在停机过程中摔"
+    introduced_in: unit-37
+    requires: [fail-safe-brake]
+  - id: interface-is-risk
+    name: 接口即风险
+    kind: skill
+    one_liner: "同一组无权限层级的 kp/kd/tau 字段，既是安全软化的通道，也能让一段错码把全身刚度设成零"
+    introduced_in: unit-37
+    requires: [five-field-joint-command, shutdown-sequence]
+  - id: power-law-of-consecutive-success
+    name: 连续成功的指数律
+    kind: mechanic
+    one_liner: "P = p^N；95% 单次在 100 次连续动作下只剩 0.6%，而一小时流水线的动作数正是这个量级"
+    introduced_in: unit-38
+    requires: [compound-success-decay]
+  - id: drift-not-randomization
+    name: 随机化覆盖不了单调漂移
+    kind: skill
+    one_liner: "域随机化假设独立同分布抽样，而磨损是单向的；漂移的正解是标定与健康监测，不是更多随机化"
+    introduced_in: unit-38
+    requires: [domain-randomization, hardware-drift]
+  - id: no-memory-failure
+    name: 无记忆导致的固执失败
+    kind: mechanic
+    one_liner: "分块与模仿学习都不提供『我刚才失败了』这个状态，于是第二次用同样的方式再失败一次"
+    introduced_in: unit-38
+    requires: [action-chunking, imitation-learning]
+  - id: deliverable-with-a-number
+    name: 带测量数的可复现产物
+    kind: skill
+    one_liner: "每层只认一个『能跑、能录像、能被别人复现、且自带一个测量数』的结课物；跑通例程不算"
+    introduced_in: unit-40
+    requires: [deliverable-per-layer]
+  - id: failure-is-a-deliverable
+    name: 失败也要交付
+    kind: skill
+    one_liner: "把没压下去的抖动、没补偿好的过零台阶连同试过的三条路一起交出去，比一个成功演示更能证明能力"
+    introduced_in: unit-40
+    requires: [deliverable-with-a-number]
+  - id: reference-frame-convention
+    name: 口径声明（符号、单位、变换约定）
+    kind: skill
+    one_liner: "k_t 与扭矩必须标明输出端/转子端、峰值/额定；变换系数与扭矩系数必须成对出现"
+    introduced_in: unit-41
+    requires: [output-vs-rotor-reference, amplitude-invariant-convention]
+  - id: entry-filter
+    name: 入口四条判据
+    kind: skill
+    one_liner: "有 LICENSE 本体吗、多久更新、给的是例子还是判据、两周内能做出带数的产物吗"
+    introduced_in: unit-44
+    requires: [license-contamination]
