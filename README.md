@@ -1,10 +1,92 @@
-# 《人形机器人：从一颗关节往下挖》— 项目根
+# 《人形机器人：从一颗关节往下挖》— 书稿源仓库
 
-> 版本 v3（2026-10-08）。前两版《…机器狗为什么踢不倒》（v2，四足科普）与开发者手册（v1）
-> **均已被作者推翻**，理由与过程记在 `manifesto.md` §2。旧 README 的 v2 内容不再适用。
+一本讲**人形机器人**的技术书：从一颗关节往下挖，一直挖到某个 MOSFET 在 50 微秒里关断，
+每一跳都给读者能自己复算的数。46 章 / 正文 176,718 汉字 / 印型 558 页（145 × 210 mm，版心 110 × 176 mm）。
 
-Phase 状态见 `project-status.yaml`（机器可读）。当前：**46 章全部成稿、两轮一手复验已跑、
-交稿包已产出；深度门与来源门在跑；未过 manuscript-gate。**
+> 前两版（v1 开发者手册、v2 四足科普）**已被作者整体推翻**，理由与过程见 `manifesto.md` §2；
+> 旧稿留在 `drafts-quadruped-popsci/` 与 `print/ARCHIVE-*.pdf`，不参与构建。
+
+## 现在是什么状态（可核对，不粉饰）
+
+| 项 | 实测 |
+|---|---|
+| 成稿 | 46 章全部有稿；深度门中位 **14.93**，**0/44 章偏薄** |
+| 范围 | 四足提及 **39** 次 vs 人形 **226** 次（只保留器件史料与能量对照两处） |
+| 门禁 | 一条命令 14 步、含 **13 道自测门禁**，当前 **exit 0** |
+| 印前 | 页尺寸不符 0、墨越裁口 0、水平冲出 0、缺图 0、近空页 0（量的是成品 PDF 本身） |
+| 图 | 台账 38 幅 / 已完成 36 / **待作者实拍 2** / 缺 license 字段 0 |
+| 语录 | 41/41 正文章有题引：32 章王兴兴（逐字可回读）+ 9 章按作者决定改引马斯克（说话人与来源层级写在块里） |
+| 交付 | docx 6.8 MB、内嵌图 36 = 去重引用 36，页面参数与印型一致 |
+| 未签字 | 书名、3 段文风样本、拆机以哪台机器为准、8 个需真机测量的 `[算]` 量 |
+
+## 一条命令重建全部产物
+
+```bash
+bash tools/rebuild_all.sh           # 草稿 → print/src → 图形核对 → SVG 栅格化 → PDF → 交稿包 → docx → 门禁
+bash tools/rebuild_all.sh --gates   # 只跑门
+```
+
+顺序是硬性的，任何一步失败就停——**绝不留下"看起来成功了"的半成品**。这个项目真的翻过车：
+pandoc 静默产出 0 图的 docx、构建产物目录不清空导致同一章在书里出现两遍，而当时所有门都是绿的。
+
+依赖：Python 3.12（PyMuPDF / Pillow / PyYAML）、Node 24、pandoc 3.9、本机 Chrome。**不需要 LaTeX。**
+
+## 门禁清单（每道都带 `--selftest`，且自检必须包含"故意做错"的反例）
+
+| 门 | 判什么 |
+|---|---|
+| `code/tools/foc_check.py` | 每个 `[算]` 数能复现；已知答案自检 9 条 |
+| `code/tools/arithmetic_check.py` | 全书算式逐条重算；`exit 1` 只表示"还有数没测"，不算错 |
+| `tools/formula_check.py` | 把正文每个"算式 = 结果"真算一遍，抓算错（含 20 条已分诊的解析器伪阳性基线） |
+| `tools/number_provenance.py` | 书里每个带单位的数，要么在一手资料/脚本里，要么删 |
+| `tools/check_terms.py` | 先现象后命名、每章 6 个新词预算、首现给解释 |
+| `tools/check_kg.py` | 概念引入与使用顺序不许倒挂 |
+| `tools/check_xrefs.py` | 721 处"第 NN 章"必须指到真实章节，且括注说的事真在那一章里 |
+| `tools/depth_audit.py` | 追问链、公式密度、是否落到底层、边界与代价、可代入的数 |
+| `tools/blueprint_coverage.py` | 蓝图 21 格逐格给落点章号，`grep -rlEi` 可复跑 |
+| `tools/quote_coverage.py` | 附录 A 写的语录达成度必须与 `bible/quotes.yaml` 一致 |
+| `tools/check_vendor_ledger.py` | 每个 `[查]` 必须在 `research/other-vendor-firsthand.md` 里有逐字原文 + URL + 日期 |
+| `tools/appendix_drift.py` + `fig_text_check.py` | 附录承诺的数与图里的数不许漂 |
+| `tools/fix_quotes.py` / `protect_html_attrs.py` / `fix_docx_layout.py` | 引号体例、HTML 属性引号、docx 页面参数与漏围栏 |
+
+**门的阈值与基线不许为了通过而上调。** 门抓不到错误就等于没有度量——这条纪律已经抓到作者本人算错十余次，
+以及三次度量自身有偏（例如 `formula_check` 会把 `1e-5` 读成 `1`，于是放过一个 100 倍量级错误）。
+
+## 四条不可协商的纪律
+
+1. **你可以不讲，但不能讲错。** 每个数字带来源标记：`[厂]` 宇树官方一手；`[拆]` 拆解/券商，只当数量级；
+   `[行]` 教科书与行业通识，**不是宇树事实**；`[算]` 本书推算（读者可用同段输入复算）；
+   `[查]` 本书逐字读到过对方一手页面（台账里有原文与 URL）；`[未]` 厂商未公布；`[推]` 无一手来源的推断。
+   **"查不到"是合法答案**，而且必须出现在交付物本身上（附录 A/E），不能只记在台账里。
+2. **不把话塞进厂商嘴里。** 引号里必须是逐字引文；说话人变了就在出处行明写，不冒充。
+3. **冲突不抹平。** 官方口径与拆解口径不一致时两条都列，写明取哪条或"待复验"。
+4. **每个类比必须写它在哪里开始说谎**（`analogy_breaks_at`），不填不许用。
+
+## 仓库里有什么 / 故意不入库什么
+
+入库：`drafts/`（46 章正文）、`outline/`（`units.yaml` 单一真源 + 目录 + 图台账）、`bible/`（宪法、术语、
+文风、`do-not-touch.md` 事实红线（编号到 131，实际 97 条——中间有合并））、`tools/` 与 `code/tools/`（构建与门禁）、
+`research/`（一手规格核对、别家一手台账、抓回的原页存档）、`verification/`（十一轮判定 F-0…F-51 与改动前存档）、
+`assets/`（33 幅自绘 SVG + 3 张第三方自由许可照片）。
+
+不入库（一条命令可重生）：`print/node_modules`、`print/build`、`print/src`、`submission/images`、
+`submission/src-docx`，以及成品 PDF / docx（18.5 MB / 6.8 MB，每次重建都是整份新副本）。
+要把某一版快照入库：`git add -f "print/人形机器人：从一颗关节往下挖.pdf" submission/*.docx`；
+更合适的做法是挂到 Releases。
+
+## 版权与图片许可
+
+正文与图表：**全部权利保留**（作者未与出版社签约前不授予任何许可，本仓库不设 LICENSE 文件）。
+自绘 SVG 由本书手写，可随稿交付。三张第三方照片按各自许可使用并在图注中署名：
+
+| 图 | 作者 / 来源 | 许可 |
+|---|---|---|
+| 图 00-2 G1 整机 | Sayanesy, via Wikimedia Commons | CC0 |
+| 图 02-3 宇树总部 | Windmemories, via Wikimedia Commons | CC BY-SA 4.0 |
+| 图 A-1 王兴兴 | China News Service, via Wikimedia Commons | CC BY 3.0 |
+
+**本书不使用任何宇树官方素材**（新闻页照片与视频是对方的资产），所以"真机长什么样"这类信息
+只有三条实拍能补——那两格空槽已在附录 A.8 与图台账里登记为待拍，不是漏图。
 
 ## 先读这四个文件
 
@@ -12,75 +94,14 @@ Phase 状态见 `project-status.yaml`（机器可读）。当前：**46 章全�
 |---|---|
 | `manifesto.md` | 宪法：这本书是什么、凭什么存在、边界、已定决定、风险 |
 | `bible/scope.md` | 范围：讲什么、**故意不讲什么**、深度政策、完成的定义 |
-| `outline/toc.md` | 46 章目录 + 锚点数（由 `tools/gen_toc.py` 从 `outline/units.yaml` 生成） |
-| `submission/CIP与交稿说明.md` | 给出版社的交稿清单：结构统计、四条已知印刷局限、脚本清单 |
-
-## 这本书的验收线（作者 2026-10-08 原话）
-
-> 技术再给我讲解深刻一点……比如 FOC(磁场定向控制) 的位置 速度 扭矩 本质是
-> 被一个垂直于转子的磁场控制。磁场由电流控制。改变外面电流导通的时间，可以合成
-> 为任意方向任意大小的磁场，来控制此转子。**你要讲到这种水平才。**
-> 目标读者是**有一定相关从业经验基础、但没有接触过机器人的科技爱好者和工程师**。
-> 另外：**只主要讲人形机器人**，不要讲那么多机器狗。
-
-这条线被拆成了每章的 `dig` 四问（栈 / 机制 / 底座 / 边界），见 `outline/units.yaml`。
-
-## 一条命令重建全部产物
-
-```bash
-bash tools/rebuild_all.sh          # 草稿 → print/src → SVG 栅格化 → PDF → 交稿包 → docx → 5 道门
-bash tools/rebuild_all.sh --gates  # 只跑门
-```
-
-## 目录约定（book-factory `book-technical` profile）
-
-```text
-manifesto.md  scope 与宪法
-bible/        scope.md sources.md glossary.md voice-profile.md images.md
-              do-not-touch.md（75 条事实红线）continuity-tracker.md
-              knowledge-graph.yaml archive-scope-v2-quadruped.md（作废留档）
-outline/      units.yaml ← 单一真源；toc.md 与 figures.yaml 由它派生
-              archive-units-{developer-manual,popsci-quadruped}.yaml（v1/v2 骨架）
-drafts/       unit-NN/draft.md  ← 46 章正文
-drafts-quadruped-popsci/        ← v2 旧稿，不参与构建
-research/     一手规格核对表、蓝图覆盖核对、语录检索轮次
-code/tools/   arithmetic_check.py foc_check.py calculations.yaml ← 全书 [算] 数的出处
-tools/        build_book.py gen_toc.py make_figs*.py check_terms.py check_kg.py
-              depth_audit.py number_provenance.py make_submission.py rebuild_all.sh
-print/        build.mjs rasterize.mjs png2tif.py style.css → 印型 PDF
-submission/   交稿包：docx + images/(300 dpi TIF+PNG) + 授权清单 + 声明 + CIP 说明
-verification/ 核查单、深度作业单、复验记录
-```
-
-## 门禁（每个都真跑，不许口头宣布通过）
-
-| 门 | 命令 | 判什么 |
-|---|---|---|
-| 算术 | `python -X utf8 code/tools/foc_check.py` | 每个 [算] 数能复现，含已知答案自检（当前 15 条） |
-| 术语 | `python -X utf8 tools/check_terms.py --all` | 先现象后命名、每章 6 个新词预算、首现给解释 |
-| 图谱 | `python -X utf8 tools/check_kg.py` | 158 概念的引入/使用顺序不许倒挂 |
-| 引用 | `python -X utf8 tools/check_xrefs.py` | 652 处"第 NN 章"必须指到真实章节，且括注说的事真在那一章里 |
-| 深度 | `python -X utf8 tools/depth_audit.py` | 追问链、公式密度、是否落到底层、边界与代价、可代入的数 |
-| 数源 | `python -X utf8 tools/number_provenance.py` | 书稿里每个带单位的数，要么在一手资料/脚本里，要么删 |
-| 等式 | `python -X utf8 tools/formula_check.py` | 把正文每个"算式 = 结果"真算一遍，抓算错 |
-| 渲染 | `manuscript_gate.py --deterministic-only` | book-factory 的 MG-5/MG-6（0 critical / 0 major 才算过） |
-
-**每道门都有 `--selftest`，且自检里必须有"故意做错"的反例**——
-度量抓不到错误就等于没有度量。这条纪律已经抓到过作者本人五次算错与三次度量自身有偏。
-
-## 四条不可协商的纪律
-
-1. **你可以不讲，但不能讲错。** 每个数字带来源标记：[厂] 官方；[拆] 第三方拆解/券商，只当数量级；
-   [行] 教科书与行业通识，**不是宇树事实**；[算] 本书推算，附录 B 有脚本；[未] 查不到。
-   "查不到"是合法答案，且必须出现在附录 E。
-2. **不把话塞进厂商嘴里。** 引号里必须是逐字引文，语录块必须写清出处与日期。
-3. **冲突不抹平。** 官方口径与拆解口径不一致时两条都列，写明取哪条或"待复验"。
-4. **每个类比必须写它在哪里开始说谎**（`analogy_breaks_at`），不填不许用。
+| `bible/do-not-touch.md` | 事实红线（编号到 131，实际 97 条）：每条都是真犯过的错 + 为什么会犯 + 怎么防 |
+| `submission/CIP与交稿说明.md` | 给出版社的交稿清单：结构统计、已知印刷局限、脚本清单 |
 
 ## 还缺什么（不粉饰）
 
-- 3 幅图要作者本人实拍（全身定妆照、腿部关节逐个特写、GO-M8010-6 拆机照）。
-- 36 章没有可溯源且主题吻合的王兴兴语录——宁缺不假，正在第三轮检索。
-- 书名、3 段文风校准样本、拆机以哪台机器为准：等作者签字。
-- manuscript-gate（contract cards / digest / Critic 计分 + blind verify / claim-index）尚未对 v3 跑过。
-- 8 个 `[算]` 量需要真机测量才能闭合（见 `verification/teardown-measures-*.md`，由作者自己跑）。
+- 2 幅图必须作者实拍：腿部关节逐个特写、一颗 GO-M8010-6 的拆机照（自由许可素材里没有）。
+- H1 / H2 的"续航约 3 h"在官方页面上读不到（H1 的 `Endurance` 行填的是 `864Wh`，H2 整页没有续航行），
+  所以本书**不给这两档的平均电功率与 W/kg**；依赖旧口径的四处论证已重锚到 G1。
+- 9 章的马斯克题引里有 7 条是第三方报道的逐字引句，**未核对录音/视频原文**，出处行已明写。
+- 8 个 `[算]` 量需要真机测量才能闭合；`final/` 的 contract cards 与 Critic 计分尚未跑。
+- 2026 年 H2 规格变化快，**付印前需再一轮一手复验**。
