@@ -62,17 +62,27 @@ pandoc 静默产出 0 图的 docx、构建产物目录不清空导致同一章�
 3. **冲突不抹平。** 官方口径与拆解口径不一致时两条都列，写明取哪条或"待复验"。
 4. **每个类比必须写它在哪里开始说谎**（`analogy_breaks_at`），不填不许用。
 
-## 仓库里有什么 / 故意不入库什么
+## 仓库里有什么 / 唯一不入库的是什么
 
+**671 个文件、167.4 MB，成品也在里面**（作者 2026-10-10 要求「别排除，把所有稿件都交了」）。
 入库：`drafts/`（46 章正文）、`outline/`（`units.yaml` 单一真源 + 目录 + 图台账）、`bible/`（宪法、术语、
 文风、`do-not-touch.md` 事实红线（编号到 131，实际 97 条——中间有合并））、`tools/` 与 `code/tools/`（构建与门禁）、
 `research/`（一手规格核对、别家一手台账、抓回的原页存档）、`verification/`（十一轮判定 F-0…F-51 与改动前存档）、
-`assets/`（33 幅自绘 SVG + 3 张第三方自由许可照片）。
+`assets/`（33 幅自绘 SVG + 3 张第三方自由许可照片），以及**交稿物本体与它的每一步中间态**：
 
-不入库（一条命令可重生）：`print/node_modules`、`print/build`、`print/src`、`submission/images`、
-`submission/src-docx`，以及成品 PDF / docx（18.5 MB / 6.8 MB，每次重建都是整份新副本）。
-要把某一版快照入库：`git add -f "print/人形机器人：从一颗关节往下挖.pdf" submission/*.docx`；
-更合适的做法是挂到 Releases。
+| 入库的产物 | 量 |
+|---|---|
+| `print/人形机器人：从一颗关节往下挖.pdf` | 18,542,034 B / 558 页 / 145×210 mm |
+| `submission/…-交稿版.docx` | 6,792,113 B / 36 张内嵌图 |
+| `submission/images/` 印厂用 300 dpi | 33 TIF + 33 PNG（84 MB） |
+| `print/src`、`print/build`、`print/proof*`、`submission/src-docx` | 构建中间态，可复现但要看得到 |
+| `print/*.png`、`v6-*.png` | 逐页取证截图 40 张 |
+| `code/tools/*.log` | 26 轮 rebuild 的门禁原始输出＝质量证据 |
+| `print/ARCHIVE-v2-…-88页-已被推翻.pdf` | v2 四足版，保留被推翻的痕迹 |
+
+唯一排除项：`print/node_modules`（205 MB 第三方依赖本体，`cd print && npm install` 一条命令重生）。
+凭据输出（`ghlogin*`、token、cookie）按 34a039c 的教训继续挡在外面。
+
 
 ## 版权与图片许可
 
