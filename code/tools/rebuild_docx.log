@@ -1,0 +1,95 @@
+── 0/9 附录 B/E 由工具输出重生成（先誊数，再装配）
+附录 B 已重写：253 行 → 253 行；foc 自检 19 条、arithmetic 自检 3 条、概念 158 个
+正文里可回读的 URL：141 条进清单，12 条按规则排除（drafts + bible + research）
+── 1/9 草稿 → print/src
+装配 50 个文件 → print/src/
+缺稿 0 章：无
+语录块空缺 14 章（bible/quotes.yaml 不存在或该章无可溯源语录 → 宁缺不假）
+图：台账 36 幅，其中待拍/待绘/待授权 3 幅，缺 license 字段 0 幅（assets/ 现有 68 个文件）
+      → 图片是这本书的硬成本：逐幅任务单见 outline/figures.yaml，政策见 bible/images.md
+── 1b/9 图形几何核对（Chrome 真实字宽：图内文字不许冲出画布）
+写入 verification/svg-metrics.json
+量了 33 张图：冲出画布 0 处，压边框 9 处
+  [盒子] f06-commutation.svg 超出 3.8（字宽 126.9 对盒宽 210）｜ 换向器 + 碳刷
+  [盒子] f06-commutation.svg 超出 3.8（字宽 127 对盒宽 250）｜ FOC + 编码器
+  [盒子] f12-cascade-vs-formula.svg 超出 4.6（字宽 388.6 对盒宽 400）｜ τ = τ_ff + k_p(q_des − q) + k_d(ω_des −
+  [盒子] f15-one-motor-two-gears.svg 超出 11.5（字宽 241.5 对盒宽 250）｜ 满扭矩转子侧 6.15–6.18 N·m
+  [盒子] f18-three-ceilings.svg 超出 4.8（字宽 328.8 对盒宽 340）｜ ω_n = √(kp/armature) = 62.8 rad/s
+  [盒子] f22-diagnosis.svg 超出 19.7（字宽 229.7 对盒宽 940）｜ 改结构，或把带宽压到 f_m/3
+  [盒子] f22-diagnosis.svg 超出 24.9（字宽 234.9 对盒宽 940）｜ 软足垫 / 重新随机化接触参数
+  [盒子] f27-bus.svg 超出 9.1（字宽 57 对盒宽 440）｜ 955 元
+  [盒子] f38-compound-decay.svg 超出 39.6（字宽 119.6 对盒宽 340）｜ 100% → 90.5%
+── 2/9 SVG → PNG/TIF（300 dpi）
+  f00-time-domains.png  1299x611px  印成 110x51.7 mm  84 KB
+  f03-bom.png  1299x520px  印成 110x44 mm  76 KB
+  f04-depth-ruler.png  1299x650px  印成 110x55 mm  136 KB
+  f05-sin-theta.png  1299x559px  印成 110x47.3 mm  55 KB
+  f06-commutation.png  1299x727px  印成 110x61.6 mm  106 KB
+  f07-rotating-field.png  1299x727px  印成 110x61.6 mm  99 KB
+  f08-voltage-hexagon.png  1299x727px  印成 110x61.6 mm  90 KB
+  f09-two-lowpass.png  1299x727px  印成 110x61.6 mm  65 KB
+  f10-clarke-park.png  1299x727px  印成 110x61.6 mm  105 KB
+  f11-dq-plane.png  1299x727px  印成 110x61.6 mm  142 KB
+  f12-cascade-vs-formula.png  1299x727px  印成 110x61.6 mm  125 KB
+  f13-timing.png  1299x675px  印成 110x57.2 mm  113 KB
+  f14-backlash-floor.png  1299x520px  印成 110x44 mm  50 KB
+  f15-one-motor-two-gears.png  1299x520px  印成 110x44 mm  102 KB
+  f16-quad-vs-biped.png  1299x546px  印成 110x46.2 mm  55 KB
+  f17-zmp.png  1299x665px  印成 110x56.3 mm  105 KB
+  f18-three-ceilings.png  1299x546px  印成 110x46.2 mm  67 KB
+  f19-programmable-spring.png  1299x611px  印成 110x51.7 mm  129 KB
+  f21-pipeline-dr.png  1299x727px  印成 110x61.6 mm  127 KB
+  f22-diagnosis.png  1299x727px  印成 110x61.6 mm  106 KB
+  f23-depth-error.png  1299x727px  印成 110x61.6 mm  77 KB
+  f24-imu-bias.png  1299x494px  印成 110x41.8 mm  91 KB
+  f26-memory-wall.png  1299x727px  印成 110x61.6 mm  166 KB
+  f27-bus.png  1299x727px  印成 110x61.6 mm  139 KB
+  f28-stack.png  1299x520px  印成 110x44 mm  80 KB
+  f29-multimodal.png  1299x727px  印成 110x61.6 mm  106 KB
+  f30-vla.png  1299x457px  印成 110x38.7 mm  136 KB
+  f31-chunk-window.png  1299x727px  印成 110x61.6 mm  88 KB
+  f33-data-cost.png  1299x727px  印成 110x61.6 mm  96 KB
+  f35-series.png  1299x582px  印成 110x49.3 mm  109 KB
+  f36-thermal.png  1299x727px  印成 110x61.6 mm  138 KB
+  f38-compound-decay.png  1299x727px  印成 110x61.6 mm  83 KB
+  f39-jobs.png  1299x727px  印成 110x61.6 mm  117 KB
+  33 个 TIF（无压缩 RGB，300 dpi）
+
+共 33 幅 → submission/images/（300 dpi，按版心 110 mm 定宽）
+── 3/9 印型 PDF（145×210 mm）
+引号体例（渲染层）：中文直引号残留 0 对；弯引号 2104/2104
+Wrote C:\Users\mty\Documents\Qoder\2026-10-07\56481ded\unitree-book\print\人形机器人：从一颗关节往下挖.pdf (550 pages)
+印本里 π*0.6 完好 12 处；星号丢失 0 处
+── 3b/9 印前几何核对（量成品 PDF）
+PDF 550 页 ｜ 版心口径 145×210 mm，版心 110×176 mm
+页面尺寸不符      0 处
+墨越过裁口        0 处  ← 真缺陷，印出来缺字
+水平冲出留白(硬)  0 处 >8 pt ← 排版缺陷，必须修
+水平冲出留白(软)  0 处 ≤8 pt ← 落在 15–20 mm 留白内，不越裁口
+纵向出血区有内容  533 处（页眉/页脚/页码，设计如此）
+── 4/9 交稿包（src-docx + 授权清单 + CIP 说明）
+  图片授权清单.md / .csv（已完成 33，待办 3，已光栅化 33）
+  图片来源与版权声明.md
+  CIP与交稿说明.md（排版源正文汉字 203,846）
+  src-docx/ 写出 50 个文件 + 33 张 PNG 副本
+
+下一步（必须在 src-docx 目录内执行；pandoc 按 CWD 解析图片相对路径，
+          在仓库根跑会把全部图静默丢掉，docx 照样生成）：
+  cd submission/src-docx && pandoc *.md -o "../人形机器人：从一颗关节往下挖-交稿版.docx" --toc --toc-depth=2 --metadata title="人形机器人：从一颗关节往下挖"
+  cd ../.. && node print/rasterize.mjs   # 重出图片包（改了 SVG 之后要跑）
+── 4b/9 交稿包引号体例（docx 走 pandoc，不经过 build.mjs 的渲染层）
+构建产物引号归一：submission/src-docx/*.md → 52 个字符
+  还原 3 处：submission/src-docx\000-cover.md
+HTML 属性引号还原：3 处 / 1 个文件
+交稿包 50 个 md、章名唯一（47 个一级标题）；HTML 属性引号 ASCII ✓
+── 5/9 docx（必须在 src-docx 目录里跑，pandoc 按 CWD 找图）
+── 5b/9 docx 页面参数与围栏体检（与印型同一张纸：145×210 mm、版心 110×176 mm）
+patched: sectPr + docDefaults | page 8220 x 11906 twips = 145 x 210 mm | margins L/R 17.5 mm  T/B 17 mm | eastAsia=宋体 ascii=Times New Roman
+Traceback (most recent call last):
+  File "C:\Users\mty\Documents\Qoder\2026-10-07\56481ded\unitree-book\tools\fix_docx_layout.py", line 107, in <module>
+    main()
+  File "C:\Users\mty\Documents\Qoder\2026-10-07\56481ded\unitree-book\tools\fix_docx_layout.py", line 91, in main
+    os.replace(tmp, src)
+PermissionError: [WinError 5] Access is denied: 'submission\\人形机器人：从一颗关节往下挖-交稿版.docx.tmp' -> 'submission\\人形机器人：从一颗关节往下挖-交稿版.docx'
+
+!! 失败：docx 页面参数 / 正文漏出代码围栏

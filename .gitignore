@@ -1,29 +1,32 @@
-# ── 构建产物与依赖：一条命令可重生（bash tools/rebuild_all.sh）────────────
+# ── 唯一排除项：三方依赖本体（205 MB，一条命令可重生）───────────────────
+# print/node_modules 是 puppeteer + pagedjs + mermaid 的第三方代码本体。
+# 恢复方法：cd print && npm install      （或 bash tools/rebuild_all.sh，第 3 步会用到）
+# 其余一切——成品 PDF/docx、300 dpi TIF、构建中间态、验证截图、门禁日志——
+# 按作者 2026-10-10 的要求「所有文件都进仓库」，全部纳入版本库。
 print/node_modules/
-print/build/
-print/src/
-print/*.png
-submission/images/
-submission/src-docx/
-code/tools/*.log
-code/tools/__pycache__/
-**/__pycache__/
+
+# ── 解释器与操作系统垃圾 ──
+__pycache__/
 *.pyc
-v6-*.png
-
-# ── 交稿快照（PDF 18.5 MB / docx 6.8 MB，每次重建都是整份新副本，会把仓库撑大）──
-# 想把某一版快照入库：git add -f "print/人形机器人：从一颗关节往下挖.pdf" submission/*.docx
-# 更合适的做法：把成品挂到 GitHub Releases，仓库里只留可复现的源。
-print/*.pdf
-submission/*.docx
-final/*.docx
-
-# ── 本地杂项 ──
 .DS_Store
 Thumbs.db
 *.tmp
 .tmp-*
 
+# ── 凭据防线（2026-10-09 误提交过一次 gh 设备码输出，见 34a039c）──
+# 「所有文件都进仓库」不包括这一类：认证输出、token、cookie。
+ghlogin*.txt
+*token*.txt
+*cookie*.txt
+
+# ── 以下曾经被排除，2026-10-10 作者要求「别排除」后已全部纳入 ──
+# print/*.pdf           成品印型 PDF（18.5 MB / 558 页）+ v2 归档
+# submission/*.docx     交稿版 Word（6.5 MB）
+# submission/images/    印厂用 300 dpi TIF + PNG（84 MB）
+# submission/src-docx/  pandoc 输入与内嵌图（7.2 MB）
+# print/src|build|proof*/  构建中间态
+# print/*.png v6-*.png  逐页验证截图（用 PyMuPDF 量成品时的取证图）
+# code/tools/*.log      每次 rebuild 的门禁原始输出＝质量证据
+
 # 注意：research/raw/ 与 verification/*.bak 是**证据存档**（一手页面、改动前状态），
-# 故意纳入版本库，不要加进这里。
-ghlogin.txt
+# 同样纳入版本库，不要加进上面任何排除项。

@@ -1,0 +1,263 @@
+── 0/9 附录 B/E 由工具输出重生成（先誊数，再装配）
+附录 B 已重写：253 行 → 253 行；foc 自检 19 条、arithmetic 自检 3 条、概念 158 个
+正文里可回读的 URL：144 条进清单，12 条按规则排除（drafts + bible + research）
+── 1/9 草稿 → print/src
+装配 50 个文件 → print/src/
+缺稿 0 章：无
+语录块空缺 5 章（bible/quotes.yaml 不存在或该章无可溯源语录 → 宁缺不假）
+图：台账 36 幅，其中待拍/待绘/待授权 3 幅，缺 license 字段 0 幅（assets/ 现有 72 个文件）
+      → 图片是这本书的硬成本：逐幅任务单见 outline/figures.yaml，政策见 bible/images.md
+── 1b/9 图形几何核对（Chrome 真实字宽：图内文字不许冲出画布）
+写入 verification/svg-metrics.json
+量了 33 张图：冲出画布 0 处，压边框 9 处
+  [盒子] f06-commutation.svg 超出 3.8（字宽 126.9 对盒宽 210）｜ 换向器 + 碳刷
+  [盒子] f06-commutation.svg 超出 3.8（字宽 127 对盒宽 250）｜ FOC + 编码器
+  [盒子] f12-cascade-vs-formula.svg 超出 4.6（字宽 388.6 对盒宽 400）｜ τ = τ_ff + k_p(q_des − q) + k_d(ω_des −
+  [盒子] f15-one-motor-two-gears.svg 超出 11.5（字宽 241.5 对盒宽 250）｜ 满扭矩转子侧 6.15–6.18 N·m
+  [盒子] f18-three-ceilings.svg 超出 4.8（字宽 328.8 对盒宽 340）｜ ω_n = √(kp/armature) = 62.8 rad/s
+  [盒子] f22-diagnosis.svg 超出 19.7（字宽 229.7 对盒宽 940）｜ 改结构，或把带宽压到 f_m/3
+  [盒子] f22-diagnosis.svg 超出 24.9（字宽 234.9 对盒宽 940）｜ 软足垫 / 重新随机化接触参数
+  [盒子] f27-bus.svg 超出 9.1（字宽 57 对盒宽 440）｜ 955 元
+  [盒子] f38-compound-decay.svg 超出 39.6（字宽 119.6 对盒宽 340）｜ 100% → 90.5%
+── 2/9 SVG → PNG/TIF（300 dpi）
+  f00-time-domains.png  1299x611px  印成 110x51.7 mm  84 KB
+  f03-bom.png  1299x520px  印成 110x44 mm  76 KB
+  f04-depth-ruler.png  1299x650px  印成 110x55 mm  136 KB
+  f05-sin-theta.png  1299x559px  印成 110x47.3 mm  55 KB
+  f06-commutation.png  1299x727px  印成 110x61.6 mm  106 KB
+  f07-rotating-field.png  1299x727px  印成 110x61.6 mm  99 KB
+  f08-voltage-hexagon.png  1299x727px  印成 110x61.6 mm  90 KB
+  f09-two-lowpass.png  1299x727px  印成 110x61.6 mm  65 KB
+  f10-clarke-park.png  1299x727px  印成 110x61.6 mm  105 KB
+  f11-dq-plane.png  1299x727px  印成 110x61.6 mm  142 KB
+  f12-cascade-vs-formula.png  1299x727px  印成 110x61.6 mm  125 KB
+  f13-timing.png  1299x675px  印成 110x57.2 mm  113 KB
+  f14-backlash-floor.png  1299x520px  印成 110x44 mm  50 KB
+  f15-one-motor-two-gears.png  1299x520px  印成 110x44 mm  102 KB
+  f16-quad-vs-biped.png  1299x546px  印成 110x46.2 mm  55 KB
+  f17-zmp.png  1299x665px  印成 110x56.3 mm  105 KB
+  f18-three-ceilings.png  1299x546px  印成 110x46.2 mm  67 KB
+  f19-programmable-spring.png  1299x611px  印成 110x51.7 mm  129 KB
+  f21-pipeline-dr.png  1299x727px  印成 110x61.6 mm  127 KB
+  f22-diagnosis.png  1299x727px  印成 110x61.6 mm  106 KB
+  f23-depth-error.png  1299x727px  印成 110x61.6 mm  77 KB
+  f24-imu-bias.png  1299x494px  印成 110x41.8 mm  91 KB
+  f26-memory-wall.png  1299x727px  印成 110x61.6 mm  166 KB
+  f27-bus.png  1299x727px  印成 110x61.6 mm  139 KB
+  f28-stack.png  1299x520px  印成 110x44 mm  80 KB
+  f29-multimodal.png  1299x727px  印成 110x61.6 mm  106 KB
+  f30-vla.png  1299x457px  印成 110x38.7 mm  136 KB
+  f31-chunk-window.png  1299x727px  印成 110x61.6 mm  88 KB
+  f33-data-cost.png  1299x727px  印成 110x61.6 mm  96 KB
+  f35-series.png  1299x582px  印成 110x49.3 mm  109 KB
+  f36-thermal.png  1299x727px  印成 110x61.6 mm  138 KB
+  f38-compound-decay.png  1299x727px  印成 110x61.6 mm  83 KB
+  f39-jobs.png  1299x727px  印成 110x61.6 mm  117 KB
+  33 个 TIF（无压缩 RGB，300 dpi）
+
+共 33 幅 → submission/images/（300 dpi，按版心 110 mm 定宽）
+── 3/9 印型 PDF（145×210 mm）
+引号体例（渲染层）：中文直引号残留 0 对；弯引号 2113/2113
+Wrote C:\Users\mty\Documents\Qoder\2026-10-07\56481ded\unitree-book\print\人形机器人：从一颗关节往下挖.pdf (554 pages)
+印本里 π*0.6 完好 12 处；星号丢失 0 处
+── 3b/9 印前几何核对（量成品 PDF）
+PDF 554 页 ｜ 版心口径 145×210 mm，版心 110×176 mm
+页面尺寸不符      0 处
+墨越过裁口        0 处  ← 真缺陷，印出来缺字
+水平冲出留白(硬)  0 处 >8 pt ← 排版缺陷，必须修
+水平冲出留白(软)  0 处 ≤8 pt ← 落在 15–20 mm 留白内，不越裁口
+纵向出血区有内容  537 处（页眉/页脚/页码，设计如此）
+── 4/9 交稿包（src-docx + 授权清单 + CIP 说明）
+  图片授权清单.md / .csv（已完成 33，待办 3，已光栅化 33）
+  图片来源与版权声明.md
+  CIP与交稿说明.md（排版源正文汉字 205,472）
+  src-docx/ 写出 50 个文件 + 33 张 PNG 副本
+
+下一步（必须在 src-docx 目录内执行；pandoc 按 CWD 解析图片相对路径，
+          在仓库根跑会把全部图静默丢掉，docx 照样生成）：
+  cd submission/src-docx && pandoc *.md -o "../人形机器人：从一颗关节往下挖-交稿版.docx" --toc --toc-depth=2 --metadata title="人形机器人：从一颗关节往下挖"
+  cd ../.. && node print/rasterize.mjs   # 重出图片包（改了 SVG 之后要跑）
+── 4b/9 交稿包引号体例（docx 走 pandoc，不经过 build.mjs 的渲染层）
+构建产物引号归一：submission/src-docx/*.md → 52 个字符
+  还原 3 处：submission/src-docx\000-cover.md
+HTML 属性引号还原：3 处 / 1 个文件
+交稿包 50 个 md、章名唯一（47 个一级标题）；HTML 属性引号 ASCII ✓
+── 5/9 docx（必须在 src-docx 目录里跑，pandoc 按 CWD 找图）
+── 5b/9 docx 页面参数与围栏体检（与印型同一张纸：145×210 mm、版心 110×176 mm）
+patched: sectPr + docDefaults | page 8220 x 11906 twips = 145 x 210 mm | margins L/R 17.5 mm  T/B 17 mm | eastAsia=宋体 ascii=Times New Roman
+写回复验通过：pgSz/pgMar 在 document.xml，中文字体在 styles.xml，内嵌图 33 张
+docx 正文无漏出的 ``` 围栏
+── 6/9 门：算术可复算
+  → PASS
+
+=== 结论：0 项异常 ===
+   arithmetic_check：无算错项；8 项 TBD 待真机测量（见 verification/teardown-measures-*.md）
+── 7/9 门：术语预算、概念顺序、交叉引用
+✓ unit-00 draft.md
+✓ unit-01 draft.md
+✓ unit-02 draft.md
+✓ unit-03 draft.md
+✓ unit-04 draft.md
+✓ unit-05 draft.md
+✓ unit-06 draft.md
+✓ unit-07 draft.md
+✓ unit-08 draft.md
+✓ unit-09 draft.md
+✓ unit-10 draft.md
+✓ unit-11 draft.md
+✓ unit-12 draft.md
+✓ unit-13 draft.md
+✓ unit-14 draft.md
+✓ unit-15 draft.md
+✓ unit-16 draft.md
+✓ unit-17 draft.md
+✓ unit-18 draft.md
+✓ unit-19 draft.md
+✓ unit-20 draft.md
+✓ unit-21 draft.md
+✓ unit-22 draft.md
+✓ unit-23 draft.md
+✓ unit-24 draft.md
+✓ unit-25 draft.md
+✓ unit-26 draft.md
+✓ unit-27 draft.md
+✓ unit-28 draft.md
+✓ unit-29 draft.md
+✓ unit-30 draft.md
+✓ unit-31 draft.md
+✓ unit-32 draft.md
+✓ unit-33 draft.md
+✓ unit-34 draft.md
+✓ unit-35 draft.md
+✓ unit-36 draft.md
+✓ unit-37 draft.md
+✓ unit-38 draft.md
+✓ unit-39 draft.md
+✓ unit-40 draft.md
+✓ unit-41 draft.md
+✓ unit-42 draft.md
+✓ unit-43 draft.md
+✓ unit-44 draft.md
+✓ unit-45 draft.md
+
+全部通过
+PASS 中文段落里的成对直引号被换成弯引号
+PASS markdown 图片标题的语法引号必须保留（否则 pandoc 丢图）
+PASS 标题目的地里带圆括号的也要保住（图 17-1 与 23-1 就是这两条）
+PASS 行内代码内的引号不动
+PASS 代码块内的引号不动
+PASS 纯英文段保持 ASCII 引号（逐字引文不动标点）
+PASS 落单引号的段落被跳过而不是乱配
+PASS 还原后与原文逐字相同
+自检 8/8
+引号体例：中文里残留 ASCII 直引号 0 处；弯引号不配平的文件 0 个；跨段未闭合 0 处
+围栏内残留弯引号 0 个（字面量与英文原话应当是 ASCII）
+围栏内含中文的 ASCII 引号对：0 处
+概念 158 个，分布在 43/46 章；未被任何章引入的概念 0 个（本图即权威清单）
+每章新概念数：00:5  01:2  02:4  03:2  04:4  05:4  06:2  07:4  08:6  09:3  10:5  11:3  12:6  13:6  14:6  15:2  16:4  17:5  18:4  19:5  20:3  21:6  22:4  23:2  24:6  25:2  26:2  27:2  28:6  29:5  30:1  31:4  32:4  33:2  34:4  35:4  36:4  37:4  38:5  39:1  40:3  41:1  44:1
+
+✓ 依赖顺序、术语预算、章节引用全部通过
+  第 05 章（温漂表）判为失效=True  期望=True  ok
+  第 35 章（电压塌陷）判为失效=False 期望=False ok
+  第 05 章（洛伦兹力与 sinθ）判为失效=False 期望=False ok
+check_xrefs 自检：3/3 通过 → PASS
+交叉引用 753 处：可确认 753，章号/自指错 0，**疑似失效引用 0**
+bible 条目引用：查了 4 处，失效 0 处
+散文式引用（第 NN 章说过 X）里数字在目标章一个都没有的：4 处
+── 8/9 门：附录承诺的数与图里的数
+PASS 概念数写 158、实际 157 被抓到
+PASS 未引入概念写 4、实际 0 被抓到
+PASS 『未被任何章引入的概念 0 个』不会被误读成『概念 0 个』
+PASS 声称由不存在的脚本生成被抓到
+PASS 反着写的『146 个概念』也被看见
+PASS 附录为空时门自曝『没看见输入』
+PASS 数字都对得上且脚本存在时放行（正向对照）
+自检 7/7
+附录的计数承诺与工具实际输出一致，且没有声称不存在的生成脚本 ✓
+报出的陈旧图内数字： ['22', '79000']
+PASS 正文里已消失的数（79,000 / 22 Hz）被抓到
+PASS 正文里还在的数（460,000 / 54 Hz）不误报
+图内带单位数字在全书正文里找不到的：0 处
+PASS 正文/附录分开数（附录上的语录键不算达成）
+PASS 留空章与非逐字章由 quotes.yaml 算出
+PASS 附录 A 的承诺被读到（6 处）
+PASS 写的『41 个正文章』被当成承诺取出来
+PASS 写的留空章号清单被取出来
+PASS 写的非逐字章号清单被取出来
+PASS 三处过期（章数/留空清单/非逐字清单）全部会被判不一致
+PASS 附录 A 缺失时承诺数为 0，由 MIN_CLAIMS 自曝空跑
+自检 8/8
+附录 A 的语录达成度声明与 quotes.yaml 一致 ✓
+PASS 四行都可核对
+PASS 全书搜不到落点的格子判硬失败
+PASS 记了某章但没搜到词只进清单（精度不够不判死）
+PASS 判别词按 / 与 ／ 与 、 三种切
+PASS 括号外的名字也当判别词
+PASS 表为空时认出 0 行（由 MIN_ROWS 拦）
+PASS 括号外的名字不会与括号内的词粘连
+自检 7/7
+PASS 有台账的 [查] 不误报
+PASS 没台账的 [查] 被抓到
+PASS 认不出厂商时不硬判
+PASS 台账缺失时门自曝没输入
+自检 4/4
+覆盖矩阵：可核对行 29 行（判别词由条目名自动取）；额外命中（只报不拦）257 处；章号待复核（清单）12 行
+── 9/9 门：深度 + 数源 + 产物实数核验
+样本A（应厚）18.00  样本B（应薄）4.00  差 14.00 → PASS
+  A: 追问3 公式2 底座13 边界2 数字3
+  B: 追问0 公式0 底座1 边界0 数字0
+unit-22     5797    19    26    119     15   130     0/2     16.87
+unit-23     2390    14    20     27      1    68     0/4     15.42
+unit-24     6975    20    25    110      6    75     0/7     14.31
+unit-25     5288    10    20    103     11    80     0/1     14.75
+unit-26     3991    19    16    131     11   157     0/2     17.76
+unit-27     5885    24    19    115     10   241     0/6     15.93
+unit-28     6295    23     9     57     11    53     0/6     13.83
+unit-29     4896    18    24     80     15    88     0/0     17.68
+unit-30     5473    13    24     79      5   130     0/2     14.29
+unit-31     4348    28    16     41      8    77     0/5     16.52
+unit-32     4299    13    15     53      7    39     0/1     15.14
+unit-33     6061    22    24     94      6   107     0/1     15.58
+unit-34     4684    13    17     40      6    78     0/5     14.69
+unit-35     5920    19    23     94     14   282     1/12    16.46
+unit-36     3800    18    19     71     10   105     0/5     17.63
+unit-37     7951    21    21     90     21   136     0/26    14.92
+unit-38     4855    18    18     55      5    87     0/7     15.44
+unit-39     4539    13     8     60      6    87     0/2     12.95
+unit-40     6860    28    20     94      4   195     0/0     14.50
+unit-42     2592     4    36     60      4   117     3/7     14.09
+unit-43     3260    10    12     61      3    88     0/5     14.67
+unit-45     1422     1     6     27      0     7     2/6     11.70
+
+全书正文汉字 176312；深度分中位 14.93；<9.0 的章 0/44
+机器狗/四足提及 39 次 vs 人形 226 次
+  23 × 369 = 8,487 美元                            期望放行=True  实得=True  
+  15 台 × 6000 Hz × 17 B × 8 = 12.24 Mbps         期望放行=True  实得=True  
+  365 × 24 × 3600 = 31,536,000 秒                 期望放行=True  实得=True  
+  23 × 369 = 9,000 美元                            期望放行=False 实得=False 
+  IM6014：31.7 N·m × 54.2 rad/s = 1718 W ÷ 0.53   期望放行=True  实得=True  
+  41,574 × 0.40 = 16,630 元；41,574 × 0.60 = 24,   期望放行=True  实得=True  
+  41,574 × 0.60 = 25,944 元                       期望放行=False 实得=False 
+  这台机器重 1234 千克                                  期望放行=False 实得=False 
+  扭矩 42.5 N·m 很大                                 期望放行=False 实得=False 
+number_provenance 自检：9/9 通过
+已知数集合：136 个文件
+可疑数：1 处 / 覆盖 1 章
+unit-30  :122  5.95 ms     按真实架构：前缀一次 3.0e9 ⇒ 5.95 ms；十步 × 0.3e9 ⇒ 每步 0.595 ms
+  正例 41,574 × 0.60 = 24,944 → 通过 1、失败 0
+  反例 41,574 × 0.60 = 25,944 → 通过 0、失败 1
+  量纲换算 12 ÷ 100 = 120 → 通过 1、失败 0
+  开方 √(9.80665 ÷ 0.600) = 4.04 → 通过 1、失败 0
+  列表记号 - 1820 ÷ 1320 = 1.379 → 通过 1、失败 0
+formula_check 自检：PASS
+可核算式：通过 350 条，对不上 20 条，无法解析跳过 234 条
+  ✗ unit-14:12   声称 360，实算 0.0109863（差 32768.0 倍）  360° ÷ 2¹⁵
+  已分诊的解析器伪阳性 20 条（≤20 基线），明细 verification/formula-latest.txt
+docx: 3.9 MB, 内嵌图 33 张
+src-docx 去重后图引用 33 条；assets/fig SVG 33 张
+project-status.yaml 顶层键唯一 ✓
+
+全部通过。产物：
+  -rw-r--r-- 1 mty 197609  5597968 Oct  8 00:51 print/ARCHIVE-v2-机器狗为什么踢不倒-88页-已被推翻.pdf
+  -rw-r--r-- 1 mty 197609 15546625 Oct  9 17:05 print/人形机器人：从一颗关节往下挖.pdf
+  -rw-r--r-- 1 mty 197609  3946974 Oct  9 17:05 submission/人形机器人：从一颗关节往下挖-交稿版.docx
