@@ -26,3 +26,4 @@ Thumbs.db
 
 # 注意：research/raw/ 与 verification/*.bak 是**证据存档**（一手页面、改动前状态），
 # 故意纳入版本库，不要加进这里。
+ghlogin.txt
